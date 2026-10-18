@@ -2,18 +2,18 @@
 export const site = {
   name: "Bloom & Rise",
   suffix: "Foundation",
-  email: "hello@your-domain.org", // TODO: replace with your real address
+  email: "bloomandrise.foundation@gmail.com", // TODO: replace with your real address
   tagline: "Growing healthier, safer and brighter futures—together.",
   mission:
     "Bloom & Rise Foundation promotes girls’ and women’s health, encourages open conversations about overlooked issues, and expands access to STEM education and opportunities. We support orphans and vulnerable children to feel safe, valued, and able to thrive.",
   statusShort: "Planning stage · seeking guidance",
   // Links with an empty href are hidden automatically.
   socials: [
-    { label: "Instagram", href: "https://instagram.com/bloomandrise_foundation" },
+    { label: "Instagram", href: "https://www.instagram.com/bloomandrise_foundation/" },
     { label: "TikTok", href: "" },
     { label: "X", href: "" },
     { label: "LinkedIn", href: "" },
-    { label: "Email", href: "mailto:hello@your-domain.org" },
+    { label: "Email", href: "mailto:bloomandrise.foundation@gmail.com" },
   ],
   nav: [
     { label: "About", href: "/about" },

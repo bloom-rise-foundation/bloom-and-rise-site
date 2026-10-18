@@ -96,11 +96,10 @@ h1 .script,h2 .script,h3 .script{font-size:1.05em}
 
 /* spotlight */
 .spot{position:relative;background:var(--beet);color:var(--lemon);overflow:hidden;padding:clamp(7rem,16vw,12rem) 0 clamp(5rem,10vw,8rem);text-align:center}
-.cone{position:absolute;inset:0;transform-origin:top center;clip-path:polygon(46% 0,54% 0,100% 100%,0 100%);background:linear-gradient(to bottom,rgba(255,248,213,.5),rgba(255,248,213,.1))}
+.cone{position:absolute;inset:0;transform-origin:top center;clip-path:polygon(46% 0,54% 0,100% 100%,0 100%);background:linear-gradient(to bottom,rgba(255,248,213,.4),rgba(255,248,213,.04))}
 .lamp{position:absolute;top:1.5rem;left:50%;margin-left:-28px;filter:drop-shadow(0 0 24px rgba(255,248,213,.8))}
 .spot-in{position:relative} .spot h2{margin:0 auto 1rem;max-width:16em;text-shadow:0 2px 12px var(--rum)}
-.spot .big{font-size:clamp(2rem,5vw,3.4rem);color:var(--pink);text-shadow:0 2px 12px var(--rum)}
-
+.spot .big{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:700;color:#e98aa7;text-shadow:0 2px 3px var(--rum),0 0 16px var(--rum),0 0 30px rgba(68,25,16,.8)}
 /* steps */
 .steps{position:relative;padding-left:5rem;margin-top:2rem}
 .rail{position:absolute;left:0;top:0;bottom:0;width:44px}
