@@ -1,8 +1,8 @@
-// ONE PLACE TO CUSTOMISE: copy, links, nav, footer, focus areas, steps, roles, status.
+// ONE PLACE TO CUSTOMISE: copy, links, nav, footer, focus areas, steps, roles PDF, status.
 export const site = {
   name: "Bloom & Rise",
   suffix: "Foundation",
-  email: "bloomandrise.foundation@gmail.com", // TODO: replace with your real address
+  email: "bloomandrise.foundation@gmail.com",
   tagline: "Growing healthier, safer and brighter futures—together.",
   mission:
     "Bloom & Rise Foundation promotes girls’ and women’s health, encourages open conversations about overlooked issues, and expands access to STEM education and opportunities. We support orphans and vulnerable children to feel safe, valued, and able to thrive.",
@@ -54,16 +54,8 @@ export const site = {
     { title: "Plan", script: "for safety", text: "Consent, supervision, accessibility, costs, and what to do if someone asks for help." },
     { title: "Learn", script: "and adapt", text: "Collect simple feedback after each activity and decide whether to adapt or continue." },
   ],
-  roles: [
-    { title: "Secretary & Head of Communications", text: "Minutes, records and clear, accurate messaging." },
-    { title: "Head of Fundraising", text: "Researches funding options and plans transparently with the Treasurer, once legal requirements are clear." },
-    { title: "Head of Partnerships", text: "Builds relationships with schools, health professionals, NGOs and institutions." },
-    { title: "Treasurer", text: "Budgets and records, with every payment reviewed by a second person." },
-    { title: "Head of Education", text: "Age-appropriate, evidence-based workshops with expert review." },
-    { title: "Head of STEM", text: "Workshops and practical learning that invite all youth into STEM." },
-    { title: "Head of Outreach & Community Engagement", text: "Listens to communities, engages schools, gathers feedback." },
-    { title: "Head of Research & Impact", text: "Evaluation and impact, with care for privacy, consent and confidentiality." },
-  ],
+  // Put the PDF in the project's public/ folder; href is its filename with a leading slash.
+  rolesPdf: { label: "Download the role descriptions (PDF)", href: "/available-roles.pdf" },
   status: [
     { k: "Registration", v: "Not yet registered. We’re checking the correct local process and asking for guidance." },
     { k: "Programmes", v: "None launched." },

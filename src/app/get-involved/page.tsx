@@ -10,17 +10,14 @@ export default function GetInvolved() {
       <PageHero title="Join" script="in" lead="You don’t need to be an expert. You need curiosity and a willingness to start small and do things safely." />
       <Section><Steps items={site.joinSteps} /></Section>
       <Section tone="pink">
-        <Reveal><h2 className="display">Roles <span className="script">to grow into</span></h2></Reveal>
-        <div className="roles">
-          {site.roles.map((r, i) => (
-            <Reveal key={r.title} from="scale" delay={(i % 4) * 0.06} className="role-card">
-              <h3 className="display">{r.title}</h3>
-              <p>{r.text}</p>
-              <a href={mail(`Interested in: ${r.title}`)}>Express interest</a>
-            </Reveal>
-          ))}
-        </div>
-        <p className="small note">Roles can be combined while the team is small. Under-18s need a parent or guardian’s agreement to take part.</p>
+        <Reveal>
+          <h2 className="display">Roles <span className="script">to grow into</span></h2>
+          <p className="lead">See what each leadership and programme role involves before you reach out.</p>
+          <div className="row">
+            <a className="btn" href={site.rolesPdf.href} target="_blank" rel="noopener noreferrer">{site.rolesPdf.label}</a>
+          </div>
+          <p className="small note">Roles can be combined while the team is small. Under-18s need a parent or guardian’s agreement to take part.</p>
+        </Reveal>
       </Section>
       <Section id="partner">
         <Reveal>
