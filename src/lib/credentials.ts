@@ -102,9 +102,7 @@ export async function lookupCredential(raw: string): Promise<Lookup> {
   }
   try {
     // "CERT-XXXXXXXX" is what the generator prints when Credential ID is blank (last 8 chars of the record ID).
-    const formula = /^CERT-[A-Za-z0-9]{8}$/i.test(id)
-      ? `UPPER(RIGHT(RECORD_ID(),8))='${id.slice(5).toUpperCase()}'`
-      : `LOWER({Credential ID})='${id.toLowerCase()}'`;
+    const formula = `LOWER({Credential ID})='${id.toLowerCase()}'`;
     const [p, h] = await Promise.all([find(T.participation, formula, P_FIELDS), find(T.heads, formula, H_FIELDS)]);
     const cred = (p && (await fromParticipation(p))) || (h && fromHeads(h));
     return cred ? { state: "found", cred } : { state: "missing" };
