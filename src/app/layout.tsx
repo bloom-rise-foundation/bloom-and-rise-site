@@ -5,6 +5,7 @@ import { Providers } from "@/components/motion";
 import { Petals } from "@/components/Decor";
 import { Header, Footer, Closing } from "@/components/Chrome";
 import { site } from "@/config/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Fraunces({ subsets: ["latin"], variable: "--font-display", axes: ["SOFT", "WONK"] });
 const script = Dancing_Script({ subsets: ["latin"], variable: "--font-script" });
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Closing />
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
