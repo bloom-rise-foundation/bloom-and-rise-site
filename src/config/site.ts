@@ -55,7 +55,7 @@ export const site = {
     { title: "Learn", script: "and adapt", text: "Collect simple feedback after each activity and decide whether to adapt or continue." },
   ],
   // Put the PDF in the project's public/ folder; href is its filename with a leading slash.
-  rolesPdf: { label: "Download the role descriptions (PDF)", href: "/available-roles.pdf" },
+  rolesPdf: { label: "Download the role descriptions (PDF)", href: "/docs/available-roles.pdf" },
   status: [
     { k: "Registration", v: "Not yet registered. We’re checking the correct local process and asking for guidance." },
     { k: "Programmes", v: "None launched." },
