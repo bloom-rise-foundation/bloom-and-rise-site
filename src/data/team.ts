@@ -14,12 +14,12 @@ export const team: Member[] = [
     name: "Bettina Kukua Donkoh",
     role: "Vice President",
     bio: "A short, friendly bio. Share only what they’re comfortable having public.",
-    photo: "",
+    photo: "/team/bettina.jpg",
   },
   {
     name: "Shreya Riny Sumanlal",
     role: "Executive Director",
     bio: "Replace this placeholder with a real bio and, if consent is given, a photo.",
-    photo: "",
+    photo: "/team/shreya.jpg",
   },
 ];
