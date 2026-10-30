@@ -10,10 +10,11 @@ export const site = {
   // Links with an empty href are hidden automatically.
   socials: [
     { label: "Instagram", href: "https://www.instagram.com/bloomandrise_foundation/" },
-    { label: "TikTok", href: "" },
+    { label: "TikTok", href: "https://www.tiktok.com/@bloom.n.rise.foundation" },
     { label: "X", href: "" },
     { label: "LinkedIn", href: "" },
     { label: "Email", href: "mailto:bloomandrise.foundation@gmail.com" },
+    { label: "Linktree", href: "https://linktr.ee/bloomandrise.foundation" },
   ],
   nav: [
     { label: "About", href: "/about" },
