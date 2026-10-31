@@ -32,11 +32,8 @@ export function PageHero({ title, script, lead }: { title: string; script: strin
 
 export function Hero() {
   const { x, y } = useMouseParallax(14);
-  const ix = useTransform(x, (v) => v * -1.6);
-  const iy = useTransform(y, (v) => v * -1.6);
   return (
     <section className="hero">
-      <motion.div className="blob b1" style={{ x: ix, y: iy }} />
       <motion.div className="blob b2" style={{ x, y }} />
       <div className="wrap hero-inner">
         <p className="chip">{site.statusShort}</p>

@@ -20,12 +20,9 @@ const HULL_Y = 0.4795; // row where the hull meets the water; the water mask is 
 const BOAT_W = 32.4 / DESIGN_W; // boat width
 const BOAT_RATIO = 49 / 162; // sprite height / width
 const WAKE_W = 95 / DESIGN_W; // wake length
-const MASK_X0 = 0.3; // never show the boat left of this (separate lagoon) ...
-const MASK_X1 = 0.78; // ... or right of this (grove of trees)
-const LEFT_END = 0.14; // leftward boats are finished once boat + wake are fully hidden behind the trees
-const RIGHT_END = 0.95; // same for rightward boats
-const SPAWN_L = 0.8; // hidden behind the right-hand grove (boats that will sail left start here)
-const SPAWN_R = 0.28; // hidden behind the left-hand trees (boats that will sail right start here)
+const MASK_X0 = 0.332; // never show the boat left of this (tree line / separate lagoon) ...
+const MASK_X1 = 0.762; // ... or right of this (grove of trees)
+const FADE_TIME = 0.7; // seconds the wake takes to fade once the boat has gone behind the land
 
 // seconds for the flowers' sway to repeat exactly (any value works, it is a seamless loop)
 const LOOP = 22;
@@ -94,19 +91,19 @@ void main(){
   // 0 at the far edge of the flower field, 1 at the bottom (closest flowers move the most)
   float d = smoothstep(0.572, 1.0, uv.y);
   float lock = smoothstep(0.572, 0.61, uv.y);     // keeps the horizon, trees and sea perfectly still
-  float amp = (0.0008 + 0.0050 * d * d) * uMotion * lock;
+  float amp = (0.0012 + 0.0066 * pow(d, 1.5)) * uMotion * lock;
 
   // big gusts rolling across the field (3 whole waves per loop)
   float gust = 0.5 + 0.5 * sin(uv.x * 5.0 + uv.y * 2.2 - uPhase * 3.0 + 1.7 * noise(uv * 3.0 + orbit(1.0, 0.0) * 0.7));
 
   // organic per-clump flutter (the noise field circles back to its start every loop)
-  vec2 q = vec2(uv.x * 14.0, uv.y * 24.0 * (0.6 + d));
+  vec2 q = vec2(uv.x * 11.0, uv.y * 16.0 * (0.6 + d));
   float n1 = noise(q + orbit(2.0, 0.0) * 1.2);
   float n2 = noise(q * 1.9 + vec2(5.2, 0.0) + orbit(3.0, 2.1) * 1.0);
   float sway = (n1 - 0.5) * 1.4 + (n2 - 0.5) * 0.7;
 
-  float dx = (gust * 0.9 + sway * 0.9) * amp;
-  float dy = (n2 - 0.5) * amp * 0.45;
+  float dx = (gust * 1.25 + sway * 0.55) * amp;
+  float dy = (n2 - 0.5) * amp * 0.5 + (gust - 0.5) * amp * 0.25;
 
   vec2 p = clamp(uv + vec2(dx, dy), 0.0, 1.0);
   vec3 col = bicubic(p);
@@ -114,7 +111,7 @@ void main(){
   // gentle unsharp mask: pulls detail back out of the enlarged photo
   vec3 soft = 0.25 * (texture2D(uTex, p + vec2(uTexel.x, 0.0)).rgb + texture2D(uTex, p - vec2(uTexel.x, 0.0)).rgb
                     + texture2D(uTex, p + vec2(0.0, uTexel.y)).rgb + texture2D(uTex, p - vec2(0.0, uTexel.y)).rgb);
-  col = clamp(col + (col - soft) * 0.45, 0.0, 1.0);
+  col = clamp(col + (col - soft) * 0.3, 0.0, 1.0);
 
   // a whisper of light shifting with the gusts
   col *= 1.0 + (gust - 0.5) * 0.035 * lock * uMotion;
@@ -195,8 +192,9 @@ function createGL(canvas: HTMLCanvasElement, img: HTMLImageElement): GLState | n
  * Reads the photo and returns a 1-pixel-tall PNG (as a data URL) whose alpha is 1 in the columns where the
  * boat's waterline sits on open water, and 0 where there is land in front of it (trees, headland).
  * Used as a CSS mask on the boat layer, so the boat slides behind the land instead of over it.
+ * The same columns are returned so the boat logic knows when the boat is hidden (= "gone").
  */
-function buildBoatMask(img: HTMLImageElement): string {
+function buildBoatMask(img: HTMLImageElement): { url: string; cols: Float32Array } {
   const sw = Math.min(img.naturalWidth || DESIGN_W, 1280);
   const sh = Math.max(1, Math.round((sw * (img.naturalHeight || 480)) / (img.naturalWidth || DESIGN_W)));
   const on = new Uint8Array(sw);
@@ -227,7 +225,7 @@ function buildBoatMask(img: HTMLImageElement): string {
   }
   if (!ok) {
     // measured fallback for the shipped photo
-    for (let x = Math.round(0.333 * sw); x < Math.round(0.76 * sw); x++) on[x] = 1;
+    for (let x = Math.round(MASK_X0 * sw); x < Math.round(MASK_X1 * sw); x++) on[x] = 1;
   }
 
   // tidy: fill tiny gaps (a bright wave), drop tiny islands (a stray pixel)
@@ -251,17 +249,19 @@ function buildBoatMask(img: HTMLImageElement): string {
   out.height = 1;
   const octx = out.getContext("2d")!;
   const im = octx.createImageData(sw, 1);
+  const cols = new Float32Array(sw);
   for (let x = 0; x < sw; x++) {
     let s = 0;
     for (let k = -rad; k <= rad; k++) s += on[Math.min(sw - 1, Math.max(0, x + k))];
-    const a = Math.round((s / (2 * rad + 1)) * 255);
+    cols[x] = s / (2 * rad + 1);
+    const a = Math.round(cols[x] * 255);
     im.data[x * 4] = 0;
     im.data[x * 4 + 1] = 0;
     im.data[x * 4 + 2] = 0;
     im.data[x * 4 + 3] = a;
   }
   octx.putImageData(im, 0, 0);
-  return out.toDataURL("image/png");
+  return { url: out.toDataURL("image/png"), cols };
 }
 
 export function Scene() {
@@ -283,6 +283,9 @@ export function Scene() {
     let glState: GLState | null = null;
     let photo: HTMLImageElement | null = null;
     let ready = false; // photo + boat mask loaded
+    let maskCols: Float32Array | null = null; // 1 where open water, 0 where land hides the boat
+    let maskL = MASK_X0; // first / last open-water column, as photo fractions
+    let maskR = MASK_X1;
     let W = 0;
     let H = 0;
     let imgW = 0; // photo size on screen, px (cover)
@@ -294,8 +297,19 @@ export function Scene() {
 
     // ---------- the boat ----------
     // fx = boat centre as a fraction of the photo's width; speed in photo-widths per second
-    const boat = { fx: 0.5, dir: -1 as 1 | -1, speed: 14 / DESIGN_W, k: 1, lane: 0, wait: 0, phase: Math.random() * 6.28 };
+    const boat = { fx: 0.5, dir: -1 as 1 | -1, speed: 14 / DESIGN_W, k: 1, lane: 0, wait: 0, phase: Math.random() * 6.28, seen: false, fade: 1 };
     const boatW = () => BOAT_W * imgW * boat.k;
+    const half = () => (BOAT_W * boat.k) / 2;
+    // how much of the hull is currently over open water (0 = completely behind the land)
+    const hullVisible = () => {
+      if (!maskCols) return 1;
+      const n = maskCols.length;
+      const a = Math.max(0, Math.floor((boat.fx - half()) * n));
+      const b = Math.min(n - 1, Math.ceil((boat.fx + half()) * n));
+      let m = 0;
+      for (let i = a; i <= b; i++) if (maskCols[i] > m) m = maskCols[i];
+      return m;
+    };
     const boatH = () => boatW() * BOAT_RATIO;
 
     const applySizes = () => {
@@ -311,7 +325,11 @@ export function Scene() {
       boat.speed = (12 + Math.random() * 7) / DESIGN_W;
       boat.lane = initial ? 0 : (Math.random() - 0.5) * 0.006;
       boat.wait = 0;
-      boat.fx = initial ? 0.5 : boat.dir < 0 ? SPAWN_L : SPAWN_R; // new boats start hidden behind the land
+      boat.seen = initial;
+      boat.fade = 1;
+      // new boats start just behind the land on one side
+      boat.fx = initial ? 0.5 : boat.dir < 0 ? maskR + half() + 0.012 : maskL - half() - 0.012;
+      boatEl.style.opacity = "1";
       applySizes();
     };
 
@@ -322,6 +340,7 @@ export function Scene() {
       const x = offX + boat.fx * imgW - boatW() / 2;
       const y = offY + (LANE_Y + boat.lane) * imgH - boatH() / 2 + bob;
       boatEl.style.transform = `translate3d(${x}px,${y}px,0) scaleX(${-boat.dir}) rotate(${rot}deg)`;
+      boatEl.style.opacity = String(boat.fade);
       boatEl.style.visibility = "visible";
     };
 
@@ -333,8 +352,12 @@ export function Scene() {
         spawn(false);
       }
       boat.fx += boat.dir * boat.speed * dt;
-      const gone = boat.dir < 0 ? boat.fx < LEFT_END : boat.fx > RIGHT_END;
-      if (gone) {
+      // behind the land = off the screen: once the hull has been seen and is hidden again, fade the wake and respawn later
+      const v = hullVisible();
+      if (v > 0.15) boat.seen = true;
+      if (boat.seen && v < 0.03) boat.fade = Math.max(0, boat.fade - dt / FADE_TIME);
+      const stray = boat.fx < maskL - 0.3 || boat.fx > maskR + 0.3; // safety net
+      if (boat.fade <= 0 || stray) {
         boat.wait = 3 + Math.random() * 10; // empty sea for a while, then another boat shows up
         boatEl.style.visibility = "hidden";
         return;
@@ -397,9 +420,22 @@ export function Scene() {
     photo = new Image();
     photo.onload = () => {
       if (!alive || !photo) return;
-      const url = buildBoatMask(photo);
+      const { url, cols } = buildBoatMask(photo);
       ships.style.setProperty("-webkit-mask-image", `url(${url})`);
       ships.style.setProperty("mask-image", `url(${url})`);
+      maskCols = cols;
+      let first = -1;
+      let lastOn = -1;
+      for (let i = 0; i < cols.length; i++) {
+        if (cols[i] > 0.5) {
+          if (first < 0) first = i;
+          lastOn = i;
+        }
+      }
+      if (first >= 0) {
+        maskL = first / cols.length;
+        maskR = (lastOn + 1) / cols.length;
+      }
       ready = true;
       measure();
       spawn(true);
