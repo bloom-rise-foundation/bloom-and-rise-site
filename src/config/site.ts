@@ -6,7 +6,7 @@ export const site = {
   tagline: "Growing healthier, safer and brighter futures—together.",
   mission:
     "Bloom & Rise Foundation promotes girls’ and women’s health, encourages open conversations about overlooked issues, and expands access to STEM education and opportunities. We support orphans and vulnerable children to feel safe, valued, and able to thrive.",
-  statusShort: "Planning stage · seeking guidance",
+  statusShort: "Student-led · Ghana · Fledgling",
   // Links with an empty href are hidden automatically.
   socials: [
     { label: "Instagram", href: "https://www.instagram.com/bloomandrise_foundation/" },

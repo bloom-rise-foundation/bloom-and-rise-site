@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
  *  - Flowers sway via a WebGL fragment shader. Every term is periodic in a single loop phase, so the
  *    motion repeats seamlessly forever (no time-growth, no precision drift, no visible "restart").
  *  - The photo is drawn at the screen's real pixel density (devicePixelRatio) with bicubic (Catmull-Rom)
- *    sampling + a touch of sharpening, so a small source photo stays as crisp as it can.
+ *    sampling + unsharp masking tuned to the faded photo, so a small source photo stays as crisp as it can.
  *  - The ferry is a sprite that sails along one lane of open water. The lane's "where is water?" mask is
  *    computed from the photo itself, so the boat slides behind the trees / headland instead of over them.
  * Assets: /public/scene/scene.jpg (boat removed) and /public/scene/boat.png.
@@ -108,10 +108,17 @@ void main(){
   vec2 p = clamp(uv + vec2(dx, dy), 0.0, 1.0);
   vec3 col = bicubic(p);
 
-  // gentle unsharp mask: pulls detail back out of the enlarged photo
-  vec3 soft = 0.25 * (texture2D(uTex, p + vec2(uTexel.x, 0.0)).rgb + texture2D(uTex, p - vec2(uTexel.x, 0.0)).rgb
-                    + texture2D(uTex, p + vec2(0.0, uTexel.y)).rgb + texture2D(uTex, p - vec2(0.0, uTexel.y)).rgb);
-  col = clamp(col + (col - soft) * 0.3, 0.0, 1.0);
+  // unsharp mask, sized for this photo + the CSS fade. scene.jpg only holds ~half its pixel grid in real
+  // detail, so a 1-texel kernel does almost nothing; a ~1.5-texel ring does, and the .scene opacity halves
+  // contrast, so the boost has to be stronger than it would be on an unfaded photo.
+  vec2 r1 = uTexel * 1.5;
+  vec2 r2 = uTexel * 1.06;
+  vec3 ring = texture2D(uTex, p + vec2(r1.x, 0.0)).rgb + texture2D(uTex, p - vec2(r1.x, 0.0)).rgb
+            + texture2D(uTex, p + vec2(0.0, r1.y)).rgb + texture2D(uTex, p - vec2(0.0, r1.y)).rgb
+            + texture2D(uTex, p + vec2(r2.x, r2.y)).rgb + texture2D(uTex, p + vec2(-r2.x, r2.y)).rgb
+            + texture2D(uTex, p + vec2(r2.x, -r2.y)).rgb + texture2D(uTex, p + vec2(-r2.x, -r2.y)).rgb;
+  vec3 soft = mix(ring * 0.125, col, 0.2);
+  col = clamp(col + (col - soft) * 1.0, 0.0, 1.0);
 
   // a whisper of light shifting with the gusts
   col *= 1.0 + (gust - 0.5) * 0.035 * lock * uMotion;
