@@ -1,19 +1,22 @@
 import { PageHero, Section, Steps } from "@/components/Sections";
 import { Reveal } from "@/components/motion";
+import { GlowCard } from "@/components/Fx";
 import { site } from "@/config/site";
 export const metadata = { title: "About" };
+
+const tones = ["pink", "blue", "beet", "rum"];
 
 export default function About() {
   return (
     <>
       <PageHero title="Who we" script="are" lead={site.mission} />
       <Section>
-        <div className="two">
+        <div className="focus">
           {site.values.map((v, i) => (
-            <Reveal key={v.title} from={i % 2 ? "right" : "left"}>
+            <GlowCard key={v.title} dir={i % 2 ? 48 : -48} delay={(i % 2) * 0.1} className={`tile ${tones[i % tones.length]}`}>
               <h3 className="display">{v.title}</h3>
               <p>{v.text}</p>
-            </Reveal>
+            </GlowCard>
           ))}
         </div>
       </Section>

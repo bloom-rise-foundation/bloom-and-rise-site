@@ -38,14 +38,17 @@ export function Hero() {
       <div className="wrap hero-inner">
         <p className="chip">{site.statusShort}</p>
         <motion.h1 className="display" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
-          {site.name}
-          <span className="script">{site.suffix}</span>
+          <span className="name">
+            <span className="ln">Some conversations are left unspoken.</span>
+            <span className="ln"> We coax them into the light.</span>
+          </span>
+          {/* <span className="script">{site.suffix}</span> */}
         </motion.h1>
-        <p className="lead"><TextGenerate text={`A student-led initiative in Ghana, ${site.tagline.toLowerCase()}`} /></p>
+        <p className="lead"><TextGenerate text="Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children." /></p>
         <p className="through">through <Cycle words={site.phrases} /></p>
         <div className="row">
-          <Magnetic><a className="btn" href="/get-involved">Join in</a></Magnetic>
-          <Magnetic><a className="btn ghost" href="/about">Our mission</a></Magnetic>
+          <Magnetic><a className="btn" href="/get-involved">Join us</a></Magnetic>
+          <Magnetic><a className="btn ghost" href="/about">Our blueprint</a></Magnetic>
         </div>
       </div>
     </section>
@@ -103,8 +106,8 @@ export function Spotlight() {
       <motion.div className="lamp" style={{ opacity }}><Flower size={56} /></motion.div>
       <div className="wrap spot-in">
         <Reveal>
-          <h2 className="display">Some conversations are easy to ignore.</h2>
-          <p className="script big">We’d rather turn the light on.</p>
+          <h2 className="display">You need not be an expert to begin.</h2>
+          <p className="script big">Learn one fact, raise one topic, pass it on.</p>
         </Reveal>
       </div>
     </section>

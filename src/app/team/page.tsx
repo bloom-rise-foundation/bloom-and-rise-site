@@ -4,7 +4,7 @@ export const metadata = { title: "Team" };
 export default function Team() {
   return (
     <>
-      <PageHero title="Meet the" script="team" lead="Student-led, with parents, guardians and trusted advisers supporting the legal and administrative side." />
+      <PageHero title="The students behind " script="Bloom & Rise" lead="Student-led, backed by parents, guardians and trusted advisers." />
       <Section><TeamGrid /></Section>
     </>
   );

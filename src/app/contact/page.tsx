@@ -7,7 +7,7 @@ export const metadata = { title: "Contact" };
 export default function Contact() {
   return (
     <>
-      <PageHero title="Say" script="hello" lead="Questions, ideas, partnership offers, or a wish to join the team: we’d love to hear from you." />
+      <PageHero title="Drop us a " script="line" lead="Questions, ideas, offers or a wish to join: we would love to hear from you." />
       <Section>
         <Reveal>
           <a className="btn" href={`mailto:${site.email}`}>{site.email}</a>
@@ -18,7 +18,7 @@ export default function Contact() {
       <Section tone="blue">
         <Reveal>
           <h2 className="display">Please <span className="script">note</span></h2>
-          <p className="lead">We can’t give medical advice, counselling or crisis support. If someone is in danger or needs urgent help, contact your local emergency services or a qualified professional. Please don’t send sensitive personal details by email.</p>
+          <p className="lead">We cannot give medical advice, counselling or crisis support. In an emergency, contact your local emergency services. Please send no sensitive personal details by email.</p>
         </Reveal>
       </Section>
     </>

@@ -5,12 +5,12 @@ export const metadata = { title: "Programmes" };
 export default function Programmes() {
   return (
     <>
-      <PageHero title="What we" script="do" lead="Awareness, education, listening and partnership. We’ll begin with one or two small pilots, not a big promise." />
+      <PageHero title="What we" script="do" lead="Four areas of focus, and a patient start with one or two modest pilots." />
       <Section><FocusGrid /></Section>
       <Section tone="blue">
         <Reveal>
-          <h2 className="display">Pilot first, <span className="script">then grow</span></h2>
-          <p className="lead">No programme has launched yet. Our first pilots will likely be an introductory STEM workshop and a health-information session reviewed by a qualified source. We’ll publish what actually happens here once it has.</p>
+          <h2 className="display">First a seed, <span className="script">then a bloom.</span></h2>
+          <p className="lead">Nothing has launched yet; we will report what happens.</p>
         </Reveal>
       </Section>
     </>

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { site } from "@/config/site";
 import { Magnetic } from "./Fx";
+import { closingDefaults, closingByPage, type ClosingContent } from "@/config/closing";
 
 export function SocialLinks() {
   return (
@@ -57,13 +58,16 @@ export function Header() {
 }
 
 export function Closing() {
+  const pathname = usePathname() || "/";
+  const o = closingByPage[pathname.replace(/(.)\/$/, "$1")] ?? {};
+  const pick = (k: keyof ClosingContent) => o[k]?.trim() || closingDefaults[k];
   return (
     <section className="closing">
       <div className="wrap">
-        <h2 className="display">Start honestly. Start safely. <span className="script">Grow with the community.</span></h2>
+        <h2 className="display">{pick("title")} <span className="script">{pick("script")}</span></h2>
         <div className="row">
-          <Magnetic><Link className="btn" href="/get-involved">Join in</Link></Magnetic>
-          <Magnetic><Link className="btn ghost" href="/contact">Say hello</Link></Magnetic>
+          <Magnetic><Link className="btn" href={pick("primaryHref")}>{pick("primaryLabel")}</Link></Magnetic>
+          <Magnetic><Link className="btn ghost" href={pick("secondaryHref")}>{pick("secondaryLabel")}</Link></Magnetic>
         </div>
       </div>
     </section>
@@ -90,8 +94,9 @@ export function Footer() {
           <SocialLinks />
         </div>
       </div>
-      <div className="wrap fbottom small">
-        <span>© {new Date().getFullYear()} {site.name} {site.suffix}</span>
+        <div className="wrap fbottom small">
+          <span>© {new Date().getFullYear()} {site.name} {site.suffix}</span>
+          <a href="/sitemap">Sitemap</a>
         <span>{site.statusShort}</span>
       </div>
     </footer>

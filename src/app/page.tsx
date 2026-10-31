@@ -11,11 +11,11 @@ export default function Home() {
         <Reveal><p className="statement display">{site.mission}</p></Reveal>
       </Section>
       <Section>
-        <Reveal><h2 className="display">What we <span className="script">care about</span></h2></Reveal>
+        <Reveal><h2 className="display">What we <span className="script">hold dear</span></h2></Reveal>
         <FocusGrid />
       </Section>
       <section className="section">
-        <div className="wrap"><Reveal><h2 className="display">What we <span className="script">stand for</span></h2></Reveal></div>
+        <div className="wrap"><Reveal><h2 className="display">How we <span className="script">work</span></h2></Reveal></div>
         <Marquee items={site.values} />
       </section>
       <Spotlight />
