@@ -3,6 +3,7 @@ import { Fraunces, Dancing_Script, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/motion";
 import { Petals } from "@/components/Decor";
+import { Cursor } from "@/components/Cursor";
 import { Header, Footer, Closing } from "@/components/Chrome";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${display.variable} ${script.variable} ${body.variable}`}>
       <body>
         <Providers>
+          <Cursor />
           <Petals />
           <Header />
           <main>{children}</main>
