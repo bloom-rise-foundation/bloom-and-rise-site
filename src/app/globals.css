@@ -139,7 +139,7 @@ h1 .script,h2 .script,h3 .script{font-size:1.05em}
 .closing .wrap{position:relative;z-index:1}
 .closing h2{max-width:14em;margin:0 auto 1rem} .closing .script{display:block;color:var(--beet)} .closing .row{justify-content:center}
 .closing::after{content:"";position:absolute;z-index:0;left:50%;width:var(--dia);aspect-ratio:1;bottom:calc(var(--dome) - var(--dia));transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle closest-side,var(--pink) 0 90%,var(--leaf) 90% 94%,var(--blue) 94% 98%,transparent 98%)}
-.footer{background:var(--rum);color:var(--lemon);padding:4.5rem 0 2rem}
+.footer{background:var(--beet);color:var(--lemon);padding:4.5rem 0 2rem}
 .fcols{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:2.5rem}
 .fbrand .display{font-size:1.6rem} .fbrand .script{font-size:1.6rem;color:var(--pink);margin-bottom:.8rem}
 .fcol h4{font-size:.95rem;margin-bottom:.9rem;color:var(--pink)}
