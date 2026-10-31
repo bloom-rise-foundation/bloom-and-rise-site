@@ -80,8 +80,12 @@ export function Cycle({ words }: { words: string[] }) {
   }, [words.length]);
   return (
     <span className="cycle" aria-live="off">
+      {/* invisible copies of every phrase share one grid cell, so the box is always as tall as the longest phrase and nothing below ever shifts */}
+      {words.map((w) => (
+        <span key={w} className="script cycle-ghost" aria-hidden="true">{w}</span>
+      ))}
       <AnimatePresence mode="wait">
-        <motion.span key={i} className="script" initial={{ y: "60%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-60%", opacity: 0 }} transition={{ duration: 0.45, ease }}>
+        <motion.span key={i} className="script cycle-live" initial={{ y: "60%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-60%", opacity: 0 }} transition={{ duration: 0.45, ease }}>
           {words[i]}
         </motion.span>
       </AnimatePresence>
