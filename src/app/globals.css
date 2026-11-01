@@ -16,9 +16,9 @@ a{color:inherit}
 main,footer,.closing{position:relative;z-index:1}
 main{padding-top:72px}
 .display{font-family:var(--display);font-weight:900;font-variation-settings:"SOFT" 100,"WONK" 1;line-height:1.05;letter-spacing:-.02em}
-.script{font-family:var(--script);font-weight:500;letter-spacing:0;line-height:1.1}
+.script{font-family:var(--script);font-weight:500;font-synthesis-weight:none;letter-spacing:0;line-height:1.1;-webkit-text-stroke:.5px currentColor;paint-order:stroke fill}
 h1{font-size:clamp(2.8rem,9vw,6.5rem)} h2{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:2rem} h3{font-size:1.5rem;margin-bottom:.6rem}
-h1 .script,h2 .script,h3 .script{font-size:1.05em}
+h1 .script,h2 .script{font-size:1.3em} h3 .script{font-size:1.6em}
 /* wider gap between the display words and the script words in headings (inline spans only) */
 h1 .script,h2 .script,h3 .script{margin-inline-start:.22em}
 .hero h1 .script,.closing .script,.cycle .script{margin-inline-start:0}
@@ -288,6 +288,11 @@ html{overflow-x:clip}
 .hero h1 .name{margin-inline:auto}
 .hero .lead,.page-hero .lead,.member-row .bio,.member .bio{
   font-weight:600;
+  text-shadow:0 0 6px rgba(255,248,213,.95),0 0 18px rgba(255,248,213,.9),0 0 32px rgba(255,248,213,.7);
+}
+
+/* lemon glow on small print / notes in the page body (not the dark footer) */
+main .small,main .note{
   text-shadow:0 0 6px rgba(255,248,213,.95),0 0 18px rgba(255,248,213,.9),0 0 32px rgba(255,248,213,.7);
 }
 

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Dancing_Script, Montserrat } from "next/font/google";
+import { Fraunces, Sacramento, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/motion";
 import { Petals } from "@/components/Decor";
@@ -10,7 +10,7 @@ import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 
 const display = Fraunces({ subsets: ["latin"], variable: "--font-display", axes: ["SOFT", "WONK"] });
-const script = Dancing_Script({ subsets: ["latin"], variable: "--font-script" });
+const script = Sacramento({ subsets: ["latin"], weight: "400", variable: "--font-script" });
 const body = Montserrat({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
