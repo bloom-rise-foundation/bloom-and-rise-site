@@ -106,8 +106,8 @@ export function Spotlight() {
       <motion.div className="lamp" style={{ opacity }}><Flower size={56} /></motion.div>
       <div className="wrap spot-in">
         <Reveal>
-          <h2 className="display">You need not be an expert to begin.</h2>
-          <p className="script big">Learn one fact, raise one topic, pass it on.</p>
+          <h2 className="display">Some conversations are easy to ignore.</h2>
+          <p className="script big">We’d rather turn the light on.</p>
         </Reveal>
       </div>
     </section>

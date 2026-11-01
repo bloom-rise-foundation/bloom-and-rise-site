@@ -28,7 +28,7 @@ export const closingByPage: Record<string, Partial<ClosingContent>> = {
     secondaryHref: "/contact",
   },
   "/contact": {
-    title: "Today could be the day you speak up.",
+    title: "Bring your curiosity.",
     script: "Grow with the community.",
     primaryLabel: "Join us",
     primaryHref: "/get-involved",
@@ -36,8 +36,8 @@ export const closingByPage: Record<string, Partial<ClosingContent>> = {
     secondaryHref: "/contact",
   },
   "/get-involved": {
-    title: "Today could be the day you speak up.",
-    script: "One step is enough.",
+    title: "Let us bloom together.",
+    script: "Be the spark that starts something.",
     primaryLabel: "Join us",
     primaryHref: "/get-involved",
     secondaryLabel: "Say hello",
@@ -60,7 +60,7 @@ export const closingByPage: Record<string, Partial<ClosingContent>> = {
     secondaryHref: "/contact",
   },
   "/team": {
-    title: "Today could be the day you speak up.",
+    title: "Every great change begins with one brave question.  ",
     script: "Build this with us.",
     primaryLabel: "Join us",
     primaryHref: "/get-involved",

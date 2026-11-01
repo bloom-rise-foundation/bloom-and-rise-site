@@ -6,8 +6,8 @@ export type Member = { name: string; role: string; bio: string; photo?: string }
 export const team: Member[] = [
   {
     name: "Lavanya Sharma",
-    role: "President & Founder",
-    bio: "I am a Year 12 student who founded Bloom & Rise to dismantle the stigma surrounding girls’ health and to open the door to science, while standing beside vulnerable children whose voices too often go unheard. I believe that every girl, and every child in need, deserves honest answers, a safe place to ask and the confidence to flourish. Alongside my team, I guide our vision so that every conversation, workshop and idea feels welcoming, trustworthy and empowering, and so that every young person can bloom and rise. Wherever you are on your journey, there is a place for you here, and I would love to grow with you.",
+    role: "President, Founder & Head of Social Media and Marketing",
+    bio: "Hi, I’m Lavanya! I’m a Year 12 student, and I started Bloom & Rise to break the stigma around girls’ health, open the door to science, and stand beside vulnerable children whose voices too often go unheard. I aspire to a career in medicine, or a field closely allied to it, and this work lets me begin serving others long before I qualify. Every girl, and every child in need, deserves honest answers, a safe place to ask and the confidence to flourish. Wherever you are on your journey, there’s a place for you here, and I’d love to grow with you.",
     photo: "/team/lavanya.png",
   },
   {
@@ -18,7 +18,7 @@ export const team: Member[] = [
   },
   {
     name: "Shreya Riny Sumanlal",
-    role: "Executive Director",
+    role: "Executive Director & Head of Social Media and Marketing",
     bio: "Replace this placeholder with a real bio and, if consent is given, a photo.",
     photo: "/team/shreya.jpg",
   },

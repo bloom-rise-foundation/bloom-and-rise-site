@@ -33,7 +33,7 @@ export const site = {
   // Footer columns render as vertical lists.
   footer: [
     { title: "Foundation", links: [{ label: "About", href: "/about" }, { label: "Programmes", href: "/programmes" }, { label: "Team", href: "/team" }] },
-    { title: "Get involved", links: [{ label: "Join the team", href: "/get-involved" }, { label: "Partner with us", href: "/get-involved#partner" }, { label: "Contact", href: "/contact" }] },
+    { title: "Get involved", links: [{ label: "Rise with us", href: "/get-involved" }, { label: "Partner with us", href: "/get-involved#partner" }, { label: "Drop us a line", href: "/contact" }] },
     { title: "Trust", links: [{ label: "Status & safeguards", href: "/transparency" }, { label: "Verify a credential", href: "/verify" }] },
   ],
   phrases: ["health awareness", "open conversations", "STEM education", "support for orphans and vulnerable children"],
