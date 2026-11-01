@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { markSplashDone } from "@/lib/splash";
 
 /* Full-screen loading splash: the flower pops out, shines a soft light,
    then the overlay fades away to reveal the page once it has loaded. */
@@ -14,6 +15,8 @@ export default function Splash() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.remove("splash-on");
+      markSplashDone();
       setGone(true);
       return;
     }
@@ -26,9 +29,13 @@ export default function Splash() {
       finished = true;
       const wait = Math.max(0, MIN_MS - (performance.now() - start));
       window.setTimeout(() => {
-        setDone(true);
-        document.documentElement.classList.remove("splash-on");
-        window.setTimeout(() => setGone(true), FADE_MS + 100);
+        setDone(true); // start fading the overlay out ...
+        window.setTimeout(() => {
+          // ... and only once it has fully cleared does the page itself start animating
+          document.documentElement.classList.remove("splash-on");
+          markSplashDone();
+          setGone(true);
+        }, FADE_MS + 100);
       }, wait);
     };
 

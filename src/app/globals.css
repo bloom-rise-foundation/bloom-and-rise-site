@@ -398,3 +398,6 @@ html.splash-on,html.splash-on body{overflow:hidden}
   .splash-flower{animation:splashpop 1s cubic-bezier(.34,1.56,.64,1) .2s both}
   .splash-glow{animation-duration:1.3s}
 }
+
+/* the page waits behind the splash: CSS animations start only once it lifts (html.splash-on is removed then) */
+html.splash-on .tg-word,html.splash-on .petal,html.splash-on .marq-track{animation-play-state:paused}

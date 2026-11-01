@@ -1,7 +1,8 @@
 "use client";
 // Effects inspired by Aceternity UI, rebuilt on plain CSS + framer-motion (no Tailwind needed).
-import { m, useMotionValue, useSpring } from "framer-motion";
+import { m, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import { useSplashDone } from "@/lib/splash";
 import { ease } from "./motion";
 
 /** "Text Generate": words fade in one by one. Pure CSS (see .tg-word), so it plays without waiting for JS and costs no per-frame JS. */
@@ -42,12 +43,15 @@ export function Magnetic({ children, strength = 0.3 }: { children: ReactNode; st
 
 /** "Card Spotlight": a soft glow follows the cursor inside the card (see .tile::before). Also reveals on scroll. */
 export function GlowCard({ children, className, delay = 0, dir = 0 }: { children: ReactNode; className?: string; delay?: number; dir?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-80px" });
+  const ready = useSplashDone();
   return (
     <m.div
+      ref={ref}
       className={className}
       initial={{ opacity: 0, x: dir, y: 28 }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      animate={ready && seen ? { opacity: 1, x: 0, y: 0 } : undefined}
       transition={{ duration: 0.8, delay, ease }}
       onMouseMove={(e) => {
         const r = e.currentTarget.getBoundingClientRect();

@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { m, useScroll, useTransform } from "framer-motion";
+import { useSplashDone } from "@/lib/splash";
 import { useRef, type ReactNode } from "react";
 import { Reveal, SplitWords, Cycle, useMouseParallax } from "./motion";
 import { Flower } from "./Decor";
@@ -32,12 +33,13 @@ export function PageHero({ title, script, lead }: { title: string; script: strin
 
 export function Hero() {
   const { x, y } = useMouseParallax(14);
+  const ready = useSplashDone();
   return (
     <section className="hero">
       <m.div className="blob b2" style={{ x, y }} />
       <div className="wrap hero-inner">
         <p className="chip">{site.statusShort}</p>
-        <m.h1 className="display" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
+        <m.h1 className="display" initial={{ opacity: 0, y: 30 }} animate={ready ? { opacity: 1, y: 0 } : undefined} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
           <span className="name">
             <span className="ln">Some conversations are left unspoken.</span>
             <span className="ln"> We coax them into the light.</span>
