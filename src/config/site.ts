@@ -20,7 +20,7 @@ export const site = {
     { label: "About", href: "/about" },
     { label: "Programmes", href: "/programmes" },
     {
-      label: "Team",
+      label: "Cultivators",
       href: "/team",
       children: [
         { label: "Heads", href: "/team/heads" },
@@ -32,7 +32,7 @@ export const site = {
   ],
   // Footer columns render as vertical lists.
   footer: [
-    { title: "Foundation", links: [{ label: "About", href: "/about" }, { label: "Programmes", href: "/programmes" }, { label: "Team", href: "/team" }] },
+    { title: "Foundation", links: [{ label: "About", href: "/about" }, { label: "Programmes", href: "/programmes" }, { label: "Cultivators", href: "/team" }] },
     { title: "Get involved", links: [{ label: "Rise with us", href: "/get-involved" }, { label: "Partner with us", href: "/get-involved#partner" }, { label: "Drop us a line", href: "/contact" }] },
     { title: "Trust", links: [{ label: "Status & safeguards", href: "/transparency" }, { label: "Verify a credential", href: "/verify" }] },
   ],
