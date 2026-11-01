@@ -6,7 +6,7 @@ import { Reveal, SplitWords, Cycle, useMouseParallax } from "./motion";
 import { Flower } from "./Decor";
 import { TextGenerate, Magnetic, GlowCard, Tilt } from "./Fx";
 import { site } from "@/config/site";
-import { team } from "@/data/team";
+import { team, type Member } from "@/data/team";
 
 export function Section({ children, tone = "", id }: { children: ReactNode; tone?: "" | "pink" | "blue" | "dark"; id?: string }) {
   return (
@@ -114,22 +114,45 @@ export function Spotlight() {
   );
 }
 
-export function TeamGrid() {
+function MemberPhoto({ m, i, sizes }: { m: Member; i: number; sizes: string }) {
+  const initials = m.name.split(" ").map((p) => p[0]).slice(0, 2).join("");
+  return (
+    <div className={`photo t${i % 3}`}>
+      {m.photo ? <Image src={m.photo} alt={`Photo of ${m.name}`} fill sizes={sizes} style={{ objectFit: "cover" }} /> : <span className="display" aria-hidden>{initials}</span>}
+    </div>
+  );
+}
+
+/** Vertical cards in a grid (used by the Heads page). */
+export function TeamGrid({ members = team }: { members?: Member[] }) {
   return (
     <div className="team">
-      {team.map((m, i) => {
-        const initials = m.name.split(" ").map((p) => p[0]).slice(0, 2).join("");
-        return (
-          <Reveal key={m.name + i} from="tilt" delay={(i % 3) * 0.09} className="member"><Tilt>
-            <div className={`photo t${i % 3}`}>
-              {m.photo ? <Image src={m.photo} alt={`Photo of ${m.name}`} fill sizes="(max-width:700px) 80vw, 320px" style={{ objectFit: "cover" }} /> : <span className="display" aria-hidden>{initials}</span>}
-            </div>
+      {members.map((m, i) => (
+        <Reveal key={m.name + i} from="tilt" delay={(i % 3) * 0.09} className="member"><Tilt>
+          <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 320px" />
+          <h3 className="display">{m.name}</h3>
+          <p className="role script">{m.role}</p>
+          <p>{m.bio}</p>
+        </Tilt></Reveal>
+      ))}
+    </div>
+  );
+}
+
+/** Horizontal rows: photo beside a large bio (used by the Executive page). */
+export function TeamRows({ members = team }: { members?: Member[] }) {
+  return (
+    <div className="team-rows">
+      {members.map((m, i) => (
+        <Reveal key={m.name + i} from={i % 2 ? "right" : "left"} className="member-row">
+          <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 340px" />
+          <div className="member-text">
             <h3 className="display">{m.name}</h3>
             <p className="role script">{m.role}</p>
-            <p>{m.bio}</p>
-          </Tilt></Reveal>
-        );
-      })}
+            <p className="bio">{m.bio}</p>
+          </div>
+        </Reveal>
+      ))}
     </div>
   );
 }

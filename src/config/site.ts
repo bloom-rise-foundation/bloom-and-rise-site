@@ -19,7 +19,14 @@ export const site = {
   nav: [
     { label: "About", href: "/about" },
     { label: "Programmes", href: "/programmes" },
-    { label: "Team", href: "/team" },
+    {
+      label: "Team",
+      href: "/team",
+      children: [
+        { label: "Heads", href: "/team/heads" },
+        { label: "Executive", href: "/team" },
+      ],
+    },
     { label: "Get involved", href: "/get-involved" },
     { label: "Contact", href: "/contact" },
   ],

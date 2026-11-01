@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { site } from "@/config/site";
 import { Magnetic } from "./Fx";
 import { closingDefaults, closingByPage, type ClosingContent } from "@/config/closing";
@@ -19,11 +19,62 @@ export function SocialLinks() {
   );
 }
 
+type NavItem = { label: string; href: string; children?: { label: string; href: string }[] };
+
+/** Nav link whose dropdown opens on hover (desktop) or tap (touch / tablet). */
+function NavGroup({ item, path }: { item: NavItem & { children: { label: string; href: string }[] }; path: string | null }) {
+  const [open, setOpen] = useState(false);
+  const [shut, setShut] = useState(false); // after a click, stay closed until the pointer leaves
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: PointerEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
+    const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("pointerdown", away);
+    document.addEventListener("keydown", esc);
+    return () => { document.removeEventListener("pointerdown", away); document.removeEventListener("keydown", esc); };
+  }, [open]);
+  const active = path === item.href || item.children.some((c) => path === c.href);
+  return (
+    <div
+      className={`nav-group${open ? " open" : ""}${shut ? " shut" : ""}`}
+      ref={ref}
+      onMouseLeave={() => { setOpen(false); setShut(false); }}
+      onClickCapture={(e) => {
+        if (!window.matchMedia("(hover: none)").matches && (e.target as HTMLElement).closest("a")) {
+          setShut(true);
+          setOpen(false);
+          (document.activeElement as HTMLElement | null)?.blur();
+        }
+      }}
+    >
+      <Link
+        href={item.href}
+        className={active ? "on" : ""}
+        aria-haspopup="true"
+        aria-expanded={open}
+        onClick={(e) => {
+          // touch / tablet: tapping Team toggles the menu instead of navigating
+          if (window.matchMedia("(hover: none)").matches) { e.preventDefault(); setOpen((o) => !o); }
+        }}
+      >{item.label}</Link>
+      <ul className="nav-menu">
+        {item.children.map((c) => (
+          <li key={c.href}><Link href={c.href} className={`display${path === c.href ? " on" : ""}`}>{c.label}</Link></li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const path = usePathname();
+  const [teamOpen, setTeamOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => setOpen(false), [path]);
+  useEffect(() => { setOpen(false); setTeamOpen(false); }, [path]);
+  useEffect(() => { if (!open) setTeamOpen(false); }, [open]);
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 40);
     on();
@@ -38,9 +89,13 @@ export function Header() {
           <span className="script">{site.suffix}</span>
         </Link>
         <nav className="nav" aria-label="Main">
-          {site.nav.map((n) => (
-            <Link key={n.href} href={n.href} className={path === n.href ? "on" : ""}>{n.label}</Link>
-          ))}
+          {(site.nav as NavItem[]).map((n) =>
+            n.children ? (
+              <NavGroup key={n.href} item={{ ...n, children: n.children }} path={path} />
+            ) : (
+              <Link key={n.href} href={n.href} className={path === n.href ? "on" : ""}>{n.label}</Link>
+            ),
+          )}
         </nav>
         <button className="burger" aria-expanded={open} aria-label="Menu" onClick={() => setOpen(!open)}><i /><i /></button>
       </div>
@@ -48,7 +103,22 @@ export function Header() {
         {open && (
           <motion.nav className="drawer" aria-label="Mobile" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
             <div className="wrap">
-              {site.nav.map((n) => <Link key={n.href} href={n.href} className="display">{n.label}</Link>)}
+              {(site.nav as NavItem[]).map((n) =>
+                n.children ? (
+                  <Fragment key={n.href}>
+                    <button type="button" className="display drawer-toggle" aria-expanded={teamOpen} onClick={() => setTeamOpen((o) => !o)}>{n.label}</button>
+                    <AnimatePresence initial={false}>
+                      {teamOpen && (
+                        <motion.div className="drawer-sub" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
+                          {n.children.map((c) => <Link key={c.href} href={c.href} className="display sub">{c.label}</Link>)}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </Fragment>
+                ) : (
+                  <Link key={n.href} href={n.href} className="display">{n.label}</Link>
+                ),
+              )}
             </div>
           </motion.nav>
         )}
