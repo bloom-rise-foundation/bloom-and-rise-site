@@ -1,3 +1,4 @@
+import Splash from "@/components/Splash";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Sacramento, Montserrat } from "next/font/google";
 import "./globals.css";
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${script.variable} ${body.variable}`}>
       <body>
+        <Splash />
         <Providers>
           <Cursor />
           <Scene />

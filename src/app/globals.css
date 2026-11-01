@@ -338,3 +338,42 @@ main .small,main .note{
   .member-row:nth-child(even) .photo{order:0}
   .member-row .photo{max-width:260px}
 }
+/* ===================== LOADING SPLASH (flower pops, shines, then the page shows) ===================== */
+html.splash-on,html.splash-on body{overflow:hidden}
+.splash{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 46%,#8a0f45 0%,var(--beet) 48%,#3d0019 100%);
+  transition:opacity .9s ease,visibility 0s .9s;
+  animation:splashfail 0s 8s forwards}
+.splash.done{opacity:0;visibility:hidden;pointer-events:none}
+@keyframes splashfail{to{visibility:hidden;opacity:0}}
+.splash-stage{position:relative;width:min(38vw,200px);min-width:130px;aspect-ratio:1;display:grid;place-items:center}
+.splash.done .splash-stage{transform:scale(1.18);transition:transform .9s ease}
+.splash-flower{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;
+  animation:splashpop 1s cubic-bezier(.34,1.56,.64,1) .2s both,splashshine 1.5s ease-in-out 1s both}
+@keyframes splashpop{
+  0%{opacity:0;transform:scale(.15) rotate(-70deg)}
+  60%{opacity:1}
+  100%{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes splashshine{
+  0%{filter:drop-shadow(0 0 0 rgba(255,248,213,0)) brightness(1)}
+  45%{filter:drop-shadow(0 0 16px rgba(255,248,213,.8)) drop-shadow(0 0 34px rgba(255,236,160,.5)) brightness(1.1)}
+  100%{filter:drop-shadow(0 0 12px rgba(255,248,213,.55)) brightness(1.04)}}
+/* soft halo of light behind the flower */
+.splash-glow{position:absolute;z-index:1;width:340%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,248,213,.5) 0%,rgba(255,236,160,.22) 22%,rgba(255,248,213,0) 60%);
+  opacity:0;animation:splashhalo 1.7s ease-out 1s both}
+@keyframes splashhalo{0%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1)}100%{opacity:.35;transform:scale(1.15)}}
+/* a few slow light rays */
+.splash-rays{position:absolute;z-index:1;width:420%;aspect-ratio:1;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,248,213,.08) 0deg 6deg,rgba(255,248,213,0) 6deg 24deg);
+  -webkit-mask-image:radial-gradient(circle,#000 0%,transparent 55%);mask-image:radial-gradient(circle,#000 0%,transparent 55%);
+  opacity:0;animation:splashrays 2.2s ease-out 1s both}
+@keyframes splashrays{0%{opacity:0;transform:rotate(0) scale(.5)}35%{opacity:1}100%{opacity:.25;transform:rotate(40deg) scale(1)}}
+/* quick diagonal glint across the petals */
+.splash-sheen{position:absolute;z-index:3;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.8) 50%,transparent 65%);
+  background-size:260% 100%;background-position:130% 0;opacity:0;
+  -webkit-mask:url(/icons/icon-512.png) center/contain no-repeat;mask:url(/icons/icon-512.png) center/contain no-repeat;
+  animation:splashglint 1s ease-in-out 1.15s both}
+@keyframes splashglint{0%{opacity:1;background-position:130% 0}100%{opacity:1;background-position:-30% 0}}
+@media(prefers-reduced-motion:reduce){.splash{display:none}html.splash-on,html.splash-on body{overflow:auto}}
