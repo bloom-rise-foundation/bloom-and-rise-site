@@ -17,7 +17,7 @@ export const site = {
     { label: "Linktree", href: "https://linktr.ee/bloomandrise.foundation" },
   ],
   nav: [
-    { label: "About", href: "/about" },
+    { label: "Blueprint", href: "/about" },
     { label: "Programmes", href: "/programmes" },
     {
       label: "Cultivators",
@@ -32,7 +32,7 @@ export const site = {
   ],
   // Footer columns render as vertical lists.
   footer: [
-    { title: "Foundation", links: [{ label: "About", href: "/about" }, { label: "Programmes", href: "/programmes" }, { label: "Cultivators", href: "/team" }] },
+    { title: "Foundation", links: [{ label: "Blueprint", href: "/about" }, { label: "Programmes", href: "/programmes" }, { label: "Cultivators", href: "/team" }] },
     { title: "Get involved", links: [{ label: "Rise with us", href: "/get-involved" }, { label: "Partner with us", href: "/get-involved#partner" }, { label: "Drop us a line", href: "/contact" }] },
     { title: "Trust", links: [{ label: "Status & safeguards", href: "/transparency" }, { label: "Verify a credential", href: "/verify" }] },
   ],
