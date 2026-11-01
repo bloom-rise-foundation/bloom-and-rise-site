@@ -112,6 +112,8 @@ h1 .script,h2 .script,h3 .script{margin-inline-start:.22em}
 .marq-card{flex:none;width:min(320px,78vw);padding:1.6rem;border-radius:var(--r)}
 .marq-card h3{font-size:1.3rem}
 .m0{background:var(--pink)}.m1{background:var(--blue)}.m2{background:var(--beet);color:var(--lemon)}.m3{background:#D5DB89;color:var(--rum)}
+/* beet-red text on the pink cards only (focus tiles + marquee) */
+.tile.pink,.tile.pink h3,.tile.pink p,.marq-card.m0,.marq-card.m0 h3,.marq-card.m0 p{color:var(--beet)}
 
 /* spotlight */
 .spot{position:relative;background:var(--beet);color:var(--lemon);overflow:hidden;padding:clamp(7rem,16vw,12rem) 0 clamp(5rem,10vw,8rem);text-align:center}
