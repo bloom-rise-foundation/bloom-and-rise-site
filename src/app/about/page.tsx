@@ -9,7 +9,11 @@ const tones = ["pink", "blue", "beet", "rum"];
 export default function About() {
   return (
     <>
-      <PageHero title="Who we" script="are" lead={site.mission} />
+      <PageHero
+        title="Who we"
+        script="are"
+        lead="Bloom & Rise Foundation promotes girls’ and women’s health, encourages open conversations about overlooked issues, and expands access to STEM education and opportunities. We support orphans and vulnerable children to feel safe, valued, and able to thrive."
+      />
       <Section>
         <div className="focus">
           {site.values.map((v, i) => (
