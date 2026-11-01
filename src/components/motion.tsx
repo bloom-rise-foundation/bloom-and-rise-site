@@ -1,12 +1,16 @@
 "use client";
-import { AnimatePresence, MotionConfig, motion, useMotionValue, useSpring } from "framer-motion";
+import { AnimatePresence, LazyMotion, MotionConfig, domAnimation, m, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 
 export const ease = [0.22, 1, 0.36, 1] as const;
 
 /** Respects the visitor's reduced-motion setting everywhere. */
 export function Providers({ children }: { children: ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </LazyMotion>
+  );
 }
 
 const from = {
@@ -20,7 +24,7 @@ const from = {
 /** Scroll-triggered entrance. Change `from` to vary direction. */
 export function Reveal({ children, delay = 0, from: f = "up", className }: { children: ReactNode; delay?: number; from?: keyof typeof from; className?: string }) {
   return (
-    <motion.div
+    <m.div
       className={className}
       initial={{ opacity: 0, ...from[f] }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }}
@@ -28,7 +32,7 @@ export function Reveal({ children, delay = 0, from: f = "up", className }: { chi
       transition={{ duration: 0.8, delay, ease }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -38,7 +42,7 @@ export function SplitWords({ text, delay = 0 }: { text: string; delay?: number }
     <span aria-label={text}>
       {text.split(" ").map((w, i) => (
         <span key={i} className="mask" aria-hidden>
-          <motion.span
+          <m.span
             style={{ display: "inline-block" }}
             initial={{ y: "110%" }}
             whileInView={{ y: 0 }}
@@ -46,7 +50,7 @@ export function SplitWords({ text, delay = 0 }: { text: string; delay?: number }
             transition={{ duration: 0.7, delay: delay + i * 0.06, ease }}
           >
             {w}&nbsp;
-          </motion.span>
+          </m.span>
         </span>
       ))}
     </span>
@@ -85,9 +89,9 @@ export function Cycle({ words }: { words: string[] }) {
         <span key={w} className="script cycle-ghost" aria-hidden="true">{w}</span>
       ))}
       <AnimatePresence mode="wait">
-        <motion.span key={i} className="script cycle-live" initial={{ y: "60%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-60%", opacity: 0 }} transition={{ duration: 0.45, ease }}>
+        <m.span key={i} className="script cycle-live" initial={{ y: "60%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: "-60%", opacity: 0 }} transition={{ duration: 0.45, ease }}>
           {words[i]}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </span>
   );

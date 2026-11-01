@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { isLite } from "@/lib/perf";
 
 /**
  * Fixed full-page background: the cosmos-field photo, faded by CSS (.scene opacity).
@@ -9,7 +10,7 @@ import { useEffect, useRef } from "react";
  *    sampling + unsharp masking tuned to the faded photo, so a small source photo stays as crisp as it can.
  *  - The ferry is a sprite that sails along one lane of open water. The lane's "where is water?" mask is
  *    computed from the photo itself, so the boat slides behind the trees / headland instead of over them.
- * Assets: /public/scene/scene.jpg (boat removed) and /public/scene/boat.png.
+ * Assets: /public/scene/scene.webp + scene-lite.webp (boat removed) and /public/scene/boat.png.
  * The photo can be any resolution as long as it keeps the same framing (everything below is in fractions of it).
  */
 
@@ -33,7 +34,7 @@ varying vec2 vUv;
 void main(){ vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }
 `;
 
-const FRAG = `
+const FRAG_BODY = `
 #ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
 #else
@@ -106,8 +107,13 @@ void main(){
   float dy = (n2 - 0.5) * amp * 0.5 + (gust - 0.5) * amp * 0.25;
 
   vec2 p = clamp(uv + vec2(dx, dy), 0.0, 1.0);
+#ifdef LITE
+  vec3 col = texture2D(uTex, p).rgb;
+#else
   vec3 col = bicubic(p);
+#endif
 
+#ifndef LITE
   // unsharp mask, sized for this photo + the CSS fade. scene.jpg only holds ~half its pixel grid in real
   // detail, so a 1-texel kernel does almost nothing; a ~1.5-texel ring does, and the .scene opacity halves
   // contrast, so the boost has to be stronger than it would be on an unfaded photo.
@@ -120,11 +126,15 @@ void main(){
   vec3 soft = mix(ring * 0.125, col, 0.2);
   col = clamp(col + (col - soft) * 1.0, 0.0, 1.0);
 
+#endif
+
   // a whisper of light shifting with the gusts
   col *= 1.0 + (gust - 0.5) * 0.035 * lock * uMotion;
   gl_FragColor = vec4(col, 1.0);
 }
 `;
+const FRAG = FRAG_BODY;
+const FRAG_LITE = "#define LITE\n" + FRAG_BODY;
 
 type GLState = {
   gl: WebGLRenderingContext;
@@ -132,8 +142,8 @@ type GLState = {
   draw: (t: number, motion: number) => void;
 };
 
-function createGL(canvas: HTMLCanvasElement, img: HTMLImageElement): GLState | null {
-  const gl = canvas.getContext("webgl", { alpha: false, antialias: false, powerPreference: "low-power" });
+function createGL(canvas: HTMLCanvasElement, img: HTMLImageElement, lite: boolean): GLState | null {
+  const gl = canvas.getContext("webgl", { alpha: false, antialias: false, powerPreference: "low-power", preserveDrawingBuffer: false, depth: false, stencil: false });
   if (!gl) return null;
 
   const compile = (type: number, src: string) => {
@@ -144,7 +154,7 @@ function createGL(canvas: HTMLCanvasElement, img: HTMLImageElement): GLState | n
     return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
   };
   const vs = compile(gl.VERTEX_SHADER, VERT);
-  const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+  const fs = compile(gl.FRAGMENT_SHADER, lite ? FRAG_LITE : FRAG);
   const prog = gl.createProgram();
   if (!vs || !fs || !prog) return null;
   gl.attachShader(prog, vs);
@@ -285,6 +295,18 @@ export function Scene() {
     if (!root || !canvas || !ships || !boatEl) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const lite = isLite();
+    // quality knobs: lite devices get a smaller canvas, a 1-tap shader and a 30fps cap
+    const MAX_DPR = lite ? 1 : 2;
+    const MAX_PIXELS = lite ? 0.9e6 : 5.5e6;
+    const FRAME_MS = lite ? 1000 / 30 : 0;
+    let quality = 1; // adaptive resolution scale, lowered if frames run slow
+    let slow = 0;
+    let avg = 16;
+    let frozen = false;
+    let scrolling = false;
+    let scrollTimer = 0;
+    let lastDraw = 0;
     let alive = true;
     let raf = 0;
     let glState: GLState | null = null;
@@ -391,9 +413,8 @@ export function Scene() {
       applySizes();
       if (glState) {
         // draw at the screen's real pixel density, capped so huge/hi-dpi screens stay smooth
-        let dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const maxPixels = 5.5e6;
-        if (W * H * dpr * dpr > maxPixels) dpr = Math.sqrt(maxPixels / (W * H));
+        let dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR) * quality;
+        if (W * H * dpr * dpr > MAX_PIXELS) dpr = Math.sqrt(MAX_PIXELS / (W * H));
         glState.resize(Math.max(1, Math.round(W * dpr)), Math.max(1, Math.round(H * dpr)));
       }
     };
@@ -404,7 +425,7 @@ export function Scene() {
 
     const startGL = () => {
       if (!photo) return;
-      glState = createGL(canvas, photo);
+      glState = createGL(canvas, photo, lite);
       if (glState) {
         root.classList.add("gl");
         measure();
@@ -414,15 +435,39 @@ export function Scene() {
 
     const frame = (now: number) => {
       if (!alive) return;
+      raf = requestAnimationFrame(frame);
+      // while a phone is scrolling, keep the last frame on screen so the GPU can focus on compositing
+      if (lite && scrolling) { last = now; return; }
+      if (FRAME_MS && now - lastDraw < FRAME_MS - 1) return;
+      lastDraw = now;
       const t = (now - t0) / 1000;
-      const dt = Math.min(0.1, (now - last) / 1000);
+      const raw = now - last;
+      const dt = Math.min(0.1, raw / 1000);
       last = now;
       render(t);
       stepBoat(dt, t);
-      raf = requestAnimationFrame(frame);
+
+      // adaptive quality: if frames keep taking too long, render fewer pixels; if it is still bad, stop animating
+      if (!document.hidden && raw < 250) {
+        avg = avg * 0.92 + raw * 0.08;
+        const budget = FRAME_MS ? FRAME_MS * 1.5 : 26;
+        if (avg > budget) slow++; else slow = Math.max(0, slow - 1);
+        if (slow > 45) {
+          slow = 0;
+          if (quality > 0.55) { quality = Math.max(0.5, quality * 0.8); measure(); }
+          else if (!frozen) { frozen = true; cancelAnimationFrame(raf); }
+        }
+      }
     };
 
     measure();
+
+    const onScroll = () => {
+      scrolling = true;
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => { scrolling = false; }, 140);
+    };
+    if (lite) window.addEventListener("scroll", onScroll, { passive: true });
 
     photo = new Image();
     photo.onload = () => {
@@ -450,7 +495,15 @@ export function Scene() {
       startGL();
       if (!reduce) raf = requestAnimationFrame(frame);
     };
-    photo.src = "/scene/scene.jpg";
+    photo.decoding = "async";
+    // don't compete with first paint / hydration: fetch the photo once the page has loaded and the browser is idle
+    const loadPhoto = () => { if (alive && photo) photo.src = lite ? "/scene/scene-lite.webp" : "/scene/scene.webp"; };
+    const whenIdle = () => {
+      const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+      if (ric) ric(loadPhoto, { timeout: 1500 }); else window.setTimeout(loadPhoto, 200);
+    };
+    if (document.readyState === "complete") whenIdle();
+    else window.addEventListener("load", whenIdle, { once: true });
 
     // if the GPU drops the context (tab backgrounded on some phones), fall back to the still photo, then recover
     const onLost = (e: Event) => {
@@ -474,6 +527,9 @@ export function Scene() {
     return () => {
       alive = false;
       cancelAnimationFrame(raf);
+      window.clearTimeout(scrollTimer);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("load", whenIdle);
       ro.disconnect();
       canvas.removeEventListener("webglcontextlost", onLost);
       canvas.removeEventListener("webglcontextrestored", onRestored);

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 import { Reveal, SplitWords, Cycle, useMouseParallax } from "./motion";
 import { Flower } from "./Decor";
@@ -34,16 +34,16 @@ export function Hero() {
   const { x, y } = useMouseParallax(14);
   return (
     <section className="hero">
-      <motion.div className="blob b2" style={{ x, y }} />
+      <m.div className="blob b2" style={{ x, y }} />
       <div className="wrap hero-inner">
         <p className="chip">{site.statusShort}</p>
-        <motion.h1 className="display" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
+        <m.h1 className="display" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
           <span className="name">
             <span className="ln">Some conversations are left unspoken.</span>
             <span className="ln"> We coax them into the light.</span>
           </span>
           {/* <span className="script">{site.suffix}</span> */}
-        </motion.h1>
+        </m.h1>
         <p className="lead"><TextGenerate text="Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children." /></p>
         <p className="through">through <Cycle words={site.phrases} /></p>
         <div className="row">
@@ -76,8 +76,8 @@ export function Steps({ items }: { items: { title: string; script: string; text:
   return (
     <div className="steps" ref={ref}>
       <div className="rail">
-        <motion.i className="rail-fill" style={{ scaleY: scrollYProgress }} />
-        <motion.span className="rail-flower" style={{ top }}><Flower size={44} /></motion.span>
+        <m.i className="rail-fill" style={{ scaleY: scrollYProgress }} />
+        <m.span className="rail-flower" style={{ top }}><Flower size={44} /></m.span>
       </div>
       <ol>
         {items.map((s, i) => (
@@ -102,8 +102,8 @@ export function Spotlight() {
   const scaleX = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
   return (
     <section ref={ref} className="spot">
-      <motion.div className="cone" style={{ opacity, scaleX }} />
-      <motion.div className="lamp" style={{ opacity }}><Flower size={56} /></motion.div>
+      <m.div className="cone" style={{ opacity, scaleX }} />
+      <m.div className="lamp" style={{ opacity }}><Flower size={56} /></m.div>
       <div className="wrap spot-in">
         <Reveal>
           <h2 className="display">Some conversations are easy to ignore.</h2>

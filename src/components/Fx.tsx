@@ -1,17 +1,17 @@
 "use client";
 // Effects inspired by Aceternity UI, rebuilt on plain CSS + framer-motion (no Tailwind needed).
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 import { ease } from "./motion";
 
-/** "Text Generate": words fade/de-blur in one by one. */
+/** "Text Generate": words fade in one by one. Pure CSS (see .tg-word), so it plays without waiting for JS and costs no per-frame JS. */
 export function TextGenerate({ text, delay = 0.5 }: { text: string; delay?: number }) {
   return (
     <span aria-label={text}>
       {text.split(" ").map((w, i) => (
-        <motion.span key={i} aria-hidden style={{ display: "inline-block" }} initial={{ opacity: 0, filter: "blur(8px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} transition={{ duration: 0.5, delay: delay + i * 0.07 }}>
+        <span key={i} aria-hidden className="tg-word" style={{ animationDelay: `${delay + i * 0.07}s` }}>
           {w}&nbsp;
-        </motion.span>
+        </span>
       ))}
     </span>
   );
@@ -25,7 +25,7 @@ export function Magnetic({ children, strength = 0.3 }: { children: ReactNode; st
   const sx = useSpring(x, { stiffness: 200, damping: 15 });
   const sy = useSpring(y, { stiffness: 200, damping: 15 });
   return (
-    <motion.div
+    <m.div
       ref={ref}
       style={{ x: sx, y: sy, display: "inline-block" }}
       onMouseMove={(e) => {
@@ -36,14 +36,14 @@ export function Magnetic({ children, strength = 0.3 }: { children: ReactNode; st
       onMouseLeave={() => { x.set(0); y.set(0); }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
 /** "Card Spotlight": a soft glow follows the cursor inside the card (see .tile::before). Also reveals on scroll. */
 export function GlowCard({ children, className, delay = 0, dir = 0 }: { children: ReactNode; className?: string; delay?: number; dir?: number }) {
   return (
-    <motion.div
+    <m.div
       className={className}
       initial={{ opacity: 0, x: dir, y: 28 }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -56,7 +56,7 @@ export function GlowCard({ children, className, delay = 0, dir = 0 }: { children
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -67,7 +67,7 @@ export function Tilt({ children, max = 6 }: { children: ReactNode; max?: number 
   const srx = useSpring(rx, { stiffness: 150, damping: 15 });
   const sry = useSpring(ry, { stiffness: 150, damping: 15 });
   return (
-    <motion.div
+    <m.div
       style={{ rotateX: srx, rotateY: sry, transformPerspective: 900 }}
       onMouseMove={(e) => {
         const r = e.currentTarget.getBoundingClientRect();
@@ -77,7 +77,7 @@ export function Tilt({ children, max = 6 }: { children: ReactNode; max?: number 
       onMouseLeave={() => { rx.set(0); ry.set(0); }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 

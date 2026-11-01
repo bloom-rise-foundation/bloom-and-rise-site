@@ -4,15 +4,14 @@ import { Fraunces, Sacramento, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/motion";
 import { Petals } from "@/components/Decor";
-import { Scene } from "@/components/Scene";
-import { Cursor } from "@/components/Cursor";
+import { Scene, Cursor } from "@/components/Lazy";
 import { Header, Footer, Closing } from "@/components/Chrome";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 
-const display = Fraunces({ subsets: ["latin"], variable: "--font-display", axes: ["SOFT", "WONK"] });
-const script = Sacramento({ subsets: ["latin"], weight: "400", variable: "--font-script" });
-const body = Montserrat({ subsets: ["latin"], variable: "--font-body" });
+const display = Fraunces({ subsets: ["latin"], variable: "--font-display", axes: ["SOFT", "WONK"], display: "swap" });
+const script = Sacramento({ subsets: ["latin"], weight: "400", variable: "--font-script", display: "swap" });
+const body = Montserrat({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: `${site.name} ${site.suffix}`, template: `%s · ${site.name} ${site.suffix}` },

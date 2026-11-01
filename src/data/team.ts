@@ -8,7 +8,7 @@ export const team: Member[] = [
     name: "Lavanya Sharma",
     role: "President, Founder & Head of Social Media and Marketing",
     bio: "Hi, I’m Lavanya! I’m a Year 12 student, and I started Bloom & Rise to break the stigma around girls’ health, open the door to science, and stand beside vulnerable children whose voices too often go unheard. I lead our vision as President and shape our online presence as Head of Social Media, which means I’m the one chatting with you behind the screen. I aspire to a career in medicine, or a field closely allied to it, and this work lets me begin serving others long before I qualify. Every girl, and every child in need, deserves honest answers, a safe place to ask and the confidence to flourish. Wherever you are on your journey, there’s a place for you here, and I’d love to grow with you.",
-    photo: "/team/lavanya.png",
+    photo: "/team/lavanya.jpg",
   },
   {
     name: "Bettina Kukua Donkoh",

@@ -51,7 +51,7 @@ export default function Splash() {
         <span className="splash-glow" />
         <span className="splash-rays" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="splash-flower" src="/icons/icon-512.png" alt="" width={512} height={512} />
+        <img className="splash-flower" src="/icons/splash-flower.webp" alt="" width={384} height={384} fetchPriority="high" decoding="async" />
         <span className="splash-sheen" />
       </div>
     </div>

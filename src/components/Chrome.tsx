@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { site } from "@/config/site";
 import { Magnetic } from "./Fx";
@@ -101,7 +101,7 @@ export function Header() {
       </div>
       <AnimatePresence>
         {open && (
-          <motion.nav className="drawer" aria-label="Mobile" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
+          <m.nav className="drawer" aria-label="Mobile" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
             <div className="wrap">
               {(site.nav as NavItem[]).map((n) =>
                 n.children ? (
@@ -109,9 +109,9 @@ export function Header() {
                     <button type="button" className="display drawer-toggle" aria-expanded={teamOpen} onClick={() => setTeamOpen((o) => !o)}>{n.label}</button>
                     <AnimatePresence initial={false}>
                       {teamOpen && (
-                        <motion.div className="drawer-sub" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
+                        <m.div className="drawer-sub" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
                           {n.children.map((c) => <Link key={c.href} href={c.href} className="display sub">{c.label}</Link>)}
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </Fragment>
@@ -120,7 +120,7 @@ export function Header() {
                 ),
               )}
             </div>
-          </motion.nav>
+          </m.nav>
         )}
       </AnimatePresence>
     </header>

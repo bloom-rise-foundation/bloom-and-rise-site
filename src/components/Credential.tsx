@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import "@/styles/credential.css";
@@ -8,11 +8,11 @@ const paths = { valid: "M14 25l8 8 14-16", revoked: "M16 16l16 16M32 16L16 32", 
 
 export function Badge({ kind }: { kind: keyof typeof paths }) {
   return (
-    <motion.div className={`badge ${kind}`} initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 180, damping: 14 }}>
+    <m.div className={`badge ${kind}`} initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 180, damping: 14 }}>
       <svg viewBox="0 0 48 48" width="56" height="56" aria-hidden>
-        <motion.path d={paths[kind]} fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.7, delay: 0.3 }} />
+        <m.path d={paths[kind]} fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.7, delay: 0.3 }} />
       </svg>
-    </motion.div>
+    </m.div>
   );
 }
 
