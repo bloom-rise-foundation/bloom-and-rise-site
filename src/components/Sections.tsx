@@ -132,7 +132,7 @@ export function TeamGrid({ members = team }: { members?: Member[] }) {
           <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 320px" />
           <h3 className="display">{m.name}</h3>
           <p className="role script">{m.role}</p>
-          <p>{m.bio}</p>
+          <p className="bio">{m.bio}</p>
         </Tilt></Reveal>
       ))}
     </div>
