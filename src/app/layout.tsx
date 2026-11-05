@@ -35,6 +35,9 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
+  verification: {
+    google: "8ItXbnmQmWPuwthDyNFeDLt80DhgkSB2qvigAKWfBs8",
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#FFF8D5" };
