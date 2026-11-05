@@ -8,6 +8,7 @@ import { Scene, Cursor } from "@/components/Lazy";
 import { Header, Footer, Closing } from "@/components/Chrome";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const display = Fraunces({ subsets: ["latin"], variable: "--font-display", axes: ["SOFT", "WONK"], display: "swap" });
 const script = Sacramento({ subsets: ["latin"], weight: "400", variable: "--font-script", display: "swap" });
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
