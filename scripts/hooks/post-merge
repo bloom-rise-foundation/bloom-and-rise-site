@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -e
+
+# Change directory to project root
+cd "$(git rev-parse --show-toplevel)"
+
+echo ""
+echo "=========================================="
+echo "⚡ Git pull detected! Running auto-update..."
+echo "=========================================="
+
+echo "📦 1. Installing dependencies..."
+npm install
+
+echo "🏗️  2. Building Next.js application..."
+npm run build
+
+echo "🔄 3. Reloading server..."
+if command -v pm2 >/dev/null 2>&1; then
+    if pm2 list | grep -q "bloom"; then
+        pm2 reload bloom --update-env || pm2 restart bloom --update-env
+    else
+        pm2 start ecosystem.config.cjs
+    fi
+    pm2 save
+    echo "✅ PM2 process reloaded successfully!"
+else
+    echo "⚠️ PM2 not found. Site built, but remember to restart your server."
+fi
+
+echo "=========================================="
+echo "🎉 Update completed successfully!"
+echo "=========================================="
+echo ""
+
