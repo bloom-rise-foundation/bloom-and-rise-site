@@ -21,7 +21,7 @@ bash scripts/deploy.sh
 ```
 
 ### 2. Auto-Deploy when code is pushed to `main`
-Choose one of the two methods:
+Choose one of these methods:
 
 - **Option A (GitHub Actions):** Push code to `main`. The workflow in `.github/workflows/deploy.yml` will automatically SSH into your server and run `scripts/deploy.sh`. Add your `SERVER_HOST`, `SERVER_USER`, `SERVER_SSH_KEY`, and `SERVER_PROJECT_PATH` to GitHub Repository Secrets.
 - **Option B (Server Webhook):** Run the webhook server via PM2:
@@ -29,4 +29,14 @@ Choose one of the two methods:
   pm2 start scripts/webhook.js --name "bloom-webhook"
   ```
   Add a webhook in your GitHub repo pointing to `http://<your-server-ip>:9000/webhook`. Every time code is pushed to `main`, the script runs automatically.
+
+### 3. Auto-Build on `git pull origin main` (Git Hook)
+If you prefer simply typing `git pull origin main` on the server:
+Run this **once** on the server to enable the Git post-merge hook:
+```bash
+npm run setup:hooks
+# or
+git config core.hooksPath scripts/hooks
+```
+From then on, whenever you run `git pull` on the server, Git will **automatically** run `npm install`, `npm run build`, and restart PM2 for you without typing any other commands.
 
