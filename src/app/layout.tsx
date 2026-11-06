@@ -1,3 +1,4 @@
+// next.js layout file
 import Splash from "@/components/Splash";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Sacramento, Montserrat } from "next/font/google";
