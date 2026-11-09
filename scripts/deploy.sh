@@ -20,30 +20,35 @@ git reset --hard origin/main
 echo "📦 2. Installing dependencies..."
 npm install
 
-# 3. Build Next.js application
-echo "🏗️  3. Building Next.js production bundle..."
+# 3. Clean old build & build Next.js application
+echo "🧹 3. Cleaning old build cache..."
+rm -rf .next
+
+echo "🏗️  4. Building Next.js production bundle..."
 npm run build
 
 # 4. Restart or Start application process
-echo "🔄 4. Restarting application server..."
+echo "🔄 5. Restarting application server..."
 if command -v pm2 >/dev/null 2>&1; then
-    if pm2 list | grep -q "bloom"; then
-        echo "♻️ Reloading PM2 process 'bloom'..."
-        pm2 reload bloom --update-env || pm2 restart bloom --update-env
-    else
-        echo "▶️ Starting new PM2 process with ecosystem.config.cjs..."
-        pm2 start ecosystem.config.cjs
-    fi
+    echo "♻️ Restarting PM2 process 'bloom'..."
+    pm2 delete bloom 2>/dev/null || true
+    # Free port 3000 if anything is hanging
+    fuser -k 3000/tcp 2>/dev/null || true
+    pm2 start ecosystem.config.cjs --only bloom
     pm2 save
-    echo "✅ PM2 process restarted successfully!"
+    echo "✅ PM2 process started successfully!"
 else
     echo "⚠️ PM2 is not installed globally."
     echo "To keep the site running in the background, install PM2: npm install -g pm2"
     echo "Or start the site manually with: npm run start"
 fi
 
+# Reload Nginx if possible to clear proxy cache
+if command -v nginx >/dev/null 2>&1; then
+    nginx -s reload 2>/dev/null || systemctl reload nginx 2>/dev/null || true
+fi
+
 echo "=========================================="
 echo "🎉 Deployment finished successfully!"
 echo "Site is running and served on port 3000."
 echo "=========================================="
-
