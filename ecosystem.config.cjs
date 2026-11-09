@@ -2,9 +2,8 @@ module.exports = {
   apps: [
     {
       name: "bloom",
-      script: "node_modules/next/dist/bin/next",
-      interpreter: "node",
-      args: "start -p 3000",
+      script: "npm",
+      args: "start -- -p 3001",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,
@@ -12,7 +11,7 @@ module.exports = {
       max_memory_restart: "1G",
       env: {
         NODE_ENV: "production",
-        PORT: 3000,
+        PORT: 3001,
       },
     },
     {

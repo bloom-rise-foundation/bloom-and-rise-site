@@ -33,15 +33,15 @@ if command -v pm2 >/dev/null 2>&1; then
     echo "♻️ Restarting PM2 process 'bloom'..."
     pm2 delete bloom-and-rise 2>/dev/null || true
     pm2 delete bloom 2>/dev/null || true
-    # Free port 3000 if anything is hanging
-    fuser -k 3000/tcp 2>/dev/null || true
+    # Free port 3001 if anything is hanging
+    fuser -k 3001/tcp 2>/dev/null || true
     pm2 start ecosystem.config.cjs --only bloom
     pm2 save
     echo "✅ PM2 process started successfully!"
 else
     echo "⚠️ PM2 is not installed globally."
     echo "To keep the site running in the background, install PM2: npm install -g pm2"
-    echo "Or start the site manually with: npm run start"
+    echo "Or start the site manually with: PORT=3001 npm run start"
 fi
 
 # Reload Nginx if possible to clear proxy cache
@@ -51,5 +51,5 @@ fi
 
 echo "=========================================="
 echo "🎉 Deployment finished successfully!"
-echo "Site is running and served on port 3000."
+echo "Site is running and served on port 3001."
 echo "=========================================="
