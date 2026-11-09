@@ -27,3 +27,4 @@ if [ "$LOCAL_COMMIT" != "$REMOTE_COMMIT" ]; then
   echo "=========================================="
   bash "$SCRIPT_DIR/deploy.sh"
 fi
+
