@@ -47,6 +47,19 @@ export const viewport: Viewport = { themeColor: "#FFF8D5" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${script.variable} ${body.variable} splash-on`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('error', function(e) {
+                if (e.message && (e.message.indexOf('ChunkLoadError') !== -1 || e.message.indexOf('Loading chunk') !== -1 || e.message.indexOf('failed to load') !== -1)) {
+                  window.location.reload();
+                }
+              });
+            `,
+          }}
+        />
+      </head>
       <body>
         <noscript><style>{`html.splash-on,html.splash-on body{overflow:auto}html.splash-on .tg-word,html.splash-on .petal,html.splash-on .marq-track{animation-play-state:running!important}`}</style></noscript>
         <Splash />
