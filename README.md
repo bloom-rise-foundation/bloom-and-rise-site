@@ -40,3 +40,16 @@ git config core.hooksPath scripts/hooks
 ```
 From then on, whenever you run `git pull` on the server, Git will **automatically** run `npm install`, `npm run build`, and restart PM2 for you without typing any other commands.
 
+### 4. Auto-Deploy via Server Cron Job
+If you want the server to periodically check for changes on `main` and auto-deploy whenever changes are detected:
+
+1. Open crontab on the server:
+   ```bash
+   crontab -e
+   ```
+2. Add a line to check every 2 minutes (adjust path to your project folder):
+   ```cron
+   */2 * * * * bash /var/www/bloom/scripts/cron-deploy.sh >> /var/www/bloom/deploy.log 2>&1
+   ```
+The script will silently check GitHub. If new commits are detected on `main`, it automatically runs `scripts/deploy.sh` (pulls, builds, and reloads PM2). If nothing changed, it takes less than 0.1s and does nothing.
+
