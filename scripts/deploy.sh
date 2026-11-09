@@ -31,6 +31,7 @@ npm run build
 echo "🔄 5. Restarting application server..."
 if command -v pm2 >/dev/null 2>&1; then
     echo "♻️ Restarting PM2 process 'bloom'..."
+    pm2 delete bloom-and-rise 2>/dev/null || true
     pm2 delete bloom 2>/dev/null || true
     # Free port 3000 if anything is hanging
     fuser -k 3000/tcp 2>/dev/null || true
