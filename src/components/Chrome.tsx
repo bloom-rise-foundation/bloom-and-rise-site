@@ -2,10 +2,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState, type ComponentProps } from "react";
 import { site } from "@/config/site";
 import { Magnetic } from "./Fx";
+import { useSplashDone } from "@/lib/splash";
 import { closingDefaults, closingByPage, type ClosingContent } from "@/config/closing";
+
+/** Next <Link> that holds off route prefetching until the loading splash has lifted, so prefetch traffic never competes with the first load. Navigation behaves the same. */
+function PLink(props: ComponentProps<typeof Link>) {
+  const ready = useSplashDone();
+  return <Link {...props} prefetch={ready ? props.prefetch : false} />;
+}
 
 export function SocialLinks() {
   return (
@@ -49,7 +56,7 @@ function NavGroup({ item, path }: { item: NavItem & { children: { label: string;
         }
       }}
     >
-      <Link
+      <PLink
         href={item.href}
         className={active ? "on" : ""}
         aria-haspopup="true"
@@ -58,10 +65,10 @@ function NavGroup({ item, path }: { item: NavItem & { children: { label: string;
           // touch / tablet: tapping Team toggles the menu instead of navigating
           if (window.matchMedia("(hover: none)").matches) { e.preventDefault(); setOpen((o) => !o); }
         }}
-      >{item.label}</Link>
+      >{item.label}</PLink>
       <ul className="nav-menu">
         {item.children.map((c) => (
-          <li key={c.href}><Link href={c.href} className={`display${path === c.href ? " on" : ""}`}>{c.label}</Link></li>
+          <li key={c.href}><PLink href={c.href} className={`display${path === c.href ? " on" : ""}`}>{c.label}</PLink></li>
         ))}
       </ul>
     </div>
@@ -84,16 +91,16 @@ export function Header() {
   return (
     <header className={`header${scrolled ? " scrolled" : ""}`}>
       <div className="wrap bar">
-        <Link href="/" className="logo" aria-label="Bloom & Rise Foundation, home">
+        <PLink href="/" className="logo" aria-label="Bloom & Rise Foundation, home">
           <span className="display">{site.name}</span>
           <span className="script">{site.suffix}</span>
-        </Link>
+        </PLink>
         <nav className="nav" aria-label="Main">
           {(site.nav as NavItem[]).map((n) =>
             n.children ? (
               <NavGroup key={n.href} item={{ ...n, children: n.children }} path={path} />
             ) : (
-              <Link key={n.href} href={n.href} className={path === n.href ? "on" : ""}>{n.label}</Link>
+              <PLink key={n.href} href={n.href} className={path === n.href ? "on" : ""}>{n.label}</PLink>
             ),
           )}
         </nav>
@@ -110,13 +117,13 @@ export function Header() {
                     <AnimatePresence initial={false}>
                       {teamOpen && (
                         <m.div className="drawer-sub" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                          {n.children.map((c) => <Link key={c.href} href={c.href} className="display sub">{c.label}</Link>)}
+                          {n.children.map((c) => <PLink key={c.href} href={c.href} className="display sub">{c.label}</PLink>)}
                         </m.div>
                       )}
                     </AnimatePresence>
                   </Fragment>
                 ) : (
-                  <Link key={n.href} href={n.href} className="display">{n.label}</Link>
+                  <PLink key={n.href} href={n.href} className="display">{n.label}</PLink>
                 ),
               )}
             </div>
@@ -136,8 +143,8 @@ export function Closing() {
       <div className="wrap">
         <h2 className="display">{pick("title")} <span className="script">{pick("script")}</span></h2>
         <div className="row">
-          <Magnetic><Link className="btn" href={pick("primaryHref")}>{pick("primaryLabel")}</Link></Magnetic>
-          <Magnetic><Link className="btn ghost" href={pick("secondaryHref")}>{pick("secondaryLabel")}</Link></Magnetic>
+          <Magnetic><PLink className="btn" href={pick("primaryHref")}>{pick("primaryLabel")}</PLink></Magnetic>
+          <Magnetic><PLink className="btn ghost" href={pick("secondaryHref")}>{pick("secondaryLabel")}</PLink></Magnetic>
         </div>
       </div>
     </section>
@@ -156,7 +163,7 @@ export function Footer() {
         {site.footer.map((c) => (
           <nav key={c.title} className="fcol" aria-label={c.title}>
             <h4>{c.title}</h4>
-            <ul>{c.links.map((l) => <li key={l.href}><Link href={l.href}>{l.label}</Link></li>)}</ul>
+            <ul>{c.links.map((l) => <li key={l.href}><PLink href={l.href}>{l.label}</PLink></li>)}</ul>
           </nav>
         ))}
         <div className="fcol">

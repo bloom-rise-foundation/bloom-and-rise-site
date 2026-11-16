@@ -371,7 +371,7 @@ html.splash-on,html.splash-on body{overflow:hidden}
 .splash-sheen{position:absolute;z-index:3;inset:0;pointer-events:none;mix-blend-mode:soft-light;
   background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.8) 50%,transparent 65%);
   background-size:260% 100%;background-position:130% 0;opacity:0;
-  -webkit-mask:url(/icons/icon-512.png) center/contain no-repeat;mask:url(/icons/icon-512.png) center/contain no-repeat;
+  -webkit-mask:url(/icons/splash-flower.webp) center/contain no-repeat;mask:url(/icons/splash-flower.webp) center/contain no-repeat;
   animation:splashglint 1s ease-in-out 1.15s both}
 @keyframes splashglint{0%{opacity:1;background-position:130% 0}100%{opacity:1;background-position:-30% 0}}
 @media(prefers-reduced-motion:reduce){.splash{display:none}html.splash-on,html.splash-on body{overflow:auto}}
