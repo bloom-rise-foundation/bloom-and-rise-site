@@ -5,10 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "deploy": "bash scripts/deploy.sh",
-    "cron:deploy": "bash scripts/cron-deploy.sh",
-    "setup:hooks": "git config core.hooksPath scripts/hooks"
+    "start": "next start"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
