@@ -10,7 +10,7 @@ import { isLite } from "@/lib/perf";
  *    sampling + unsharp masking tuned to the faded photo, so a small source photo stays as crisp as it can.
  *  - The ferry is a sprite that sails along one lane of open water. The lane's "where is water?" mask is
  *    computed from the photo itself, so the boat slides behind the trees / headland instead of over them.
- * Assets: /public/scene/scene.webp + scene-lite.webp (boat removed) and /public/scene/boat.png.
+ * Assets: /public/scene/scene.webp + scene-lite.webp (boat removed) and /public/scene/boat.webp.
  * The photo can be any resolution as long as it keeps the same framing (everything below is in fractions of it).
  */
 
@@ -492,8 +492,12 @@ export function Scene() {
       measure();
       spawn(true);
       place(0);
-      startGL();
-      if (!reduce) raf = requestAnimationFrame(frame);
+      // shader compile + texture upload is the heaviest step: give it its own task instead of stacking it on the mask work
+      window.setTimeout(() => {
+        if (!alive) return;
+        startGL();
+        if (!reduce) raf = requestAnimationFrame(frame);
+      }, 0);
     };
     photo.decoding = "async";
     // don't compete with first paint / hydration: fetch the photo once the page has loaded and the browser is idle
@@ -542,7 +546,7 @@ export function Scene() {
       <div ref={shipsRef} className="scene-ships">
         <div ref={boatRef} className="scene-boat">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/scene/boat.png" alt="" draggable={false} />
+          <img src="/scene/boat.webp" alt="" width={162} height={49} draggable={false} />
           <i className="scene-wake" />
         </div>
       </div>
