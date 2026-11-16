@@ -337,6 +337,7 @@ main .small,main .note{
   .member-row .photo{max-width:260px}
 }
 /* ===================== LOADING SPLASH (flower pops, shines, then the page shows) ===================== */
+html{scrollbar-gutter:stable}
 html.splash-on,html.splash-on body{overflow:hidden}
 .splash{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;
   background:radial-gradient(circle at 50% 46%,#8a0f45 0%,var(--beet) 48%,#3d0019 100%);

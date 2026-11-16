@@ -188,20 +188,26 @@ function createGL(canvas: HTMLCanvasElement, img: HTMLImageElement, lite: boolea
   gl.uniform2f(gl.getUniformLocation(prog, "uImg"), nw, nh);
   gl.uniform2f(gl.getUniformLocation(prog, "uTexel"), 1 / nw, 1 / nh);
 
+  let lastT = 0;
+  let lastMotion = 1;
+  const draw = (t: number, motion: number) => {
+    lastT = t;
+    lastMotion = motion;
+    // wrap the clock *here* so the shader only ever sees a small, exactly-periodic phase
+    gl.uniform1f(uPhase, ((t % LOOP) / LOOP) * Math.PI * 2);
+    gl.uniform1f(uMotion, motion);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
   return {
     gl,
     resize(w, h) {
-      canvas.width = w;
+      canvas.width = w; // resizing clears the canvas ...
       canvas.height = h;
       gl.viewport(0, 0, w, h);
       gl.uniform2f(uRes, w, h);
+      draw(lastT, lastMotion); // ... so repaint straight away, otherwise one blank (black) frame can reach the screen
     },
-    draw(t, motion) {
-      // wrap the clock *here* so the shader only ever sees a small, exactly-periodic phase
-      gl.uniform1f(uPhase, ((t % LOOP) / LOOP) * Math.PI * 2);
-      gl.uniform1f(uMotion, motion);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-    },
+    draw,
   };
 }
 
