@@ -5,12 +5,12 @@ import { AnimatePresence, m } from "framer-motion";
 import { Fragment, useEffect, useRef, useState, type ComponentProps } from "react";
 import { site } from "@/config/site";
 import { Magnetic } from "./Fx";
-import { useSplashDone } from "@/lib/splash";
+import { useLoadedIdle } from "@/lib/idle";
 import { closingDefaults, closingByPage, type ClosingContent } from "@/config/closing";
 
-/** Next <Link> that holds off route prefetching until the loading splash has lifted, so prefetch traffic never competes with the first load. Navigation behaves the same. */
+/** Next <Link> that holds off route prefetching until the page has loaded and gone idle (still hidden behind the splash), so prefetch never competes with the first load or with the animations that start when the splash lifts. Navigation behaves the same. */
 function PLink(props: ComponentProps<typeof Link>) {
-  const ready = useSplashDone();
+  const ready = useLoadedIdle();
   return <Link {...props} prefetch={ready ? props.prefetch : false} />;
 }
 

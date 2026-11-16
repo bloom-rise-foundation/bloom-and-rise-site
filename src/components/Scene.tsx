@@ -303,9 +303,10 @@ export function Scene() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const lite = isLite();
     // quality knobs: lite devices get a smaller canvas, a 1-tap shader and a 30fps cap
-    const MAX_DPR = lite ? 1 : 2;
-    const MAX_PIXELS = lite ? 0.9e6 : 5.5e6;
-    const FRAME_MS = lite ? 1000 / 30 : 0;
+    // the photo is small and shown at half opacity, so rendering above ~1.5x adds GPU cost but no visible detail
+    const MAX_DPR = lite ? 1 : 1.5;
+    const MAX_PIXELS = lite ? 0.9e6 : 3e6;
+    const FRAME_MS = 1000 / 30; // the sway is slow: 30fps looks identical and halves the GPU work (incl. the header's backdrop blur)
     let quality = 1; // adaptive resolution scale, lowered if frames run slow
     let slow = 0;
     let avg = 16;
@@ -443,14 +444,13 @@ export function Scene() {
       if (!alive) return;
       raf = requestAnimationFrame(frame);
       // while a phone is scrolling, keep the last frame on screen so the GPU can focus on compositing
-      if (lite && scrolling) { last = now; return; }
       if (FRAME_MS && now - lastDraw < FRAME_MS - 1) return;
       lastDraw = now;
       const t = (now - t0) / 1000;
       const raw = now - last;
       const dt = Math.min(0.1, raw / 1000);
       last = now;
-      render(t);
+      if (!scrolling) render(t); // the sway pauses while the page scrolls, so the GPU can focus on compositing
       stepBoat(dt, t);
 
       // adaptive quality: if frames keep taking too long, render fewer pixels; if it is still bad, stop animating
@@ -473,7 +473,7 @@ export function Scene() {
       window.clearTimeout(scrollTimer);
       scrollTimer = window.setTimeout(() => { scrolling = false; }, 140);
     };
-    if (lite) window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     photo = new Image();
     photo.onload = () => {
