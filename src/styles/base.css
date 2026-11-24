@@ -21,7 +21,8 @@ main{padding-top:var(--hdr);overflow-x:clip}
 .display{font-family:var(--display);font-weight:800;line-height:1.05;letter-spacing:-.02em}
 .script{font-family:var(--display);font-style:italic;font-weight:600;letter-spacing:-.01em;line-height:1.1}
 h1{font-size:clamp(2.8rem,9vw,6.5rem)} h2{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:2rem} h3{font-size:1.5rem;margin-bottom:.6rem}
-h1 .script,h2 .script{margin-inline-start:.18em} h3 .script{margin-inline-start:.18em}
+h1 .script,h2 .script{margin-inline-start:.18em}
+.page-hero h1 .script{margin-inline-start:0} h3 .script{margin-inline-start:.18em}
 .mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em}
 .lead{font-size:clamp(1.05rem,2.2vw,1.3rem);max-width:60ch;margin-top:1.4rem}
 .small{font-size:.9rem;opacity:.85}
@@ -50,6 +51,13 @@ html.js [data-reveal=right]{--rx:48px;--ry:0px}
 html.js [data-reveal=scale]{--rs:.88;--ry:0px}
 html.js [data-reveal=tilt]{--ry:44px;--rr:-3deg}
 html.js [data-reveal].in,html.js.rv-fallback [data-reveal]{opacity:1;transform:none}
+/* Where CSS scroll timelines exist, the reveal runs entirely in CSS: nothing waits for JavaScript, so content that is
+   already on screen at load is simply visible (it starts past the end of the animation range). */
+@supports (animation-timeline:view()){
+  html.js [data-reveal],html.js .tile[data-reveal]{opacity:1;transform:none;transition:none;animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 65%}
+  html.js .tile[data-reveal]{transition:rotate .5s var(--ease),translate .5s var(--ease),border-radius .5s var(--ease)}
+  @keyframes rv{from{opacity:0;transform:translate3d(var(--rx),var(--ry),0) rotate(var(--rr)) scale(var(--rs))}}
+}
 
 /* entrance animations that run on load (no JS, nothing waits for hydration) */
 @keyframes rise{from{transform:translate3d(0,110%,0)}}

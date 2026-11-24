@@ -1,8 +1,21 @@
 # Bloom & Rise Foundation site
-`npm install && npm run dev`
+`npm install && npm run dev` (Next 16, React 19, deployed on Vercel)
 
 - Copy, nav, footer, socials, steps, roles, status: `src/config/site.ts`
+- Closing call-to-action per page: `src/config/closing.ts`
 - Team members: `src/data/team.ts` (photos in `public/team/`)
-- Colours, fonts, radii: tokens at top of `src/app/globals.css`
-- Motion helpers (Reveal, SplitWords, useMouseParallax, Cycle): `src/components/motion.tsx`
+- Colours, fonts, radii: tokens at the top of `src/styles/base.css` (palette: Sea Pink, Beet Red, Crystal Blue, Lemon Icing, Rum Raisin)
+- Fonts: Playfair Display (brand) + Montserrat (body), loaded in `src/app/layout.tsx`
+- Styles: `src/styles/{base,chrome,sections,credential}.css`
 - Add a page: new folder in `src/app/`, use `PageHero` + `Section`, add to `nav`/`footer`.
+
+## How motion works (no animation library)
+- Almost everything is a Server Component; motion is CSS.
+- Scroll effects (`animation-timeline: view()/scroll()`): word-lit statement, pinned focus tiles, steps rail, header pill, footer wordmark, scroll reveals. Each has a plain fallback where unsupported.
+- `data-reveal="up|left|right|scale|tilt"` (via `Reveal` in `components/ui.tsx`): CSS-only where scroll timelines exist, otherwise the shared observer in `RevealRoot.tsx`.
+- `data-fx="mag|tilt|glow|light"`: one delegated pointer handler (`Pointer.tsx`, mouse only) drives magnetic buttons, card tilt, tile glow and the spotlight room.
+- Extras load after the page is idle (`Lazy.tsx`): petal canvas (`PetalField.tsx`, skipped on weak devices / reduced motion) and the flower cursor.
+- The hero bloom plays once per session (`html.seen`, set in the boot script in `layout.tsx`); it never blocks the page.
+
+## Credentials
+`src/lib/credentials.ts` looks up Airtable server-side (set `AIRTABLE_TOKEN` and `AIRTABLE_BASE_ID`; without them a demo record `demo-credential` is used). `src/proxy.ts` shows `/verify` at `/` on any host starting with `verify`.

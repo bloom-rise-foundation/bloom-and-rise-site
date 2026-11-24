@@ -20,7 +20,7 @@ export function PageHero({ title, script, lead }: { title: string; script: strin
     <section className="page-hero">
       <div className="wrap">
         <h1 className="display">
-          <SplitWords text={title.trim()} /> <span className="script">{script}</span>
+          <SplitWords text={title.trim()} /><span className="script">{script}</span>
         </h1>
         {lead && <p className="lead fade-up" style={vars({ "--d": ".35s" })}>{lead}</p>}
       </div>
@@ -156,11 +156,11 @@ export function Spotlight() {
   );
 }
 
-function MemberPhoto({ m, i, sizes }: { m: Member; i: number; sizes: string }) {
+function MemberPhoto({ m, i, sizes, first = false }: { m: Member; i: number; sizes: string; first?: boolean }) {
   const initials = m.name.split(" ").map((p) => p[0]).slice(0, 2).join("");
   return (
     <div className={`photo t${i % 3}`}>
-      {m.photo ? <Image src={m.photo} alt={`Photo of ${m.name}`} fill sizes={sizes} style={{ objectFit: "cover" }} /> : <span className="display" aria-hidden>{initials}</span>}
+      {m.photo ? <Image src={m.photo} alt={`Photo of ${m.name}`} fill sizes={sizes} style={{ objectFit: "cover" }} {...(first ? { loading: "eager" as const, fetchPriority: "high" as const } : {})} /> : <span className="display" aria-hidden>{initials}</span>}
     </div>
   );
 }
@@ -205,7 +205,7 @@ export function TeamRows({ members = team }: { members?: Member[] }) {
     <div className="team-rows">
       {members.map((m, i) => (
         <div key={m.name + i} data-reveal={i % 2 ? "right" : "left"} className="member-row">
-          <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 340px" />
+          <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 340px" first={i === 0} />
           <div className="member-text">
             <h3 className="display">{m.name}</h3>
             <p className="role script">{m.role}</p>
