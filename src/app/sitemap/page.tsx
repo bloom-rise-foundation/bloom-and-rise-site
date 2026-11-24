@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { PageHero, Section } from "@/components/Sections";
-import { GlowCard } from "@/components/Fx";
+import { Tile } from "@/components/Sections";
 import { getRoutes, labelFor } from "@/lib/routes";
 
 export const metadata = { title: "Sitemap" };
@@ -16,12 +15,7 @@ export default function SitemapPage() {
       <Section>
         <div className="focus">
           {routes.map((r, i) => (
-            <GlowCard key={r} dir={i % 2 ? 48 : -48} delay={(i % 2) * 0.1} className={`tile ${tones[i % tones.length]}`}>
-              <Link href={r} className="sm-link">
-                <h3 className="display">{labelFor(r)}</h3>
-                <p className="sm-path">{r}</p>
-              </Link>
-            </GlowCard>
+            <Tile key={r} href={r} title={labelFor(r)} text={r} tone={tones[i % tones.length]} i={i} />
           ))}
         </div>
       </Section>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { lookupCredential } from "@/lib/credentials";
-import { Badge, VerifyForm } from "@/components/Credential";
-import { Reveal } from "@/components/motion";
+import { VerifyForm, CredActions } from "@/components/Credential";
+import { Badge, Seal } from "@/components/Badge";
 import { site } from "@/config/site";
 
 export const metadata: Metadata = { title: "Credential verification", robots: { index: false, follow: false } };
@@ -25,7 +25,8 @@ export default async function CredentialPage({ params }: { params: Promise<{ id:
             <Badge kind="valid" />
             <h1 className="display">Verified <span className="script">credential</span></h1>
             <p className="lead">This credential was issued by {site.name} {site.suffix}.</p>
-            <Reveal delay={0.4} className="cred-card">
+            <div className="cred-card fade-up" style={{ ["--d" as string]: ".3s" }}>
+              <Seal />
               <p className="cred-type">{r.cred.type}</p>
               <h2 className="display cred-name">{r.cred.name}</h2>
               {r.cred.role && <p className="script cred-role">{r.cred.role}</p>}
@@ -35,7 +36,8 @@ export default async function CredentialPage({ params }: { params: Promise<{ id:
                 <div><dt>Credential ID</dt><dd>{r.cred.id}</dd></div>
                 <div><dt>Status</dt><dd>Active</dd></div>
               </dl>
-            </Reveal>
+            </div>
+            <CredActions />
             <p className="small note">Only the details printed on the certificate are shown. {site.name} {site.suffix} is a student-led initiative; see our <Link href="/transparency"><u>status</u></Link>.</p>
           </>
         )}

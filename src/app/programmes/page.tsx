@@ -1,5 +1,5 @@
 import { PageHero, Section, FocusGrid } from "@/components/Sections";
-import { Reveal } from "@/components/motion";
+import { Reveal } from "@/components/ui";
 export const metadata = { title: "Programmes" };
 
 export default function Programmes() {

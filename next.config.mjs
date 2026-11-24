@@ -10,9 +10,6 @@ export default {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: day * 30,
   },
-  experimental: {
-    optimizePackageImports: ["framer-motion"],
-  },
   async headers() {
     return [
       { source: "/scene/:path*", headers: longCache },

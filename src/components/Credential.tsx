@@ -1,31 +1,49 @@
 "use client";
-import { m } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import "@/styles/credential.css";
 
-const paths = { valid: "M14 25l8 8 14-16", revoked: "M16 16l16 16M32 16L16 32", missing: "M24 13v15M24 35v.5", error: "M24 13v15M24 35v.5" };
-
-export function Badge({ kind }: { kind: keyof typeof paths }) {
-  return (
-    <m.div className={`badge ${kind}`} initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 180, damping: 14 }}>
-      <svg viewBox="0 0 48 48" width="56" height="56" aria-hidden>
-        <m.path d={paths[kind]} fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.7, delay: 0.3 }} />
-      </svg>
-    </m.div>
-  );
-}
-
+/** Credential ID lookup. Strips any whitespace (pasted IDs often carry some); the server matches case-insensitively. */
 export function VerifyForm() {
   const router = useRouter();
   const [v, setV] = useState("");
+  const [pending, start] = useTransition();
   return (
-    <form className="vform" onSubmit={(e) => { e.preventDefault(); const id = v.trim(); if (id) router.push(`/credential/${encodeURIComponent(id)}`); }}>
+    <form
+      className="vform"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const id = v.replace(/\s+/g, "");
+        if (id) start(() => router.push(`/credential/${encodeURIComponent(id)}`));
+      }}
+    >
       <label htmlFor="cid" className="small">Credential ID</label>
       <div className="vrow">
-        <input id="cid" value={v} onChange={(e) => setV(e.target.value)} placeholder="The ID printed on the certificate" autoComplete="off" spellCheck={false} />
-        <button className="btn" type="submit">Verify</button>
+        <input id="cid" value={v} onChange={(e) => setV(e.target.value.replace(/\s+/g, ""))} placeholder="The ID printed on the certificate" autoComplete="off" autoCapitalize="characters" spellCheck={false} maxLength={64} aria-describedby="cid-note" />
+        <button className="btn" type="submit" disabled={pending || !v}>{pending && <span className="spin" aria-hidden />}{pending ? "Checking…" : "Verify"}</button>
       </div>
+      <p id="cid-note" className="small note" style={{ marginTop: ".8rem" }}>Letters, numbers, dashes and underscores only.</p>
     </form>
+  );
+}
+
+/** Copy-link and print buttons for a verified certificate. */
+export function CredActions() {
+  const [copied, setCopied] = useState(false);
+  return (
+    <div className="cred-actions">
+      <button
+        type="button"
+        className="btn ghost"
+        onClick={async () => {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            window.setTimeout(() => setCopied(false), 2000);
+          } catch { /* clipboard blocked: nothing to do */ }
+        }}
+      >{copied ? "Link copied" : "Copy link"}</button>
+      <button type="button" className="btn ghost" onClick={() => window.print()}>Print</button>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import { PageHero, Section, Steps } from "@/components/Sections";
-import { Reveal } from "@/components/motion";
+import { Reveal } from "@/components/ui";
 import { site } from "@/config/site";
 export const metadata = { title: "Get involved" };
 const mail = (s: string) => `mailto:${site.email}?subject=${encodeURIComponent(s)}`;

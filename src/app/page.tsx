@@ -1,6 +1,5 @@
-import { Hero, Section, FocusGrid, Spotlight, Steps } from "@/components/Sections";
-import { Reveal } from "@/components/motion";
-import { Marquee } from "@/components/Fx";
+import { Hero, Section, FocusPin, Spotlight, Steps, Marquee } from "@/components/Sections";
+import { Reveal, LitWords } from "@/components/ui";
 import { site } from "@/config/site";
 
 export default function Home() {
@@ -8,15 +7,13 @@ export default function Home() {
     <>
       <Hero />
       <Section>
-        <Reveal><p className="statement display">{site.mission}</p></Reveal>
+        <LitWords text={site.mission} className="statement display" />
       </Section>
-      <Section>
-        <Reveal><h2 className="display">What we <span className="script">hold dear</span></h2></Reveal>
-        <FocusGrid />
-      </Section>
+      <FocusPin />
       <section className="section">
         <div className="wrap"><Reveal><h2 className="display">How we <span className="script">work</span></h2></Reveal></div>
         <Marquee items={site.values} />
+        <Marquee items={[...site.values].reverse()} reverse />
       </section>
       <Spotlight />
       <Section>

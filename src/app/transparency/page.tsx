@@ -1,6 +1,5 @@
-import { PageHero, Section } from "@/components/Sections";
-import { Reveal } from "@/components/motion";
-import { GlowCard } from "@/components/Fx";
+import { PageHero, Section, TileGrid } from "@/components/Sections";
+import { Reveal } from "@/components/ui";
 import { site } from "@/config/site";
 export const metadata = { title: "Status & safeguards" };
 
@@ -12,20 +11,14 @@ export default function Transparency() {
     <>
       <PageHero title="Where we" script="stand" lead="We would rather admit we are early than overstate what we are. Last updated: 31/10/2026" />
       <Section>
-        <div className="focus fill">
-          {site.status
-            .map((s, i) => ({ ...s, i }))
-            .map((s) => {
-              const others = site.status.slice(0, s.i).filter((x) => x.k !== "Registration").length;
-              const tone = s.k === "Registration" ? "beet" : statusTones[others % statusTones.length];
-              return (
-                <GlowCard key={s.k} dir={s.i % 2 ? 48 : -48} delay={(s.i % 2) * 0.1} className={`tile ${tone}`}>
-                  <h3 className="display">{s.k}</h3>
-                  <p>{s.v}</p>
-                </GlowCard>
-              );
-            })}
-        </div>
+        <TileGrid
+          fill
+          items={site.status.map((s, i) => {
+            const others = site.status.slice(0, i).filter((x) => x.k !== "Registration").length;
+            const tone = s.k === "Registration" ? "beet" : statusTones[others % statusTones.length];
+            return { title: s.k, text: s.v, tone };
+          })}
+        />
       </Section>
       <Section tone="dark">
         <Reveal><h2 className="display">What we <span className="script">won’t do</span></h2></Reveal>
@@ -33,19 +26,7 @@ export default function Transparency() {
       </Section>
       <Section>
         <Reveal><h2 className="display">How we <span className="script">stay accountable</span></h2></Reveal>
-        <div className="focus">
-          {site.safeguards.map((s, i) => (
-            <GlowCard
-              key={s.title}
-              dir={i % 2 ? 48 : -48}
-              delay={(i % 2) * 0.1}
-              className={`tile ${tones[i % tones.length]}`}
-            >
-              <h3 className="display">{s.title}</h3>
-              <p>{s.text}</p>
-            </GlowCard>
-          ))}
-        </div>
+        <TileGrid items={site.safeguards.map((s, i) => ({ title: s.title, text: s.text, tone: tones[i % tones.length] }))} />
       </Section>
     </>
   );

@@ -1,6 +1,6 @@
 import { PageHero, Section } from "@/components/Sections";
 import { SocialLinks } from "@/components/Chrome";
-import { Reveal } from "@/components/motion";
+import { Reveal } from "@/components/ui";
 import { site } from "@/config/site";
 export const metadata = { title: "Contact" };
 

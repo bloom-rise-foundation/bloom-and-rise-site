@@ -1,9 +1,11 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { isLite } from "@/lib/perf";
 
-const SceneImpl = dynamic(() => import("./Scene").then((m) => m.Scene), { ssr: false });
+const PetalImpl = dynamic(() => import("./PetalField"), { ssr: false });
 const CursorImpl = dynamic(() => import("./Cursor").then((m) => m.Cursor), { ssr: false });
+const PointerImpl = dynamic(() => import("./Pointer"), { ssr: false });
 
 /** Runs `cb` once the window has loaded and the browser is idle, so it never competes with the first load. */
 function afterLoadIdle(cb: () => void): () => void {
@@ -13,7 +15,7 @@ function afterLoadIdle(cb: () => void): () => void {
   let timer = 0;
   const go = () => {
     if (cancelled) return;
-    if (w.requestIdleCallback) idle = w.requestIdleCallback(() => !cancelled && cb(), { timeout: 1500 });
+    if (w.requestIdleCallback) idle = w.requestIdleCallback(() => !cancelled && cb(), { timeout: 2000 });
     else timer = window.setTimeout(() => !cancelled && cb(), 200);
   };
   if (document.readyState === "complete") go();
@@ -26,19 +28,31 @@ function afterLoadIdle(cb: () => void): () => void {
   };
 }
 
-/* The background scene is not needed for first paint (the loading splash covers it): its chunk, photo and boat are fetched after the page has loaded. */
-export function Scene() {
-  const [on, setOn] = useState(false);
-  useEffect(() => afterLoadIdle(() => setOn(true)), []);
-  return on ? <SceneImpl /> : null;
-}
+/** Optional extras: none of them is needed for first paint, and each only exists where it is useful.
+ *  - petal canvas: capable, motion-friendly devices only
+ *  - custom cursor + pointer effects: mouse users only */
+export function Extras() {
+  const [petals, setPetals] = useState(false);
+  const [mouse, setMouse] = useState(false);
 
-/* The custom cursor only exists for mouse users: touch devices never download it. */
-export function Cursor() {
-  const [on, setOn] = useState(false);
   useEffect(() => {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    return afterLoadIdle(() => setOn(true));
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    return afterLoadIdle(() => {
+      if (!reduce && !isLite()) setPetals(true);
+      if (fine) setMouse(true);
+    });
   }, []);
-  return on ? <CursorImpl /> : null;
+
+  return (
+    <>
+      {petals && <PetalImpl />}
+      {mouse && (
+        <>
+          <PointerImpl />
+          <CursorImpl />
+        </>
+      )}
+    </>
+  );
 }

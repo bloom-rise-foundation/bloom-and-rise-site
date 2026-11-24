@@ -1,11 +1,8 @@
-"use client";
 import Image from "next/image";
-import { m, useScroll, useTransform } from "framer-motion";
-import { useSplashDone } from "@/lib/splash";
-import { useRef, type ReactNode } from "react";
-import { Reveal, SplitWords, Cycle, useMouseParallax } from "./motion";
-import { Flower } from "./Decor";
-import { TextGenerate, Magnetic, GlowCard, Tilt } from "./Fx";
+import Link from "next/link";
+import type { ReactNode } from "react";
+import { Reveal, SplitWords, vars } from "./ui";
+import { Bloom, Flower } from "./Decor";
 import { site } from "@/config/site";
 import { team, type Member } from "@/data/team";
 
@@ -17,78 +14,125 @@ export function Section({ children, tone = "", id }: { children: ReactNode; tone
   );
 }
 
-/** Heavy serif title + script tail, like the reel. */
+/** Heavy serif title + italic tail. */
 export function PageHero({ title, script, lead }: { title: string; script: string; lead?: string }) {
   return (
     <section className="page-hero">
       <div className="wrap">
         <h1 className="display">
-          <SplitWords text={title} /> <span className="script">{script}</span>
+          <SplitWords text={title.trim()} /> <span className="script">{script}</span>
         </h1>
-        {lead && <Reveal delay={0.3}><p className="lead">{lead}</p></Reveal>}
+        {lead && <p className="lead fade-up" style={vars({ "--d": ".35s" })}>{lead}</p>}
       </div>
     </section>
   );
 }
 
 export function Hero() {
-  const { x, y } = useMouseParallax(14);
-  const ready = useSplashDone();
   return (
     <section className="hero">
-      <m.div className="blob b2" style={{ x, y }} />
+      <div className="blob" aria-hidden />
+      <div className="hero-art" aria-hidden><Bloom /></div>
       <div className="wrap hero-inner">
-        <p className="chip">{site.statusShort}</p>
-        <m.h1 className="display" initial={{ opacity: 0, y: 30 }} animate={ready ? { opacity: 1, y: 0 } : undefined} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
-          <span className="name">
-            <span className="ln">Some conversations are left unspoken.</span>
-            <span className="ln"> We coax them into the light.</span>
+        <p className="chip fade-up" style={vars({ "--d": ".1s" })}>{site.statusShort}</p>
+        <h1 className="display">
+          <span className="ln"><span className="mask"><span className="w">Some conversations are left unspoken.</span></span></span>
+          <span className="ln"><span className="mask"><span className="w">We coax them into the light.</span></span></span>
+        </h1>
+        <p className="lead fade-up" style={vars({ "--d": ".6s" })}>Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children.</p>
+        <p className="through fade-up" style={vars({ "--d": ".75s" })}>
+          through{" "}
+          <span className="cycle" style={vars({ "--n": site.phrases.length })} aria-label={site.phrases.join(", ")}>
+            {site.phrases.map((w, i) => (
+              <span key={w} className="script" aria-hidden style={vars({ "--i": i })}>{w}</span>
+            ))}
           </span>
-          {/* <span className="script">{site.suffix}</span> */}
-        </m.h1>
-        <p className="lead"><TextGenerate text="Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children." /></p>
-        <p className="through">through <Cycle words={site.phrases} /></p>
-        <div className="row">
-          <Magnetic><a className="btn" href="/get-involved">Join us</a></Magnetic>
-          <Magnetic><a className="btn ghost" href="/about">Our blueprint</a></Magnetic>
+        </p>
+        <div className="row fade-up" style={vars({ "--d": ".9s" })}>
+          <div data-fx="mag"><Link className="btn" href="/get-involved">Join us</Link></div>
+          <div data-fx="mag"><Link className="btn ghost" href="/about">Our blueprint</Link></div>
         </div>
       </div>
     </section>
   );
 }
 
-export function FocusGrid() {
+type TileData = { title: string; text: string; tone: string };
+
+export function Tile({ title, text, tone, i = 0, reveal = true, href }: TileData & { i?: number; reveal?: boolean; href?: string }) {
+  const props = {
+    className: `tile ${tone}${href ? " tile-link" : ""}`,
+    "data-fx": "glow",
+    ...(reveal ? { "data-reveal": i % 2 ? "right" : "left" } : {}),
+    style: reveal && i % 2 ? vars({ "--d": "0.1s" }) : undefined,
+  };
+  const inner = (
+    <>
+      <h3 className="display">{title}</h3>
+      <p>{text}</p>
+    </>
+  );
+  return href ? <Link href={href} {...props}>{inner}</Link> : <div {...props}>{inner}</div>;
+}
+
+export function TileGrid({ items, fill = false }: { items: TileData[]; fill?: boolean }) {
   return (
-    <div className="focus">
-      {site.focus.map((f, i) => (
-        <GlowCard key={f.title} dir={i % 2 ? 48 : -48} delay={(i % 2) * 0.1} className={`tile ${f.tone}`}>
-          <h3 className="display">{f.title}</h3>
-          <p>{f.text}</p>
-        </GlowCard>
-      ))}
+    <div className={`focus${fill ? " fill" : ""}`}>
+      {items.map((t, i) => <Tile key={t.title} {...t} i={i} />)}
     </div>
   );
 }
 
-/** Vertical timeline; a flower rides the rail as you scroll. */
-export function Steps({ items }: { items: { title: string; script: string; text: string }[] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 65%", "end 55%"] });
-  const top = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+export function FocusGrid() {
+  return <TileGrid items={site.focus} />;
+}
+
+/** Home: on desktop the page pins and the four focus tiles glide sideways as you scroll; elsewhere they stack. */
+export function FocusPin() {
   return (
-    <div className="steps" ref={ref}>
-      <div className="rail">
-        <m.i className="rail-fill" style={{ scaleY: scrollYProgress }} />
-        <m.span className="rail-flower" style={{ top }}><Flower size={44} /></m.span>
+    <section className="pin">
+      <div className="pin-stick">
+        <div className="wrap"><h2 className="display">What we <span className="script">hold dear</span></h2></div>
+        <div className="pin-track">
+          {site.focus.map((f, i) => <Tile key={f.title} {...f} i={i} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Looping rows of cards (CSS only). The second row runs the other way. */
+export function Marquee({ items, reverse = false }: { items: { title: string; text: string }[]; reverse?: boolean }) {
+  const base = [...items, ...items];
+  return (
+    <div className={`marq${reverse ? " rev" : ""}`}>
+      <ul className="marq-track">
+        {base.map((v, i) => (
+          <li key={i} className={`marq-card m${(i + (reverse ? 2 : 0)) % 4}`} aria-hidden={i >= items.length || undefined}>
+            <h3 className="display">{v.title}</h3>
+            <p>{v.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** Vertical timeline; the rail fills and a flower rides it as you scroll. */
+export function Steps({ items }: { items: { title: string; script: string; text: string }[] }) {
+  return (
+    <div className="steps">
+      <div className="rail" aria-hidden>
+        <i className="rail-fill" />
+        <span className="rail-flower"><Flower size={44} /></span>
       </div>
       <ol>
         {items.map((s, i) => (
-          <li key={s.title + i}>
-            <Reveal from="right">
-              <small>Step {i + 1}</small>
-              <h3 className="display">{s.title} <span className="script">{s.script}</span></h3>
-              <p>{s.text}</p>
-            </Reveal>
+          <li key={s.title + i} data-reveal="right">
+            <span className="dot" aria-hidden><Flower size={28} /></span>
+            <small>Step {i + 1}</small>
+            <h3 className="display">{s.title} <span className="script">{s.script}</span></h3>
+            {s.text && <p>{s.text}</p>}
           </li>
         ))}
       </ol>
@@ -96,16 +140,12 @@ export function Steps({ items }: { items: { title: string; script: string; text:
   );
 }
 
-/** Beet-red "turn the light on" moment, scroll-linked. */
+/** Beet-red "turn the light on" room: the lamp and cone fade in on scroll, a soft light follows the cursor. */
 export function Spotlight() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
   return (
-    <section ref={ref} className="spot">
-      <m.div className="cone" style={{ opacity, scaleX }} />
-      <m.div className="lamp" style={{ opacity }}><Flower size={56} /></m.div>
+    <section className="spot" data-fx="light">
+      <div className="cone" aria-hidden />
+      <div className="lamp" aria-hidden><Flower size={56} /></div>
       <div className="wrap spot-in">
         <Reveal>
           <h2 className="display">Some conversations are easy to ignore.</h2>
@@ -125,17 +165,35 @@ function MemberPhoto({ m, i, sizes }: { m: Member; i: number; sizes: string }) {
   );
 }
 
+/** Shows the opening of a long bio and tucks the rest behind a smooth "Read more". */
+function Bio({ text }: { text: string }) {
+  const at = text.slice(150).search(/[.!?]\s/);
+  if (at === -1 || text.length - (150 + at) < 120) return <p className="bio">{text}</p>;
+  const cut = 150 + at + 2;
+  return (
+    <>
+      <p className="bio">{text.slice(0, cut)}</p>
+      <details className="bio-more">
+        <summary>Read more</summary>
+        <p className="bio">{text.slice(cut).trimStart()}</p>
+      </details>
+    </>
+  );
+}
+
 /** Vertical cards in a grid (used by the Heads page). */
 export function TeamGrid({ members = team }: { members?: Member[] }) {
   return (
     <div className="team">
       {members.map((m, i) => (
-        <Reveal key={m.name + i} from="tilt" delay={(i % 3) * 0.09} className="member"><Tilt>
-          <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 320px" />
-          <h3 className="display">{m.name}</h3>
-          <p className="role script">{m.role}</p>
-          <p className="bio">{m.bio}</p>
-        </Tilt></Reveal>
+        <Reveal key={m.name + i} from="tilt" delay={(i % 3) * 0.09} className="member">
+          <div data-fx="tilt">
+            <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 320px" />
+            <h3 className="display">{m.name}</h3>
+            <p className="role script">{m.role}</p>
+            <Bio text={m.bio} />
+          </div>
+        </Reveal>
       ))}
     </div>
   );
@@ -146,14 +204,14 @@ export function TeamRows({ members = team }: { members?: Member[] }) {
   return (
     <div className="team-rows">
       {members.map((m, i) => (
-        <Reveal key={m.name + i} from={i % 2 ? "right" : "left"} className="member-row">
+        <div key={m.name + i} data-reveal={i % 2 ? "right" : "left"} className="member-row">
           <MemberPhoto m={m} i={i} sizes="(max-width:700px) 80vw, 340px" />
           <div className="member-text">
             <h3 className="display">{m.name}</h3>
             <p className="role script">{m.role}</p>
-            <p className="bio">{m.bio}</p>
+            <Bio text={m.bio} />
           </div>
-        </Reveal>
+        </div>
       ))}
     </div>
   );

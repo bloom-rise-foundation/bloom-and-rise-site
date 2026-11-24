@@ -1,18 +1,19 @@
-// next.js layout file
-import Splash from "@/components/Splash";
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Sacramento, Montserrat } from "next/font/google";
-import "./globals.css";
-import { Providers } from "@/components/motion";
-import { Petals } from "@/components/Decor";
-import { Scene, Cursor } from "@/components/Lazy";
-import { Header, Footer, Closing } from "@/components/Chrome";
+import { Playfair_Display, Montserrat } from "next/font/google";
+import "@/styles/base.css";
+import "@/styles/chrome.css";
+import "@/styles/sections.css";
+import Header from "@/components/Header";
+import Closing from "@/components/Closing";
+import RevealRoot from "@/components/RevealRoot";
+import { Extras } from "@/components/Lazy";
+import { Footer } from "@/components/Chrome";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const display = Fraunces({ subsets: ["latin"], variable: "--font-display", axes: ["SOFT", "WONK"], display: "swap" });
-const script = Sacramento({ subsets: ["latin"], weight: "400", variable: "--font-script", display: "swap" });
+// Playfair Display is the brand face (its italic replaces the old handwritten accents); Montserrat sets body copy.
+const display = Playfair_Display({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-display", display: "swap" });
 const body = Montserrat({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 
 export const metadata: Metadata = {
@@ -41,21 +42,24 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#FFF8D5" };
 
+// Runs before first paint: marks the page as scripted (so scroll reveals can start hidden), skips the one-off intro
+// on repeat visits in a session, and un-hides everything if hydration never arrives.
+const boot = `try{var d=document.documentElement;d.classList.add("js");sessionStorage.getItem("br")?d.classList.add("seen"):sessionStorage.setItem("br","1");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000)}catch(e){}`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${script.variable} ${body.variable} splash-on`}>
+    <html lang="en" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: boot }} />
+      </head>
       <body>
-        <noscript><style>{`html.splash-on,html.splash-on body{overflow:auto}html.splash-on .tg-word,html.splash-on .petal,html.splash-on .marq-track{animation-play-state:running!important}`}</style></noscript>
-        <Splash />
-        <Providers>
-          <Cursor />
-          <Scene />
-          <Petals />
-          <Header />
-          <main>{children}</main>
-          <Closing />
-          <Footer />
-        </Providers>
+        <div className="bg" aria-hidden><i /><i /><i /></div>
+        <Header />
+        <main>{children}</main>
+        <Closing />
+        <Footer year={new Date().getFullYear()} />
+        <RevealRoot />
+        <Extras />
         <Analytics />
         <SpeedInsights />
       </body>
