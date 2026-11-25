@@ -1,13 +1,16 @@
 /* ---------- header: frosted pill that tightens as you scroll (scroll timeline, no JS) ---------- */
 .header{position:fixed;top:0;left:0;right:0;z-index:50;pointer-events:none;padding-top:env(safe-area-inset-top,0px)}
-.header .bar{pointer-events:auto;position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:clamp(1.2rem,3vw,2.6rem);height:66px;width:min(var(--wrap),100% - 2 * max(1rem,var(--inset-x)));margin:.8rem auto 0;padding:0 1.6rem;border-radius:999px;
+.header .bar{pointer-events:auto;position:relative;display:flex;align-items:center;justify-content:space-between;gap:clamp(1.2rem,3vw,2.6rem);height:66px;width:min(var(--wrap),100% - 2 * max(1rem,var(--inset-x)));margin:.8rem auto 0;padding:0 1.6rem}
+.header .bar::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:999px;pointer-events:none;
   background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(248,227,232,.3)),rgba(248,227,232,.14);
   -webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6);
   border:1px solid rgba(255,255,255,.65);
   box-shadow:0 8px 32px rgba(5,33,59,.12),inset 0 1px 0 rgba(255,255,255,.75)}
 @supports (animation-timeline:scroll()){
-  .header .bar{animation:tighten linear both;animation-timeline:scroll(root);animation-range:0 160px}
-  @keyframes tighten{to{width:min(1000px,100% - 1.25rem);height:58px;margin-top:.6rem;box-shadow:0 12px 34px rgba(5,33,59,.18),inset 0 1px 0 rgba(255,255,255,.8)}}
+  @media(min-width:1020px){
+    .header .bar::before{animation:tighten linear both;animation-timeline:scroll(root);animation-range:0 160px}
+    @keyframes tighten{to{transform:translate3d(0,-3px,0) scale(.893,.88)}}
+  }
 }
 .logo{display:flex;align-items:baseline;gap:.5rem;text-decoration:none;color:var(--beet)}
 .logo .display{font-size:1.5rem} .logo .script{font-size:1.5rem}
@@ -44,7 +47,7 @@
 .menu a.sub{font-size:1.4rem;padding-left:1.2rem;color:var(--leaf)}
 .menu a.on{color:var(--leaf)}
 html:has(.menu.open){overflow:hidden}
-.header:has(.menu.open) .bar{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.header:has(.menu.open) .bar::before{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
 .header:has(.menu.open) .logo,.header:has(.menu.open) .burger i{color:var(--lemon);background-color:var(--lemon)}
 .header:has(.menu.open) .logo{background:none}
 @media(max-width:820px),(hover:none) and (pointer:coarse){.nav{display:none}.burger{display:block}.header .bar,.header.scrolled .bar{padding:0 .5rem 0 1.2rem}}
@@ -95,5 +98,5 @@ html.cursor-on :is(input:not([type=checkbox]):not([type=radio]):not([type=submit
 .menu.open a:active{transform:scale(.97);transition-duration:.1s}
 @media (pointer:coarse){
   /* the glass bar re-blurs behind a scrolling page every frame; a lighter blur is far cheaper on phones */
-  .header .bar{-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
+  .header .bar::before{-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
 }
