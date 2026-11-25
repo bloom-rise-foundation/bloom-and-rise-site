@@ -1,7 +1,8 @@
 /* THEME TOKENS: change colours, fonts and radii here. */
 :root{
-  /* palette: Sea Pink, Beet Red, Crystal Blue, Lemon Icing, Rum Raisin (+ a small leaf accent) */
-  --pink:#E098AC; --beet:#68002C; --blue:#A6C9DD; --lemon:#FFF8D5; --rum:#441910; --leaf:#C9D27A;
+  /* palette: Old rose (--pink), Deep wine (--beet), Sky (--blue), Marshmallow (--lemon), Midnight (--rum), Apricot dawn (--leaf), Denim.
+     Token names are kept from the first palette so every component picks the new colours up. */
+  --pink:#C65C6A; --beet:#531B24; --blue:#C2DAE8; --lemon:#F8E3E8; --rum:#05213B; --leaf:#F2B38F; --denim:#3A557D;
   --bg:var(--lemon); --ink:var(--rum);
   --display:var(--font-display),"Playfair Display",Georgia,serif;
   --body:var(--font-body),system-ui,sans-serif;
@@ -29,14 +30,14 @@ h1 .script,h2 .script{margin-inline-start:.18em}
 .note{margin-top:1.5rem;max-width:60ch}
 .row{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
 .btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:var(--beet);color:var(--lemon);font-weight:700;text-decoration:none;border:2px solid var(--beet);transition:background .3s,color .3s,box-shadow .3s}
-.btn:hover{box-shadow:0 10px 26px rgba(104,0,44,.28)}
+.btn:hover{box-shadow:0 10px 26px rgba(83,27,36,.28)}
 .btn.ghost{background:transparent;color:var(--beet);box-shadow:none}
 .btn.ghost:hover{background:var(--beet);color:var(--lemon)}
 .chip{display:inline-block;padding:.3rem .9rem;border-radius:999px;background:color-mix(in srgb,var(--blue) 55%,transparent);font-size:.85rem;font-weight:600;margin-bottom:1.4rem}
 
 /* ---------- always-on background: a slow CSS mesh (transform-only) ---------- */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:strict}
-.bg i{position:absolute;width:72vmax;height:72vmax;border-radius:50%;opacity:.55;will-change:transform}
+.bg i{position:absolute;width:72vmax;height:72vmax;border-radius:50%;opacity:.4;will-change:transform}
 .bg i:nth-child(1){left:-28vmax;top:-24vmax;background:radial-gradient(closest-side,var(--pink),transparent);animation:drift1 40s ease-in-out infinite alternate}
 .bg i:nth-child(2){right:-34vmax;top:6vh;background:radial-gradient(closest-side,var(--blue),transparent);animation:drift2 52s ease-in-out infinite alternate}
 .bg i:nth-child(3){left:6vw;bottom:-40vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--pink) 55%,var(--lemon)),transparent);animation:drift1 60s ease-in-out infinite alternate-reverse}

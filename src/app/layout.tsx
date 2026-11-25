@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#FFF8D5" };
+export const viewport: Viewport = { themeColor: "#F8E3E8" };
 
 // Runs before first paint: marks the page as scripted (so scroll reveals can start hidden) and un-hides everything if hydration never arrives.
 const boot = `try{var d=document.documentElement;d.classList.add("js");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000)}catch(e){}`;

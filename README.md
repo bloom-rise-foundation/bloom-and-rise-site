@@ -4,7 +4,7 @@
 - Copy, nav, footer, socials, steps, roles, status: `src/config/site.ts`
 - Closing call-to-action per page: `src/config/closing.ts`
 - Team members: `src/data/team.ts` (photos in `public/team/`)
-- Colours, fonts, radii: tokens at the top of `src/styles/base.css` (palette: Sea Pink, Beet Red, Crystal Blue, Lemon Icing, Rum Raisin)
+- Colours, fonts, radii: tokens at the top of `src/styles/base.css` (palette: Midnight, Denim, Deep wine, Old rose, Apricot dawn, Marshmallow, Sky; the token names `--pink/--beet/--blue/--lemon/--rum/--leaf` map onto them)
 - Fonts: Playfair Display (brand) + Montserrat (body), loaded in `src/app/layout.tsx`
 - Styles: `src/styles/{base,chrome,sections,credential}.css`
 - Add a page: new folder in `src/app/`, use `PageHero` + `Section`, add to `nav`/`footer`.

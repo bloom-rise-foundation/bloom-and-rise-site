@@ -62,9 +62,9 @@ export function Bloom() {
     <div className="bloom" aria-hidden>
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
-          <radialGradient id="gBlue" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#7FA9C4" /><stop offset=".6" stopColor="#A6C9DD" /><stop offset="1" stopColor="#D5E6F0" /></radialGradient>
-          <radialGradient id="gPink" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#C2587B" /><stop offset=".55" stopColor="#E098AC" /><stop offset="1" stopColor="#F5C9D5" /></radialGradient>
-          <radialGradient id="gLight" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#E7A9BA" /><stop offset=".6" stopColor="#F4C7D3" /><stop offset="1" stopColor="#FFF0DC" /></radialGradient>
+          <radialGradient id="gBlue" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#3A557D" /><stop offset=".6" stopColor="#6F93B5" /><stop offset="1" stopColor="#B9D0E3" /></radialGradient>
+          <radialGradient id="gPink" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#9E3F4E" /><stop offset=".55" stopColor="#C65C6A" /><stop offset="1" stopColor="#E9A5AD" /></radialGradient>
+          <radialGradient id="gLight" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#E8956A" /><stop offset=".6" stopColor="#F2B38F" /><stop offset="1" stopColor="#FBE3D0" /></radialGradient>
         </defs>
       </svg>
       <div className="warm" />
