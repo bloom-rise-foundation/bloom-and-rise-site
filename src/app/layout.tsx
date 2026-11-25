@@ -44,8 +44,9 @@ export const metadata: Metadata = {
 // viewport-fit=cover lets the page run under the notch (the header/footer pad back with env()); the keyboard resizes the layout instead of covering fields.
 export const viewport: Viewport = { themeColor: "#FCF1DA", colorScheme: "light", viewportFit: "cover", interactiveWidget: "resizes-content" };
 
-// Runs before first paint: marks the page as scripted (so scroll reveals can start hidden) and un-hides everything if hydration never arrives.
-const boot = `try{var d=document.documentElement;d.classList.add("js");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000)}catch(e){}`;
+// Runs before first paint: marks the page as scripted (so scroll reveals can start hidden), un-hides everything if hydration never arrives,
+// and starts every fresh load at the top (no browser scroll restoration after a refresh or a reopened tab; #anchor links are left alone).
+const boot = `try{var d=document.documentElement;d.classList.add("js");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000);if("scrollRestoration" in history)history.scrollRestoration="manual";if(!location.hash){scrollTo({top:0,left:0,behavior:"instant"});addEventListener("load",function(){if(performance.now()<1500&&scrollY>0)scrollTo({top:0,left:0,behavior:"instant"})})}}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
