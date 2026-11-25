@@ -8,6 +8,7 @@ import Closing from "@/components/Closing";
 import RevealRoot from "@/components/RevealRoot";
 import { Extras } from "@/components/Lazy";
 import { Footer } from "@/components/Chrome";
+import { FlowerDefs } from "@/components/Decor";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -42,9 +43,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#FFF8D5" };
 
-// Runs before first paint: marks the page as scripted (so scroll reveals can start hidden), skips the one-off intro
-// on repeat visits in a session, and un-hides everything if hydration never arrives.
-const boot = `try{var d=document.documentElement;d.classList.add("js");sessionStorage.getItem("br")?d.classList.add("seen"):sessionStorage.setItem("br","1");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000)}catch(e){}`;
+// Runs before first paint: marks the page as scripted (so scroll reveals can start hidden) and un-hides everything if hydration never arrives.
+const boot = `try{var d=document.documentElement;d.classList.add("js");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000)}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -53,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: boot }} />
       </head>
       <body>
+        <FlowerDefs />
         <div className="bg" aria-hidden><i /><i /><i /></div>
         <Header />
         <main>{children}</main>

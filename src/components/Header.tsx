@@ -1,11 +1,38 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/config/site";
 
 type NavItem = { label: string; href: string; children?: { label: string; href: string }[] };
 const nav = site.nav as NavItem[];
+
+/** Dropdown: opens on hover or keyboard focus; once a link is clicked it stays shut until the pointer leaves. */
+function NavGroup({ item, path }: { item: NavItem & { children: { label: string; href: string }[] }; path: string | null }) {
+  const [shut, setShut] = useState(false);
+  const prev = useRef(path);
+  useEffect(() => { if (prev.current !== path) { prev.current = path; setShut(true); } }, [path]);
+  const active = path === item.href || item.children.some((c) => c.href === path);
+  return (
+    <div
+      className={`nav-group${shut ? " shut" : ""}`}
+      onMouseLeave={() => setShut(false)}
+      onClickCapture={(e) => {
+        if ((e.target as HTMLElement).closest("a")) {
+          setShut(true);
+          (document.activeElement as HTMLElement | null)?.blur();
+        }
+      }}
+    >
+      <Link href={item.href} className={active ? "on" : ""} aria-haspopup="true">{item.label}</Link>
+      <ul className="nav-menu">
+        {item.children.map((c) => (
+          <li key={c.href}><Link href={c.href} className={`display${path === c.href ? " on" : ""}`}>{c.label}</Link></li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default function Header() {
   const path = usePathname();
@@ -32,14 +59,7 @@ export default function Header() {
         <nav className="nav" aria-label="Main">
           {nav.map((n) =>
             n.children ? (
-              <div key={n.href} className="nav-group">
-                <Link href={n.href} className={path === n.href || n.children.some((c) => c.href === path) ? "on" : ""} aria-haspopup="true">{n.label}</Link>
-                <ul className="nav-menu">
-                  {n.children.map((c) => (
-                    <li key={c.href}><Link href={c.href} className={`display${path === c.href ? " on" : ""}`}>{c.label}</Link></li>
-                  ))}
-                </ul>
-              </div>
+              <NavGroup key={n.href} item={{ ...n, children: n.children }} path={path} />
             ) : (
               <Link key={n.href} href={n.href} className={path === n.href ? "on" : ""}>{n.label}</Link>
             ),

@@ -9,7 +9,7 @@ const statusTones = ["pink", "blue", "rum", "pink"]; // for every card except Re
 export default function Transparency() {
   return (
     <>
-      <PageHero title="Where we" script="stand" lead="We would rather admit we are early than overstate what we are. Last updated: 31/10/2026" />
+      <PageHero tone="rum" title="Where we" script="stand" lead="We would rather admit we are early than overstate what we are. Last updated: 31/10/2026" />
       <Section>
         <TileGrid
           fill

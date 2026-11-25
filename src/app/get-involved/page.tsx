@@ -7,7 +7,7 @@ const mail = (s: string) => `mailto:${site.email}?subject=${encodeURIComponent(s
 export default function GetInvolved() {
   return (
     <>
-      <PageHero title="Rise with " script="us" lead="You need not be an expert. Inquisitiveness and care are enough." />
+      <PageHero tone="pink" title="Rise with " script="us" lead="You need not be an expert. Inquisitiveness and care are enough." />
       <Section><Steps items={site.joinSteps} /></Section>
       <Section tone="pink">
         <Reveal>

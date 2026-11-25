@@ -7,7 +7,7 @@ export const metadata = { title: "Contact" };
 export default function Contact() {
   return (
     <>
-      <PageHero title="Drop us a " script="line" lead="Questions, ideas, offers or a wish to join: we would love to hear from you." />
+      <PageHero tone="blue" title="Drop us a " script="line" lead="Questions, ideas, offers or a wish to join: we would love to hear from you." />
       <Section>
         <Reveal>
           <a className="btn" href={`mailto:${site.email}`}>{site.email}</a>

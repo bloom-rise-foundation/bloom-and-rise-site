@@ -5,7 +5,7 @@ export const metadata = { title: "Programmes" };
 export default function Programmes() {
   return (
     <>
-      <PageHero title="What we" script="do" lead="Four areas of focus, and a patient start with one or two modest pilots." />
+      <PageHero tone="blue" title="What we" script="do" lead="Four areas of focus, and a patient start with one or two modest pilots." />
       <Section><FocusGrid /></Section>
       <Section tone="blue">
         <Reveal>

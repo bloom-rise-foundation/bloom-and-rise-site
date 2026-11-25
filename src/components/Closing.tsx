@@ -9,7 +9,7 @@ export default function Closing() {
   const o = closingByPage[pathname.replace(/(.)\/$/, "$1")] ?? {};
   const pick = (k: keyof ClosingContent) => o[k]?.trim() || closingDefaults[k];
   return (
-    <section className="closing">
+    <section className="closing cv">
       <div className="wrap">
         <h2 className="display">{pick("title")} <span className="script">{pick("script")}</span></h2>
         <div className="row">

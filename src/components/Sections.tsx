@@ -2,22 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Reveal, SplitWords, vars } from "./ui";
-import { Bloom, Flower } from "./Decor";
+import { Bloom, Flower, PetalRing, PosterFlower } from "./Decor";
 import { site } from "@/config/site";
 import { team, type Member } from "@/data/team";
 
-export function Section({ children, tone = "", id }: { children: ReactNode; tone?: "" | "pink" | "blue" | "dark"; id?: string }) {
+type Tone = "" | "pink" | "blue" | "beet" | "rum" | "dark";
+
+export function Section({ children, tone = "", id, cv = false }: { children: ReactNode; tone?: Tone; id?: string; cv?: boolean }) {
   return (
-    <section id={id} className={`section ${tone}`}>
+    <section id={id} className={`section ${tone}${tone ? " edge" : ""}${cv && !tone ? " cv" : ""}`}>
       <div className="wrap">{children}</div>
     </section>
   );
 }
 
-/** Heavy serif title + italic tail. */
-export function PageHero({ title, script, lead }: { title: string; script: string; lead?: string }) {
+/** Colour-blocked page opener: giant Playfair title, an oversized petal ring that turns as you scroll, a scalloped edge. */
+export function PageHero({ title, script, lead, tone = "" }: { title: string; script: string; lead?: string; tone?: Tone }) {
   return (
-    <section className="page-hero">
+    <section className={`page-hero ${tone}`}>
+      <div className="ph-art" aria-hidden><PetalRing /></div>
       <div className="wrap">
         <h1 className="display">
           <SplitWords text={title.trim()} /><span className="script">{script}</span>
@@ -28,11 +31,14 @@ export function PageHero({ title, script, lead }: { title: string; script: strin
   );
 }
 
+/** Home opener, replayed on every visit. It starts as a dark room; a bud glows, blooms, and the light floods the page. */
 export function Hero() {
   return (
-    <section className="hero">
-      <div className="blob" aria-hidden />
-      <div className="hero-art" aria-hidden><Bloom /></div>
+    <section className="hero" data-fx="hero">
+      <div className="hero-art" aria-hidden>
+        <div className="dawn" />
+        <Bloom />
+      </div>
       <div className="wrap hero-inner">
         <p className="chip fade-up" style={vars({ "--d": ".1s" })}>{site.statusShort}</p>
         <h1 className="display">
@@ -53,6 +59,28 @@ export function Hero() {
           <div data-fx="mag"><Link className="btn ghost" href="/about">Our blueprint</Link></div>
         </div>
       </div>
+    </section>
+  );
+}
+
+/** Two oversized rows of words drifting in opposite directions. */
+export function Band({ items }: { items: string[] }) {
+  const row = (rev: boolean) => (
+    <div className={`band-row${rev ? " rev" : ""}`}>
+      <ul className="band-track">
+        {[...items, ...items].map((t, i) => (
+          <li key={i} className={(i + (rev ? 1 : 0)) % 2 ? "o" : ""} aria-hidden={i >= items.length || rev || undefined}>
+            {t}
+            <Flower size={52} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+  return (
+    <section className="band" aria-label={items.join(", ")}>
+      {row(false)}
+      {row(true)}
     </section>
   );
 }
@@ -83,69 +111,105 @@ export function TileGrid({ items, fill = false }: { items: TileData[]; fill?: bo
   );
 }
 
-export function FocusGrid() {
-  return <TileGrid items={site.focus} />;
+const PETALS = [5, 6, 8, 12];
+
+function Poster({ f, i, reveal }: { f: TileData; i: number; reveal: boolean }) {
+  return (
+    <article className={`poster ${f.tone}`} data-fx="glow" {...(reveal ? { "data-reveal": "up" } : {})}>
+      <span className="num" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
+      <PosterFlower count={PETALS[i % PETALS.length]} />
+      <div className="poster-text">
+        <h3 className="display">{f.title}</h3>
+        <p>{f.text}</p>
+      </div>
+    </article>
+  );
 }
 
-/** Home: on desktop the page pins and the four focus tiles glide sideways as you scroll; elsewhere they stack. */
+/** The four focus areas as tall posters. On desktop the page pins and they glide sideways as you scroll. */
 export function FocusPin() {
   return (
     <section className="pin">
       <div className="pin-stick">
         <div className="wrap"><h2 className="display">What we <span className="script">hold dear</span></h2></div>
         <div className="pin-track">
-          {site.focus.map((f, i) => <Tile key={f.title} {...f} i={i} />)}
+          {site.focus.map((f, i) => <Poster key={f.title} f={f} i={i} reveal />)}
         </div>
+        <div className="pin-prog" aria-hidden><i /></div>
       </div>
     </section>
   );
 }
 
-/** Looping rows of cards (CSS only). The second row runs the other way. */
-export function Marquee({ items, reverse = false }: { items: { title: string; text: string }[]; reverse?: boolean }) {
-  const base = [...items, ...items];
+/** Programmes page: the same posters in a grid. */
+export function FocusGrid() {
   return (
-    <div className={`marq${reverse ? " rev" : ""}`}>
-      <ul className="marq-track">
-        {base.map((v, i) => (
-          <li key={i} className={`marq-card m${(i + (reverse ? 2 : 0)) % 4}`} aria-hidden={i >= items.length || undefined}>
-            <h3 className="display">{v.title}</h3>
-            <p>{v.text}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="poster-grid">
+      {site.focus.map((f, i) => <Poster key={f.title} f={f} i={i} reveal />)}
     </div>
   );
 }
 
-/** Vertical timeline; the rail fills and a flower rides it as you scroll. */
+const STACK_TONES = ["pink", "blue", "beet", "rum"];
+
+/** Big cards that stack on top of each other as you scroll (position: sticky, no JavaScript). */
+export function Stack({ items }: { items: { title: string; text: string }[] }) {
+  return (
+    <div className="stack">
+      {items.map((v, i) => (
+        <article key={v.title} className={`stack-card ${STACK_TONES[i % 4]}`} style={vars({ "--i": i, "--r": `${[-1.4, 1.1, -0.8, 1.5][i % 4]}deg` })}>
+          <span className="num" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
+          <h3 className="display">{v.title}</h3>
+          <p>{v.text}</p>
+          <Flower size={96} className="sc-flower" />
+        </article>
+      ))}
+    </div>
+  );
+}
+
+/** Numbered steps: giant outlined numerals fill with colour as each row scrolls in, and a flower turns beside it. */
 export function Steps({ items }: { items: { title: string; script: string; text: string }[] }) {
   return (
-    <div className="steps">
-      <div className="rail" aria-hidden>
-        <i className="rail-fill" />
-        <span className="rail-flower"><Flower size={44} /></span>
-      </div>
-      <ol>
-        {items.map((s, i) => (
-          <li key={s.title + i} data-reveal="right">
-            <span className="dot" aria-hidden><Flower size={28} /></span>
-            <small>Step {i + 1}</small>
+    <ol className="rows">
+      {items.map((s, i) => (
+        <li key={s.title + i} className="row-item">
+          <span className="rn" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
+          <div className="rt">
             <h3 className="display">{s.title} <span className="script">{s.script}</span></h3>
             {s.text && <p>{s.text}</p>}
-          </li>
-        ))}
-      </ol>
+          </div>
+          <span className="rf" aria-hidden><Flower size={80} /></span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+// [word, left %, top %, rotation]: ambient words hidden in the dark. Topics already on the site; nothing new is claimed.
+const WORDS: [string, number, number, number][] = [
+  ["periods", 6, 62, -6], ["puberty", 62, 58, 4], ["stigma", 30, 76, -3], ["questions", 66, 80, 5],
+  ["science", 4, 30, 4], ["safety", 44, 90, -5], ["consent", 80, 40, -3], ["privacy", 14, 88, 3], ["listen", 84, 66, -4], ["health", 82, 14, 5],
+];
+
+function Words({ lit }: { lit?: boolean }) {
+  return (
+    <div className={`spot-words${lit ? " lit" : ""}`} aria-hidden>
+      {WORDS.map(([w, x, y, r]) => (
+        <span key={w} className="script" style={vars({ left: `${x}%`, top: `${y}%`, "--r": `${r}deg` })}>{w}</span>
+      ))}
     </div>
   );
 }
 
-/** Beet-red "turn the light on" room: the lamp and cone fade in on scroll, a soft light follows the cursor. */
+/** A dark room. As you scroll the light grows from the lamp and unspoken words appear inside it; a soft light follows the cursor. */
 export function Spotlight() {
   return (
-    <section className="spot" data-fx="light">
+    <section className="spot cv" data-fx="light">
+      <Words />
+      <Words lit />
       <div className="cone" aria-hidden />
-      <div className="lamp" aria-hidden><Flower size={56} /></div>
+      <div className="lamp" aria-hidden><Flower size={64} /></div>
       <div className="wrap spot-in">
         <Reveal>
           <h2 className="display">Some conversations are easy to ignore.</h2>

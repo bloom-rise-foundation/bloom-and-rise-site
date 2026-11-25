@@ -11,7 +11,7 @@ export default function SitemapPage() {
   const routes = getRoutes().filter((r) => r !== "/sitemap");
   return (
     <>
-      <PageHero title="Find your" script="way around" lead="Every page on the site, in one place. Search engines read the same list at /sitemap.xml." />
+      <PageHero tone="pink" title="Find your" script="way around" lead="Every page on the site, in one place. Search engines read the same list at /sitemap.xml." />
       <Section>
         <div className="focus">
           {routes.map((r, i) => (

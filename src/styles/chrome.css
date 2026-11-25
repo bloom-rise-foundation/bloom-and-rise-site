@@ -1,17 +1,18 @@
 /* ---------- header: frosted pill that tightens as you scroll (scroll timeline, no JS) ---------- */
 .header{position:fixed;top:0;left:0;right:0;z-index:50;pointer-events:none}
-.header .bar{pointer-events:auto;position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;height:66px;width:min(var(--wrap),100% - 2rem);margin:.8rem auto 0;padding:0 1.6rem;border-radius:999px;
+.header .bar{pointer-events:auto;position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:clamp(1.2rem,3vw,2.6rem);height:66px;width:min(var(--wrap),100% - 2rem);margin:.8rem auto 0;padding:0 1.6rem;border-radius:999px;
   background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,248,213,.3)),rgba(255,248,213,.14);
   -webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6);
   border:1px solid rgba(255,255,255,.65);
   box-shadow:0 8px 32px rgba(68,25,16,.12),inset 0 1px 0 rgba(255,255,255,.75)}
 @supports (animation-timeline:scroll()){
   .header .bar{animation:tighten linear both;animation-timeline:scroll(root);animation-range:0 160px}
-  @keyframes tighten{to{width:min(880px,100% - 1.25rem);height:58px;margin-top:.6rem;box-shadow:0 12px 34px rgba(68,25,16,.18),inset 0 1px 0 rgba(255,255,255,.8)}}
+  @keyframes tighten{to{width:min(1000px,100% - 1.25rem);height:58px;margin-top:.6rem;box-shadow:0 12px 34px rgba(68,25,16,.18),inset 0 1px 0 rgba(255,255,255,.8)}}
 }
 .logo{display:flex;align-items:baseline;gap:.5rem;text-decoration:none;color:var(--beet)}
 .logo .display{font-size:1.5rem} .logo .script{font-size:1.5rem}
-.nav{display:flex;gap:1.8rem;align-items:center}
+.nav{display:flex;gap:clamp(1rem,2vw,1.8rem);align-items:center}
+.logo{flex:none}
 .nav a{text-decoration:none;font-weight:600;font-size:.95rem;position:relative}
 .nav>a::after,.nav-group>a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--beet);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
 .nav>a:hover::after,.nav>a.on::after,.nav-group:hover>a::after,.nav-group>a.on::after{transform:scaleX(1)}
@@ -19,7 +20,7 @@
 .nav-menu{list-style:none;padding:.6rem;position:absolute;top:calc(100% + 14px);left:50%;min-width:11rem;translate:-50% 8px;opacity:0;visibility:hidden;transition:opacity .25s,translate .35s var(--ease),visibility .25s;
   background:var(--lemon);border:1px solid rgba(255,255,255,.7);border-radius:22px;box-shadow:0 16px 40px rgba(68,25,16,.2)}
 .nav-menu::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
-.nav-group:hover .nav-menu,.nav-group:focus-within .nav-menu{opacity:1;visibility:visible;translate:-50% 0}
+.nav-group:hover:not(.shut) .nav-menu,.nav-group:focus-within:not(.shut) .nav-menu{opacity:1;visibility:visible;translate:-50% 0}
 .nav-menu a{display:block;padding:.55rem 1rem;border-radius:14px;font-size:1.05rem;color:var(--beet)}
 .nav-menu a:hover,.nav-menu a.on{background:var(--pink)}
 .burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;position:relative}
@@ -46,7 +47,7 @@ html:has(.menu.open){overflow:hidden}
 /* ---------- closing + footer ---------- */
 .closing{--dome:clamp(9rem,18vw,15rem);--dia:min(150vw,2400px);position:relative;overflow:hidden;padding:6rem 0 calc(var(--dome) + 4rem);text-align:center;margin-top:4rem}
 .closing .wrap{position:relative;z-index:1}
-.closing h2{max-width:14em;margin:0 auto 1rem} .closing .script{display:block;color:var(--beet);margin-inline-start:0} .closing .row{justify-content:center}
+.closing h2{max-width:13em;margin:0 auto 1rem;font-size:clamp(2.6rem,7.4vw,6.2rem)} .closing .script{display:block;color:var(--beet);margin-inline-start:0} .closing .row{justify-content:center}
 .closing::after{content:"";position:absolute;z-index:0;left:50%;width:var(--dia);aspect-ratio:1;bottom:calc(var(--dome) - var(--dia));transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle closest-side,var(--pink) 0 90%,var(--leaf) 90% 94%,var(--blue) 94% 98%,transparent 98%)}
 .footer{background:var(--beet);color:var(--lemon);padding:4.5rem 0 1.5rem;overflow:hidden}
 .fcols{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:2.5rem}
@@ -59,13 +60,13 @@ html:has(.menu.open){overflow:hidden}
 .section .socials{flex-direction:row;flex-wrap:wrap;gap:.7rem}
 .section .socials a{display:inline-block;padding:.5rem 1.1rem;border-radius:999px;background:var(--pink);font-weight:600;border:0}
 .footer .socials a{background:none;padding:0;color:var(--lemon);font-weight:400}
-/* giant wordmark that fills with colour as the footer scrolls into view */
-.wordmark{font-family:var(--display);font-weight:900;font-size:clamp(3.5rem,15.5vw,13rem);line-height:.9;letter-spacing:-.03em;text-align:center;margin-top:3rem;white-space:nowrap;color:var(--pink);user-select:none}
+/* giant wordmark: crisp solid type that rises into place as the footer scrolls into view */
+.wordmark{overflow:hidden;font-family:var(--display);font-weight:900;font-size:clamp(3.2rem,15.4vw,12.8rem);line-height:1;padding-bottom:.12em;letter-spacing:-.03em;text-align:center;margin-top:3rem;white-space:nowrap;color:var(--pink);user-select:none}
+.wordmark span{display:inline-block}
 .wordmark em{font-style:italic;font-weight:700;color:var(--lemon)}
 @supports (animation-timeline:view()){
-  .wordmark,.wordmark em{color:transparent;-webkit-text-fill-color:transparent}
-  .wordmark{background-image:linear-gradient(90deg,var(--pink) 0 50%,rgba(224,152,172,.22) 50% 100%);background-size:200% 100%;background-position:100% 0;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;animation:fillword linear both;animation-timeline:view();animation-range:entry 20% cover 55%}
-  @keyframes fillword{to{background-position:0 0}}
+  .wordmark span{animation:wmRise linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+  @keyframes wmRise{from{transform:translate3d(0,105%,0)}}
 }
 .fbottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid color-mix(in srgb,var(--lemon) 20%,transparent)}
 @media(max-width:900px){.fcols{grid-template-columns:1fr 1fr}.fbrand{grid-column:1/-1}}

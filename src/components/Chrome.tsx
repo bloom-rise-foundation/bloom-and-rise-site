@@ -15,7 +15,7 @@ export function SocialLinks() {
 
 export function Footer({ year }: { year: number }) {
   return (
-    <footer className="footer">
+    <footer className="footer cv">
       <div className="wrap fcols">
         <div className="fbrand">
           <p className="display">{site.name}</p>
@@ -33,7 +33,7 @@ export function Footer({ year }: { year: number }) {
           <SocialLinks />
         </div>
       </div>
-      <div className="wordmark" aria-hidden>Bloom <em>&amp; Rise</em></div>
+      <div className="wordmark" aria-hidden><span>Bloom <em>&amp; Rise</em></span></div>
       <div className="wrap fbottom small">
         <span>© {year} {site.name} {site.suffix}</span>
         <Link href="/sitemap">Sitemap</Link>

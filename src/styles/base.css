@@ -42,7 +42,7 @@ h1 .script,h2 .script{margin-inline-start:.18em}
 .bg i:nth-child(3){left:6vw;bottom:-40vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--pink) 55%,var(--lemon)),transparent);animation:drift1 60s ease-in-out infinite alternate-reverse}
 @keyframes drift1{to{transform:translate3d(14vmax,10vmax,0) scale(1.12)}}
 @keyframes drift2{to{transform:translate3d(-16vmax,8vmax,0) scale(.92)}}
-.petal-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.petal-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
 
 /* ---------- reveal on scroll (one shared IntersectionObserver adds .in) ---------- */
 html.js [data-reveal]{--rx:0px;--ry:32px;--rr:0deg;--rs:1;opacity:0;transform:translate3d(var(--rx),var(--ry),0) rotate(var(--rr)) scale(var(--rs));transition:opacity .8s var(--ease) var(--d,0s),transform .8s var(--ease) var(--d,0s)}
@@ -64,18 +64,21 @@ html.js [data-reveal].in,html.js.rv-fallback [data-reveal]{opacity:1;transform:n
 @keyframes fade-up{from{opacity:0;transform:translate3d(0,18px,0)}}
 .w{display:inline-block;animation:rise .85s var(--ease) both;animation-delay:calc(var(--i,0)*60ms)}
 .fade-up{animation:fade-up .9s var(--ease) both;animation-delay:var(--d,.3s)}
-.page{animation:fade-up .55s var(--ease) both}
+/* route-change ease-in: only after the first client-side navigation (an opacity animation on the wrapper would delay LCP on first load) */
+html.navd .page{animation:fade-up .55s var(--ease) both}
 
-/* sections */
-.page-hero{padding:clamp(3rem,7vw,5rem) 0 1rem}
-.section{padding:clamp(4rem,9vw,7rem) 0}
-.section.pink{background:var(--pink)} .section.blue{background:var(--blue)}
-.section.dark{background:var(--beet);color:var(--lemon)} .section.dark .script{color:var(--pink)}
-.statement{font-size:clamp(1.5rem,3.6vw,2.6rem);font-weight:700;line-height:1.25;max-width:26em;letter-spacing:-.01em}
+/* sections: colour-blocked with scalloped (petal) edges */
+.section{position:relative;padding:clamp(4rem,9vw,7rem) 0}
+.section.pink{background:var(--pink);--c:var(--pink);color:var(--rum)}
+.section.blue{background:var(--blue);--c:var(--blue)}
+.section.dark,.section.beet{background:var(--beet);--c:var(--beet);color:var(--lemon)}
+.section.rum{background:var(--rum);--c:var(--rum);color:var(--lemon)}
+.section.dark .script,.section.beet .script,.section.rum .script{color:var(--pink)}
+.section.edge::before{content:"";position:absolute;left:0;right:0;top:-27px;height:28px;pointer-events:none;background:radial-gradient(circle at 50% 100%,var(--c) 0 14px,transparent 14.5px) 0 0/28px 28px repeat-x}
 
 /* the statement lights up word by word as you scroll (CSS scroll timeline; plain text elsewhere) */
 @supports (animation-timeline:view()){
-  .lit .lw{opacity:.2;animation:lw linear both;animation-timeline:view();animation-range:cover calc(12% + var(--i)/var(--n)*30%) cover calc(24% + var(--i)/var(--n)*30%)}
+  .lit .lw{opacity:.18;animation:lw linear both;animation-timeline:view();animation-range:cover calc(2% + var(--i)/var(--n)*30%) cover calc(14% + var(--i)/var(--n)*30%)}
   @keyframes lw{to{opacity:1}}
 }
 
@@ -87,3 +90,8 @@ html.js [data-reveal].in,html.js.rv-fallback [data-reveal]{opacity:1;transform:n
 
 /* interactive effects driven by components/Pointer.tsx (mouse only) */
 [data-fx=mag]{display:inline-block;transform:translate3d(var(--tx,0px),var(--ty,0px),0);transition:transform .3s var(--ease)}
+
+/* below-the-fold sections are not styled, laid out or painted until they near the viewport */
+.cv{content-visibility:auto;contain-intrinsic-size:auto 700px}
+.cv-stack{contain-intrinsic-size:auto 2400px}
+.spot.cv{contain-intrinsic-size:auto 100vh}

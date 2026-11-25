@@ -4,7 +4,7 @@ import { useEffect } from "react";
 /* One delegated pointer handler for every interactive effect on the site (magnetic buttons, card tilt,
    cursor glow, spotlight room). Components only add data-fx="mag|tilt|glow|light"; nothing per-element runs in JS.
    Only mounted for mouse users, after the page has gone idle. */
-const SEL = "[data-fx],.tile";
+const SEL = "[data-fx]:not([data-fx=hero]),.tile";
 
 export default function Pointer() {
   useEffect(() => {
@@ -13,13 +13,22 @@ export default function Pointer() {
     let cur: HTMLElement | null = null;
 
     const reset = (el: HTMLElement) => {
-      for (const k of ["--tx", "--ty", "--rx", "--ry"]) el.style.removeProperty(k);
+      for (const k of ["--tx", "--ty", "--rx", "--ry", "--px", "--py"]) el.style.removeProperty(k);
     };
 
     const apply = () => {
       raf = 0;
       const e = ev;
       if (!e) return;
+      // hero flower drifts with the cursor (handled apart from the rest so buttons inside the hero don't reset it)
+      const hero = document.querySelector<HTMLElement>("[data-fx=hero]");
+      if (hero) {
+        const hr = hero.getBoundingClientRect();
+        if (e.clientY >= hr.top && e.clientY <= hr.bottom) {
+          hero.style.setProperty("--px", `${(e.clientX / hr.width - 0.5) * 2}`);
+          hero.style.setProperty("--py", `${(e.clientY - hr.top) / hr.height * 2 - 1}`);
+        }
+      }
       const t = (e.target as Element | null)?.closest<HTMLElement>(SEL) ?? null;
       if (cur && cur !== t) reset(cur);
       cur = t;
