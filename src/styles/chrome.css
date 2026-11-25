@@ -14,6 +14,9 @@
 .nav{display:flex;gap:clamp(1rem,2vw,1.8rem);align-items:center}
 .logo{flex:none}
 .nav a{text-decoration:none;font-weight:600;font-size:.95rem;position:relative}
+.logo,.nav a{transition:transform .16s var(--ease)}
+.nav-group>a{display:inline-block}
+.logo:active,.nav a:active{transform:scale(.97)}
 .nav>a::after,.nav-group>a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--beet);transform:scaleX(0);transform-origin:left;transition:transform .22s var(--ease)}
 .nav>a.on::after,.nav-group>a.on::after{transform:scaleX(1)}
 @media(hover:hover) and (pointer:fine){.nav>a:hover::after,.nav-group:hover>a::after{transform:scaleX(1)}}
