@@ -186,35 +186,56 @@ export function Steps({ items }: { items: { title: string; script: string; text:
   );
 }
 
-// [word, left %, top %, rotation]: ambient words hidden in the dark. Topics already on the site; nothing new is claimed.
-const WORDS: [string, number, number, number][] = [
-  ["periods", 6, 62, -6], ["puberty", 62, 58, 4], ["stigma", 30, 76, -3], ["questions", 66, 80, 5],
-  ["science", 4, 30, 4], ["safety", 44, 90, -5], ["consent", 80, 40, -3], ["privacy", 14, 88, 3], ["listen", 84, 66, -4], ["health", 82, 14, 5],
+// [word, centre x %, centre y %, rotation, order, mobile x %, mobile y %]: ambient words hidden in the dark. Topics already on the site; nothing new is claimed.
+// `order` is the lighting-up sequence (deliberately irregular, so it reads as a wave rather than a metronome).
+// Phones have a narrower, taller stage where the headline wraps to four lines, so each word has its own spot clear of it.
+const WORDS: [string, number, number, number, number, number, number][] = [
+  ["periods", 12, 72, -6, 0, 22, 71],
+  ["puberty", 58, 71, 4, 1, 62, 72],
+  ["stigma", 30, 82, -3, 2.2, 30, 82],
+  ["questions", 75, 85, 5, 3, 66, 88],
+  ["science", 16, 36, 4, 4.3, 20, 26],
+  ["health", 84, 22, 5, 5, 80, 22],
+  ["safety", 50, 93, -5, 6.2, 56, 96],
+  ["consent", 82, 47, -3, 7, 82, 32],
+  ["privacy", 22, 91, 3, 8.3, 22, 93],
+  ["listen", 87, 71, -4, 9, 84, 79],
 ];
 
-function Words({ lit }: { lit?: boolean }) {
-  return (
-    <div className={`spot-words${lit ? " lit" : ""}`} aria-hidden>
-      {WORDS.map(([w, x, y, r]) => (
-        <span key={w} className="script" style={vars({ left: `${x}%`, top: `${y}%`, "--r": `${r}deg` })}>{w}</span>
-      ))}
-    </div>
-  );
-}
-
-/** A dark room. As you scroll the light grows from the lamp and unspoken words appear inside it; a soft light follows the cursor. */
+/** The pull-cord lamp. The page pins for a stretch of scroll and the scroll position drives a short story:
+ *  the cord is tugged down, the lamp clicks and sways, the light flickers, floods on brightly, then the hidden words light one by one.
+ *  All of it is CSS scroll-driven animation (transform/opacity only); see styles/sections.css. Without scroll timelines it simply shows the lit room. */
 export function Spotlight() {
   return (
-    <section className="spot cv" data-fx="light">
-      <Words />
-      <Words lit />
-      <div className="cone" aria-hidden />
-      <div className="lamp" aria-hidden><Flower size={64} /></div>
-      <div className="wrap spot-in">
-        <Reveal>
+    <section className="spot cv">
+      <div className="spot-stick">
+        <div className="light" aria-hidden>
+          <div className="cone" />
+          <div className="bulb-glow" />
+        </div>
+        <div className="flash" aria-hidden />
+        <div className="spot-words" aria-hidden>
+          {WORDS.map(([w, x, y, r, o, mx, my]) => (
+            <span key={w} className="script" style={vars({ "--x": `${x}%`, "--y": `${y}%`, "--mx": `${mx}%`, "--my": `${my}%`, "--r": `${r}deg`, "--o": o })}>{w}</span>
+          ))}
+        </div>
+        <div className="lamp-rig" aria-hidden>
+          <svg className="lamp-svg" viewBox="0 0 200 232">
+            <line x1="100" y1="0" x2="100" y2="120" stroke="rgba(248,227,232,.45)" strokeWidth="2" />
+            <path d="M36 196C36 152 66 120 100 120C134 120 164 152 164 196Z" fill="#3A557D" stroke="#F2B38F" strokeWidth="1.5" />
+            <ellipse cx="100" cy="196" rx="64" ry="9" fill="#05213B" stroke="#F2B38F" strokeWidth="1.5" />
+            <circle cx="100" cy="203" r="15" fill="#2A3F5F" />
+            <circle className="bulb-on" cx="100" cy="203" r="15" fill="#FFE9D2" stroke="#F2B38F" strokeWidth="1.5" />
+          </svg>
+          <div className="cord-wrap">
+            <i className="cord" />
+            <b className="bead" />
+          </div>
+        </div>
+        <div className="wrap spot-in">
           <h2 className="display">Some conversations are easy to ignore.</h2>
           <p className="script big">We’d rather turn the light on.</p>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
