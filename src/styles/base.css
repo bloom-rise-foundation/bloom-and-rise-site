@@ -6,7 +6,7 @@
   --bg:var(--lemon); --ink:var(--rum);
   --display:var(--font-display),"Playfair Display",Georgia,serif;
   --body:var(--font-body),system-ui,sans-serif;
-  --wrap:1120px; --r:32px; --ease:cubic-bezier(.22,1,.36,1); --hdr:72px;
+  --wrap:1120px; --r:32px; --ease:cubic-bezier(.23,1,.32,1); --ease-io:cubic-bezier(.77,0,.175,1); --hdr:72px;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth;overflow-x:clip;background:var(--bg)}
@@ -29,10 +29,11 @@ h1 .script,h2 .script{margin-inline-start:.18em}
 .small{font-size:.9rem;opacity:.85}
 .note{margin-top:1.5rem;max-width:60ch}
 .row{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
-.btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:var(--beet);color:var(--lemon);font-weight:700;text-decoration:none;border:2px solid var(--beet);transition:background .3s,color .3s,box-shadow .3s}
-.btn:hover{box-shadow:0 10px 26px rgba(83,27,36,.28)}
+.btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:var(--beet);color:var(--lemon);font-weight:700;text-decoration:none;border:2px solid var(--beet);transition:transform .16s var(--ease),background-color .18s ease,color .18s ease,box-shadow .18s ease}
+@media(hover:hover) and (pointer:fine){.btn:hover{box-shadow:0 10px 26px rgba(83,27,36,.28)}}
 .btn.ghost{background:transparent;color:var(--beet);box-shadow:none}
-.btn.ghost:hover{background:var(--beet);color:var(--lemon)}
+@media(hover:hover) and (pointer:fine){.btn.ghost:hover{background:var(--beet);color:var(--lemon)}}
+.btn:active,.burger:active,.vrow button:active,.cred-actions .btn:active,.bio-more summary:active{transform:scale(.97)}
 .chip{display:inline-block;padding:.3rem .9rem;border-radius:999px;background:color-mix(in srgb,var(--blue) 55%,transparent);font-size:.85rem;font-weight:600;margin-bottom:1.4rem}
 
 /* ---------- always-on background: a slow CSS mesh (transform-only) ---------- */
@@ -51,7 +52,7 @@ h1 .script,h2 .script{margin-inline-start:.18em}
 @media(prefers-reduced-motion:reduce){.petals{display:none}}
 
 /* ---------- reveal on scroll (one shared IntersectionObserver adds .in) ---------- */
-html.js [data-reveal]{--rx:0px;--ry:32px;--rr:0deg;--rs:1;opacity:0;transform:translate3d(var(--rx),var(--ry),0) rotate(var(--rr)) scale(var(--rs));transition:opacity .8s var(--ease) var(--d,0s),transform .8s var(--ease) var(--d,0s)}
+html.js [data-reveal]{--rx:0px;--ry:32px;--rr:0deg;--rs:1;opacity:0;transform:translate3d(var(--rx),var(--ry),0) rotate(var(--rr)) scale(var(--rs));transition:opacity .65s var(--ease) var(--d,0s),transform .65s var(--ease) var(--d,0s)}
 html.js [data-reveal=left]{--rx:-48px;--ry:0px}
 html.js [data-reveal=right]{--rx:48px;--ry:0px}
 html.js [data-reveal=scale]{--rs:.88;--ry:0px}
@@ -61,7 +62,7 @@ html.js [data-reveal].in,html.js.rv-fallback [data-reveal]{opacity:1;transform:n
    already on screen at load is simply visible (it starts past the end of the animation range). */
 @supports (animation-timeline:view()){
   html.js [data-reveal],html.js .tile[data-reveal]{opacity:1;transform:none;transition:none;animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 65%}
-  html.js .tile[data-reveal]{transition:rotate .5s var(--ease),translate .5s var(--ease),border-radius .5s var(--ease)}
+  html.js .tile[data-reveal]{transition:translate .22s var(--ease)}
   @keyframes rv{from{opacity:0;transform:translate3d(var(--rx),var(--ry),0) rotate(var(--rr)) scale(var(--rs))}}
 }
 
@@ -69,7 +70,7 @@ html.js [data-reveal].in,html.js.rv-fallback [data-reveal]{opacity:1;transform:n
 @keyframes rise{from{transform:translate3d(0,110%,0)}}
 @keyframes fade-up{from{opacity:0;transform:translate3d(0,18px,0)}}
 .w{display:inline-block;animation:rise .85s var(--ease) both;animation-delay:calc(var(--i,0)*60ms)}
-.fade-up{animation:fade-up .9s var(--ease) both;animation-delay:var(--d,.3s)}
+.fade-up{animation:fade-up .7s var(--ease) both;animation-delay:var(--d,.3s)}
 /* route-change ease-in: only after the first client-side navigation (an opacity animation on the wrapper would delay LCP on first load) */
 html.navd .page{animation:fade-up .55s var(--ease) both}
 
@@ -101,3 +102,9 @@ html.navd .page{animation:fade-up .55s var(--ease) both}
 .cv{content-visibility:auto;contain-intrinsic-size:auto 700px}
 .cv-stack{contain-intrinsic-size:auto 2400px}
 .spot.cv{contain-intrinsic-size:auto 100vh}
+
+/* ---- details ---- */
+html{scroll-padding-top:6.5rem;-webkit-tap-highlight-color:transparent}
+::selection{background:var(--pink);color:var(--lemon)}
+h1,h2,h3{text-wrap:balance}
+p,li{text-wrap:pretty}

@@ -14,27 +14,30 @@
 .nav{display:flex;gap:clamp(1rem,2vw,1.8rem);align-items:center}
 .logo{flex:none}
 .nav a{text-decoration:none;font-weight:600;font-size:.95rem;position:relative}
-.nav>a::after,.nav-group>a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--beet);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
-.nav>a:hover::after,.nav>a.on::after,.nav-group:hover>a::after,.nav-group>a.on::after{transform:scaleX(1)}
+.nav>a::after,.nav-group>a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--beet);transform:scaleX(0);transform-origin:left;transition:transform .22s var(--ease)}
+.nav>a.on::after,.nav-group>a.on::after{transform:scaleX(1)}
+@media(hover:hover) and (pointer:fine){.nav>a:hover::after,.nav-group:hover>a::after{transform:scaleX(1)}}
 .nav-group{position:relative}
-.nav-menu{list-style:none;padding:.6rem;position:absolute;top:calc(100% + 14px);left:50%;min-width:11rem;translate:-50% 8px;opacity:0;visibility:hidden;transition:opacity .25s,translate .35s var(--ease),visibility .25s;
+.nav-menu{list-style:none;padding:.6rem;position:absolute;top:calc(100% + 14px);left:50%;min-width:11rem;translate:-50% 8px;opacity:0;visibility:hidden;transition:opacity .12s ease,translate .12s ease,visibility .12s;
   background:var(--lemon);border:1px solid rgba(255,255,255,.7);border-radius:22px;box-shadow:0 16px 40px rgba(5,33,59,.2)}
 .nav-menu::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
-.nav-group:hover:not(.shut) .nav-menu,.nav-group:focus-within:not(.shut) .nav-menu{opacity:1;visibility:visible;translate:-50% 0}
+.nav-group:hover:not(.shut) .nav-menu,.nav-group:focus-within:not(.shut) .nav-menu{opacity:1;visibility:visible;translate:-50% 0;transition:opacity .18s var(--ease),translate .22s var(--ease),visibility 0s}
+.nav-group.shut .nav-menu{transition:none}
 .nav-menu a{display:block;padding:.55rem 1rem;border-radius:14px;font-size:1.05rem;color:var(--beet)}
-.nav-menu a:hover,.nav-menu a.on{background:var(--pink)}
+.nav-menu a.on{background:var(--pink)}
+@media(hover:hover) and (pointer:fine){.nav-menu a:hover{background:var(--pink)}}
 .burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;position:relative}
-.burger i{position:absolute;left:10px;right:10px;height:3px;border-radius:3px;background:var(--beet);transition:transform .35s var(--ease)}
+.burger i{position:absolute;left:10px;right:10px;height:3px;border-radius:3px;background:var(--beet);transition:transform .25s var(--ease)}
 .burger i:first-child{top:16px} .burger i:last-child{top:25px}
 .burger[aria-expanded=true] i:first-child{transform:translateY(4.5px) rotate(45deg)}
 .burger[aria-expanded=true] i:last-child{transform:translateY(-4.5px) rotate(-45deg)}
 
 /* full-screen menu: a petal-shaped circle opens from the burger, links stagger in */
 .menu{position:fixed;inset:0;z-index:-1;pointer-events:auto;background:var(--rum);color:var(--lemon);display:flex;flex-direction:column;justify-content:center;padding:6rem 2rem 3rem;
-  clip-path:circle(0 at calc(100% - 2.6rem) 2.4rem);visibility:hidden;transition:clip-path .7s var(--ease),visibility 0s .7s}
-.menu.open{clip-path:circle(150vmax at calc(100% - 2.6rem) 2.4rem);visibility:visible;transition:clip-path .8s var(--ease),visibility 0s}
-.menu a{display:block;text-decoration:none;font-size:clamp(1.9rem,8vw,2.6rem);padding:.35rem 0;opacity:0;transform:translate3d(0,24px,0);transition:opacity .4s,transform .6s var(--ease)}
-.menu.open a{opacity:1;transform:none;transition-delay:calc(.15s + var(--i)*60ms)}
+  clip-path:circle(0 at calc(100% - 2.6rem) 2.4rem);visibility:hidden;transition:clip-path .35s var(--ease),visibility 0s .35s}
+.menu.open{clip-path:circle(150vmax at calc(100% - 2.6rem) 2.4rem);visibility:visible;transition:clip-path .5s var(--ease),visibility 0s}
+.menu a{display:block;text-decoration:none;font-size:clamp(1.9rem,8vw,2.6rem);padding:.35rem 0;opacity:0;transform:translate3d(0,24px,0);transition:opacity .3s ease,transform .45s var(--ease)}
+.menu.open a{opacity:1;transform:none;transition-delay:calc(.12s + var(--i)*45ms)}
 .menu a.sub{font-size:1.4rem;padding-left:1.2rem;color:var(--leaf)}
 .menu a.on{color:var(--leaf)}
 html:has(.menu.open){overflow:hidden}
@@ -54,9 +57,9 @@ html:has(.menu.open){overflow:hidden}
 .fbrand .display{font-size:1.6rem} .fbrand .script{font-size:1.6rem;color:var(--leaf);margin-bottom:.8rem}
 .fcol h4{font-size:.95rem;margin-bottom:.9rem;color:var(--leaf)}
 .fcol ul,.footer .socials{list-style:none;padding:0;display:flex;flex-direction:column;gap:.55rem}
-.fcol a{text-decoration:none;opacity:.9}.fcol a:hover{text-decoration:underline}
+.fcol a{text-decoration:none;opacity:.9}@media(hover:hover) and (pointer:fine){.fcol a:hover{text-decoration:underline}}
 .socials{list-style:none;padding:0;display:flex;flex-direction:column;gap:.55rem;align-items:flex-start}
-.socials a{text-decoration:none;border-bottom:2px solid transparent;transition:border-color .3s}.socials a:hover{border-color:currentColor}
+.socials a{text-decoration:none;border-bottom:2px solid transparent;transition:border-color .16s ease}@media(hover:hover) and (pointer:fine){.socials a:hover{border-color:currentColor}}
 .section .socials{flex-direction:row;flex-wrap:wrap;gap:.7rem}
 .section .socials a{display:inline-block;padding:.5rem 1.1rem;border-radius:999px;background:var(--pink);font-weight:600;border:0}
 .footer .socials a{background:none;padding:0;color:var(--lemon);font-weight:400}

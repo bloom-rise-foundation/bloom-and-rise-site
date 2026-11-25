@@ -20,7 +20,7 @@ export function VerifyForm() {
       <label htmlFor="cid" className="small">Credential ID</label>
       <div className="vrow">
         <input id="cid" value={v} onChange={(e) => setV(e.target.value.replace(/\s+/g, ""))} placeholder="The ID printed on the certificate" autoComplete="off" autoCapitalize="characters" spellCheck={false} maxLength={64} aria-describedby="cid-note" />
-        <button className="btn" type="submit" disabled={pending || !v}>{pending && <span className="spin" aria-hidden />}{pending ? "Checking…" : "Verify"}</button>
+        <button className="btn" type="submit" disabled={pending || !v}><span key={pending ? "busy" : "idle"} className="swap">{pending && <span className="spin" aria-hidden />}{pending ? "Checking…" : "Verify"}</span></button>
       </div>
       <p id="cid-note" className="small note" style={{ marginTop: ".8rem" }}>Letters, numbers, dashes and underscores only.</p>
     </form>
@@ -42,7 +42,7 @@ export function CredActions() {
             window.setTimeout(() => setCopied(false), 2000);
           } catch { /* clipboard blocked: nothing to do */ }
         }}
-      >{copied ? "Link copied" : "Copy link"}</button>
+      ><span key={copied ? "done" : "idle"} className="swap">{copied ? "Link copied" : "Copy link"}</span></button>
       <button type="button" className="btn ghost" onClick={() => window.print()}>Print</button>
     </div>
   );
