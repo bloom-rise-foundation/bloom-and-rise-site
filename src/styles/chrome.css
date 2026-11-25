@@ -2,10 +2,10 @@
 .header{position:fixed;top:0;left:0;right:0;z-index:50;pointer-events:none;padding-top:env(safe-area-inset-top,0px)}
 .header .bar{pointer-events:auto;position:relative;display:flex;align-items:center;justify-content:space-between;gap:clamp(1.2rem,3vw,2.6rem);height:66px;width:min(var(--wrap),100% - 2 * max(1rem,var(--inset-x)));margin:.8rem auto 0;padding:0 1.6rem}
 .header .bar::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:999px;pointer-events:none;
-  background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(248,227,232,.3)),rgba(248,227,232,.14);
+  background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(252,241,218,.3)),rgba(252,241,218,.14);
   -webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6);
   border:1px solid rgba(255,255,255,.65);
-  box-shadow:0 8px 32px rgba(5,33,59,.12),inset 0 1px 0 rgba(255,255,255,.75)}
+  box-shadow:0 8px 32px rgba(87,15,29,.12),inset 0 1px 0 rgba(255,255,255,.75)}
 @supports (animation-timeline:scroll()){
   @media(min-width:1020px){
     .header .bar::before{animation:tighten linear both;animation-timeline:scroll(root);animation-range:0 160px}
@@ -25,7 +25,7 @@
 @media(hover:hover) and (pointer:fine){.nav>a:hover::after,.nav-group:hover>a::after{transform:scaleX(1)}}
 .nav-group{position:relative}
 .nav-menu{list-style:none;padding:.6rem;position:absolute;top:calc(100% + 14px);left:50%;min-width:11rem;translate:-50% 8px;opacity:0;visibility:hidden;transition:opacity .12s ease,translate .12s ease,visibility .12s;
-  background:var(--lemon);border:1px solid rgba(255,255,255,.7);border-radius:22px;box-shadow:0 16px 40px rgba(5,33,59,.2)}
+  background:var(--lemon);border:1px solid rgba(255,255,255,.7);border-radius:22px;box-shadow:0 16px 40px rgba(87,15,29,.2)}
 .nav-menu::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
 .nav-group:hover:not(.shut) .nav-menu,.nav-group:focus-within:not(.shut) .nav-menu{opacity:1;visibility:visible;translate:-50% 0;transition:opacity .18s var(--ease),translate .22s var(--ease),visibility 0s}
 .nav-group.shut .nav-menu{transition:none}
@@ -57,7 +57,7 @@ html:has(.menu.open){overflow:hidden}
 .closing{--dome:clamp(9rem,18vw,15rem);--dia:min(150vw,2400px);position:relative;overflow:hidden;padding:6rem 0 calc(var(--dome) + 4rem);text-align:center;margin-top:4rem}
 .closing .wrap{position:relative;z-index:1}
 .closing h2{max-width:13em;margin:0 auto 1rem;font-size:clamp(2.6rem,7.4vw,6.2rem)} .closing .script{display:block;color:var(--beet);margin-inline-start:0} .closing .row{justify-content:center}
-.closing::after{content:"";position:absolute;z-index:0;left:50%;width:var(--dia);aspect-ratio:1;bottom:calc(var(--dome) - var(--dia));transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle closest-side,var(--leaf) 0 88%,var(--pink) 88% 94%,var(--beet) 94% 100%)}
+.closing::after{content:"";position:absolute;z-index:0;left:50%;width:var(--dia);aspect-ratio:1;bottom:calc(var(--dome) - var(--dia));transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle closest-side,var(--blush) 0 88%,var(--pink) 88% 94%,var(--garnet) 94% 100%)}
 .footer{background:var(--rum);color:var(--lemon);padding:4.5rem 0 calc(1.5rem + env(safe-area-inset-bottom,0px));overflow:hidden}
 .fcols{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:2.5rem}
 .fbrand .display{font-size:1.6rem} .fbrand .script{font-size:1.6rem;color:var(--leaf);margin-bottom:.8rem}
@@ -83,8 +83,8 @@ html:has(.menu.open){overflow:hidden}
 
 /* ---------- custom cursor (mouse only) ---------- */
 .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;will-change:transform;mix-blend-mode:multiply;
-  --cf-p:#F2B38F;--cf-s:#C65C6A;--cf-c:#C65C6A;--cf-d:#F8E3E8}
-.cursor.on-dark{mix-blend-mode:normal;--cf-p:#F8E3E8;--cf-s:#531B24;--cf-c:#C65C6A;--cf-d:#F2B38F}
+  --cf-p:#E3939B;--cf-s:#C65C6A;--cf-c:#C65C6A;--cf-d:#FCF1DA}
+.cursor.on-dark{mix-blend-mode:normal;--cf-p:#FCF1DA;--cf-s:#570F1D;--cf-c:#C65C6A;--cf-d:#E3939B}
 .cursor.on-dark .cursor-in{opacity:.95;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
 .cf-petal{fill:var(--cf-p);stroke:var(--cf-s)} .cf-core{fill:var(--cf-c)} .cf-dot{fill:var(--cf-d)}
 .cursor-in{width:28px;height:28px;margin:-14px 0 0 -14px;opacity:.85;transition:transform .25s var(--ease),opacity .2s}

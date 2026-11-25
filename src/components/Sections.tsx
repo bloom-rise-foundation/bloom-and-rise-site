@@ -238,11 +238,11 @@ export function Spotlight() {
         <div className="lamp-rig" aria-hidden>
           <div className="lamp-idle">
             <svg className="lamp-svg" viewBox="0 0 200 232">
-              <line x1="100" y1="0" x2="100" y2="120" stroke="rgba(248,227,232,.45)" strokeWidth="2" />
-              <path d="M36 196C36 152 66 120 100 120C134 120 164 152 164 196Z" fill="#3A557D" stroke="#F2B38F" strokeWidth="1.5" />
-              <ellipse cx="100" cy="196" rx="64" ry="9" fill="#05213B" stroke="#F2B38F" strokeWidth="1.5" />
-              <circle cx="100" cy="203" r="15" fill="#2A3F5F" />
-              <circle className="bulb-on" cx="100" cy="203" r="15" fill="#FFE9D2" stroke="#F2B38F" strokeWidth="1.5" />
+              <line x1="100" y1="0" x2="100" y2="120" stroke="rgba(252,241,218,.45)" strokeWidth="2" />
+              <path d="M36 196C36 152 66 120 100 120C134 120 164 152 164 196Z" fill="#3A557D" stroke="#E3939B" strokeWidth="1.5" />
+              <ellipse cx="100" cy="196" rx="64" ry="9" fill="#570F1D" stroke="#E3939B" strokeWidth="1.5" />
+              <circle cx="100" cy="203" r="15" fill="#6F2B34" />
+              <circle className="bulb-on" cx="100" cy="203" r="15" fill="#FCF1DA" stroke="#E3939B" strokeWidth="1.5" />
             </svg>
             <div className="cord-wrap">
               <i className="cord" />

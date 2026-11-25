@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 };
 
 // viewport-fit=cover lets the page run under the notch (the header/footer pad back with env()); the keyboard resizes the layout instead of covering fields.
-export const viewport: Viewport = { themeColor: "#F8E3E8", colorScheme: "light", viewportFit: "cover", interactiveWidget: "resizes-content" };
+export const viewport: Viewport = { themeColor: "#FCF1DA", colorScheme: "light", viewportFit: "cover", interactiveWidget: "resizes-content" };
 
 // Runs before first paint: marks the page as scripted (so scroll reveals can start hidden) and un-hides everything if hydration never arrives.
 const boot = `try{var d=document.documentElement;d.classList.add("js");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000)}catch(e){}`;

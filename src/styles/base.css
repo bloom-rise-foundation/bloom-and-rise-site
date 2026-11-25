@@ -1,8 +1,9 @@
 /* THEME TOKENS: change colours, fonts and radii here. */
 :root{
-  /* palette: Old rose (--pink), Deep wine (--beet), Sky (--blue), Marshmallow (--lemon), Midnight (--rum), Apricot dawn (--leaf), Denim.
-     Token names are kept from the first palette so every component picks the new colours up. */
-  --pink:#C65C6A; --beet:#531B24; --blue:#C2DAE8; --lemon:#F8E3E8; --rum:#05213B; --leaf:#F2B38F; --denim:#3A557D;
+  /* palette: Logo cream (--lemon, page), Mulberry (--beet, headings/buttons), Wine (--rum, text + dark rooms), Petal (--pink, soft cards),
+     Frozen blue (--blue), Denim, Old rose (--rose), Garnet, Blush, Glacier. Token names are kept from earlier palettes so every component follows. */
+  --pink:#E3939B; --beet:#6F2B34; --blue:#D5E3EE; --lemon:#FCF1DA; --rum:#570F1D; --leaf:#E3939B; --denim:#3A557D;
+  --rose:#C65C6A; --garnet:#94404F; --blush:#F9DAD8; --glacier:#7C95B6;
   --bg:var(--lemon); --ink:var(--rum);
   --display:var(--font-display),"Playfair Display",Georgia,serif;
   --body:var(--font-body),system-ui,sans-serif;
@@ -31,7 +32,7 @@ h1 .script,h2 .script{margin-inline-start:.18em}
 .note{margin-top:1.5rem;max-width:60ch}
 .row{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
 .btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:var(--beet);color:var(--lemon);font-weight:700;text-decoration:none;border:2px solid var(--beet);transition:transform .16s var(--ease),background-color .18s ease,color .18s ease,box-shadow .18s ease}
-@media(hover:hover) and (pointer:fine){.btn:hover{box-shadow:0 10px 26px rgba(83,27,36,.28)}}
+@media(hover:hover) and (pointer:fine){.btn:hover{box-shadow:0 10px 26px rgba(111,43,52,.28)}}
 .btn.ghost{background:transparent;color:var(--beet);box-shadow:none}
 @media(hover:hover) and (pointer:fine){.btn.ghost:hover{background:var(--beet);color:var(--lemon)}}
 .btn:active,.burger:active,.vrow button:active,.cred-actions .btn:active,.bio-more summary:active{transform:scale(.97)}
@@ -81,7 +82,7 @@ html.navd .page{animation:page-in .22s var(--ease) both}
 .section.pink{background:var(--pink);--c:var(--pink);color:var(--rum)}
 .section.blue{background:var(--blue);--c:var(--blue)}
 .section.dark,.section.beet{background:var(--beet);--c:var(--beet);color:var(--lemon)}
-.section.rum{background:var(--rum);--c:var(--rum);color:var(--lemon)}
+.section.rum{background:var(--denim);--c:var(--denim);color:var(--lemon)}
 .section.dark .script,.section.beet .script,.section.rum .script{color:var(--pink)}
 .section.edge::before{content:"";position:absolute;left:0;right:0;top:-27px;height:28px;pointer-events:none;background:radial-gradient(circle at 50% 100%,var(--c) 0 14px,transparent 14.5px) 0 0/28px 28px repeat-x}
 

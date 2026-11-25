@@ -27,57 +27,86 @@ export function Flower({ size = 52, className = "" }: { size?: number; className
   );
 }
 
-// A teardrop petal pointing up from the origin, ~42 units long.
+// A teardrop petal pointing up from the origin, ~42 units long (outline decorations).
 const PETAL = "M0 0C-15-8-17-30 0-42C17-30 15-8 0 0Z";
-const VEIN = "M0-6V-30";
 
-// Sunflower-style seed head: 38 dots on a golden-angle spiral (computed once).
-const SEEDS = Array.from({ length: 38 }, (_, i) => {
-  const r = 1.25 * Math.sqrt(i + 1) * 1.15;
-  const a = i * 137.508 * (Math.PI / 180);
-  return { x: +(r * Math.cos(a)).toFixed(2), y: +(r * Math.sin(a)).toFixed(2), k: i % 3 };
+// A broad, softly notched petal (heart-shaped tip), base at the origin, ~54 units long: the realistic hero bloom.
+const PETAL_NAT = "M0 0C-11-3-26-20-22-38C-19-50-8-54-2.6-47.5C-1.2-45.8 1.2-45.8 2.6-47.5C8-54 19-50 22-38C26-20 11-3 0 0Z";
+const VEINS = ["M0-5C0-20 0-34 0-45", "M0-5C-1-18-4-32-9-44", "M0-5C1-18 4-32 9-44", "M0-4C-5-14-12-26-17-36", "M0-4C5-14 12-26 17-36"];
+
+// Deterministic pseudo-random in [0,1): petals are never mathematically identical, and server/client markup always matches.
+const rnd = (i: number, k: number) => {
+  const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+// Stamens: fine filaments with small anthers, fanned around the centre with natural irregularity.
+const STAMENS = Array.from({ length: 34 }, (_, i) => {
+  const a = (i / 34) * Math.PI * 2 + rnd(i, 9) * 0.3;
+  const r0 = 4 + rnd(i, 10) * 2;
+  const r1 = 10.5 + rnd(i, 11) * 6.5;
+  const bend = (rnd(i, 12) - 0.5) * 0.35;
+  return {
+    x0: +(Math.cos(a) * r0).toFixed(2), y0: +(Math.sin(a) * r0).toFixed(2),
+    x1: +(Math.cos(a + bend) * r1).toFixed(2), y1: +(Math.sin(a + bend) * r1).toFixed(2),
+    deg: +((a + bend) * (180 / Math.PI)).toFixed(1),
+  };
 });
 
-type LayerProps = { cls: string; count: number; scale: number; offset?: number; fill: string };
+type LayerProps = { cls: string; count: number; scale: number; offset?: number; grad: string; seed: number; veins?: number };
 
 /** One ring of petals, drawn once as static SVG. It is animated as a whole (scale/rotate on its box), never petal by petal,
- *  so the bloom stays on the compositor instead of repainting dozens of SVG paths every frame. */
-function Layer({ cls, count, scale, offset = 0, fill }: LayerProps) {
+ *  so the bloom stays on the compositor instead of repainting dozens of SVG paths every frame.
+ *  Each petal is shaded from a dark base to a light tip, outlined so overlaps read as shadow, and veined. */
+function Layer({ cls, count, scale, offset = 0, grad, seed, veins = 5 }: LayerProps) {
   return (
     <svg className={`bl ${cls}`} viewBox="-70 -70 140 140" aria-hidden>
-      {Array.from({ length: count }, (_, i) => (
-        <g key={i} transform={`rotate(${(360 / count) * i + offset}) scale(${scale})`}>
-          <path className="pt" d={PETAL} fill={fill} />
-          <path className="vein" d={VEIN} />
-        </g>
-      ))}
+      {Array.from({ length: count }, (_, i) => {
+        const a = (360 / count) * i + offset + (rnd(i, seed) - 0.5) * 9;
+        const sc = scale * (0.93 + rnd(i, seed + 1) * 0.14);
+        const sk = (rnd(i, seed + 2) - 0.5) * 9;
+        return (
+          <g key={i} transform={`rotate(${a.toFixed(1)}) scale(${sc.toFixed(3)}) skewX(${sk.toFixed(1)})`}>
+            <path d={PETAL_NAT} fill={`url(#${grad})`} stroke="rgba(87,15,29,.3)" strokeWidth=".45" />
+            {VEINS.slice(0, veins).map((d, v) => (
+              <path key={v} d={d} fill="none" stroke="rgba(87,15,29,.16)" strokeWidth=".3" />
+            ))}
+          </g>
+        );
+      })}
     </svg>
   );
 }
 
-/** The hero flower: four stacked layers (so each can drift on its own with the cursor) bloom from a glowing bud.
- *  Shared gradients live in the first <svg>. Pure CSS animation. */
+/** The hero flower: three rings of shaded petals (so each can drift on its own with the cursor) around a stamened centre,
+ *  blooming from a glowing bud. Shared gradients live in the first <svg>. Pure CSS animation. */
 export function Bloom() {
   return (
     <div className="bloom" aria-hidden>
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
-          <radialGradient id="gBlue" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#3A557D" /><stop offset=".6" stopColor="#6F93B5" /><stop offset="1" stopColor="#B9D0E3" /></radialGradient>
-          <radialGradient id="gPink" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#9E3F4E" /><stop offset=".55" stopColor="#C65C6A" /><stop offset="1" stopColor="#E9A5AD" /></radialGradient>
-          <radialGradient id="gLight" cx="50%" cy="85%" r="95%"><stop offset="0" stopColor="#E8956A" /><stop offset=".6" stopColor="#F2B38F" /><stop offset="1" stopColor="#FBE3D0" /></radialGradient>
+          <linearGradient id="gOuter" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#94404F" /><stop offset=".22" stopColor="#C65C6A" /><stop offset=".6" stopColor="#E3939B" /><stop offset="1" stopColor="#F9DAD8" /></linearGradient>
+          <linearGradient id="gMid" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#6F2B34" /><stop offset=".25" stopColor="#94404F" /><stop offset=".65" stopColor="#C65C6A" /><stop offset="1" stopColor="#E3939B" /></linearGradient>
+          <linearGradient id="gInner" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#570F1D" /><stop offset=".3" stopColor="#6F2B34" /><stop offset=".7" stopColor="#94404F" /><stop offset="1" stopColor="#C65C6A" /></linearGradient>
+          <radialGradient id="gCore" cx=".5" cy=".5" r=".5"><stop offset="0" stopColor="#94404F" /><stop offset="1" stopColor="#570F1D" /></radialGradient>
         </defs>
       </svg>
       <div className="warm" />
       <div className="glow" />
-      <div className="bw bw1" style={vars({ "--dl": "1.1s" })}><Layer cls="bl1" count={12} scale={1} offset={0} fill="url(#gBlue)" /></div>
-      <div className="bw bw2" style={vars({ "--dl": "1.3s" })}><Layer cls="bl2" count={10} scale={0.8} offset={18} fill="url(#gPink)" /></div>
-      <div className="bw bw3" style={vars({ "--dl": "1.5s" })}><Layer cls="bl3" count={8} scale={0.52} offset={0} fill="url(#gLight)" /></div>
+      <div className="bw bw1" style={vars({ "--dl": "1.1s" })}><Layer cls="bl1" count={8} scale={1.22} offset={0} grad="gOuter" seed={1} /></div>
+      <div className="bw bw2" style={vars({ "--dl": "1.3s" })}><Layer cls="bl2" count={8} scale={0.98} offset={22} grad="gMid" seed={2} veins={3} /></div>
+      <div className="bw bw3" style={vars({ "--dl": "1.5s" })}><Layer cls="bl3" count={6} scale={0.72} offset={8} grad="gInner" seed={3} veins={3} /></div>
       <div className="bw bw4" style={vars({ "--dl": ".3s" })}>
         <svg className="bl bl4" viewBox="-70 -70 140 140" aria-hidden>
-          <circle className="core" r="11.5" />
-          {SEEDS.map((s, i) => (
-            <circle key={i} className={`seed k${s.k}`} cx={s.x} cy={s.y} r={0.95} />
+          <circle r="9.5" fill="url(#gCore)" />
+          {STAMENS.map((st, i) => (
+            <g key={i}>
+              <line x1={st.x0} y1={st.y0} x2={st.x1} y2={st.y1} stroke="#F9DAD8" strokeWidth=".55" strokeLinecap="round" opacity=".92" />
+              <ellipse cx={st.x1} cy={st.y1} rx="1.6" ry="1" fill="#FCF1DA" stroke="#E3939B" strokeWidth=".25" transform={`rotate(${st.deg} ${st.x1} ${st.y1})`} />
+            </g>
           ))}
+          <circle r="3.2" fill="#FCF1DA" opacity=".95" />
+          <circle r="1.4" fill="#94404F" />
         </svg>
       </div>
     </div>
