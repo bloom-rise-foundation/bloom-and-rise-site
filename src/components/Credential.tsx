@@ -19,7 +19,7 @@ export function VerifyForm() {
     >
       <label htmlFor="cid" className="small">Credential ID</label>
       <div className="vrow">
-        <input id="cid" value={v} onChange={(e) => setV(e.target.value.replace(/\s+/g, ""))} placeholder="The ID printed on the certificate" autoComplete="off" autoCapitalize="characters" spellCheck={false} maxLength={64} aria-describedby="cid-note" />
+        <input id="cid" value={v} onChange={(e) => setV(e.target.value.replace(/\s+/g, ""))} placeholder="The ID printed on the certificate" autoComplete="off" autoCapitalize="characters" autoCorrect="off" enterKeyHint="go" spellCheck={false} maxLength={64} aria-describedby="cid-note" />
         <button className="btn" type="submit" disabled={pending || !v}><span key={pending ? "busy" : "idle"} className="swap">{pending && <span className="spin" aria-hidden />}{pending ? "Checking…" : "Verify"}</span></button>
       </div>
       <p id="cid-note" className="small note" style={{ marginTop: ".8rem" }}>Letters, numbers, dashes and underscores only.</p>

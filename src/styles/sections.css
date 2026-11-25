@@ -107,7 +107,7 @@
 
 /* ---------- stacking cards ("How we work") ---------- */
 .stack{padding-bottom:1rem}
-.stack-card{position:sticky;top:calc(5.6rem + var(--i) * 1.5rem);isolation:isolate;overflow:hidden;min-height:clamp(300px,52vh,450px);margin-bottom:clamp(1.6rem,6vh,3.5rem);border-radius:48px;padding:clamp(1.8rem,4vw,3.4rem);display:flex;flex-direction:column;justify-content:flex-end;transform:rotate(var(--r));box-shadow:0 -22px 60px rgba(5,33,59,.22)}
+.stack-card{position:sticky;top:calc(5.6rem + env(safe-area-inset-top,0px) + var(--i) * 1.5rem);isolation:isolate;overflow:hidden;min-height:clamp(300px,52vh,450px);margin-bottom:clamp(1.6rem,6vh,3.5rem);border-radius:48px;padding:clamp(1.8rem,4vw,3.4rem);display:flex;flex-direction:column;justify-content:flex-end;transform:rotate(var(--r));box-shadow:0 -22px 60px rgba(5,33,59,.22)}
 .stack-card.pink{background:var(--pink);color:var(--rum);--ink:var(--rum)} .stack-card.blue{background:var(--blue);color:var(--rum);--ink:var(--rum)}
 .stack-card.beet{background:var(--beet);color:var(--lemon);--ink:var(--lemon)} .stack-card.rum{background:var(--rum);color:var(--lemon);--ink:var(--lemon)}
 .stack-card .num{position:absolute;left:clamp(1.4rem,3vw,2.6rem);top:.8rem;font-family:var(--display);font-weight:900;font-size:clamp(4.5rem,11vw,9rem);line-height:1;color:transparent;-webkit-text-stroke:2px var(--ink)}
@@ -239,11 +239,11 @@ html.js .tile[data-reveal]{transition:opacity .65s var(--ease) var(--d,0s),trans
   .section{padding:3.5rem 0}
   .statement{font-size:1.7rem;line-height:1.22}
   .focus{gap:1rem}
-  .stack-card{border-radius:34px;top:calc(4.8rem + var(--i) * 1.1rem)}
+  .stack-card{border-radius:34px;top:calc(4.8rem + env(safe-area-inset-top,0px) + var(--i) * 1.1rem)}
   .poster{border-radius:34px}
   .spot{padding:7rem 0 15rem}
   .closing{padding:4.5rem 0 calc(var(--dome) + 3rem);margin-top:2rem}
-  .footer{padding:3.5rem 0 1.4rem}
+  .footer{padding:3.5rem 0 calc(1.4rem + env(safe-area-inset-bottom,0px))}
   .fcols{grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 1.5rem}
   .fcol a,.footer .socials a{display:inline-block;padding:.3rem 0}
 }
