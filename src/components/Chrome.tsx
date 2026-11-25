@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/config/site";
+import { PatternStrip } from "./Ribbons";
 
 export function SocialLinks() {
   return (
@@ -16,6 +17,7 @@ export function SocialLinks() {
 export function Footer({ year }: { year: number }) {
   return (
     <footer className="footer cv">
+      <PatternStrip />
       <div className="wrap fcols">
         <div className="fbrand">
           <p className="display">{site.name}</p>

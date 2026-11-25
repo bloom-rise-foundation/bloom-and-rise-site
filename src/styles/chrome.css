@@ -56,7 +56,8 @@ html:has(.menu.open){overflow:hidden}
 /* ---------- closing + footer ---------- */
 .closing{--dome:clamp(9rem,18vw,15rem);--dia:min(150vw,2400px);position:relative;overflow:hidden;padding:6rem 0 calc(var(--dome) + 4rem);text-align:center;margin-top:4rem}
 .closing .wrap{position:relative;z-index:1}
-.closing h2{max-width:13em;margin:0 auto 1rem;font-size:clamp(2.6rem,7.4vw,6.2rem)} .closing .script{display:block;color:var(--beet);margin-inline-start:0} .closing .row{justify-content:center}
+.closing h2{max-width:13em;margin:0 auto 1rem;font-size:clamp(2.6rem,7.4vw,6.2rem)} .closing h2{background:linear-gradient(100deg,var(--rum) 0%,var(--garnet) 34%,var(--rose) 58%,var(--garnet) 80%,var(--rum) 100%) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-bottom:.12em}
+.closing .script{display:block;color:inherit;-webkit-text-fill-color:transparent;margin-inline-start:0} .closing .row{justify-content:center}
 .closing::after{content:"";position:absolute;z-index:0;left:50%;width:var(--dia);aspect-ratio:1;bottom:calc(var(--dome) - var(--dia));transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle closest-side,var(--blush) 0 88%,var(--pink) 88% 94%,var(--garnet) 94% 100%)}
 .footer{background:var(--rum);color:var(--lemon);padding:4.5rem 0 calc(1.5rem + env(safe-area-inset-bottom,0px));overflow:hidden}
 .fcols{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:2.5rem}
@@ -99,4 +100,13 @@ html.cursor-on :is(input:not([type=checkbox]):not([type=radio]):not([type=submit
 @media (pointer:coarse){
   /* the glass bar re-blurs behind a scrolling page every frame; a lighter blur is far cheaper on phones */
   .header .bar::before{-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
+}
+
+/* the closing line grows into frame as it arrives, and its colour sweeps across as you scroll past */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    .closing h2{animation:closeIn var(--ease) both,closeSweep linear both;animation-timeline:view(),view();animation-range:entry 0% entry 80%,entry 0% exit 20%}
+    @keyframes closeIn{from{scale:.86;translate:0 5vh;opacity:.3}}
+    @keyframes closeSweep{to{background-position:100% 0}}
+  }
 }

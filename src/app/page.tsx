@@ -1,16 +1,19 @@
-import { Hero, Band, Section, FocusPin, Stack, Spotlight, Steps } from "@/components/Sections";
+import { Hero, Section, FocusPin, Stack, Spotlight, Steps } from "@/components/Sections";
+import { Band } from "@/components/Ribbons";
 import { Reveal, LitWords } from "@/components/ui";
 import { site } from "@/config/site";
 
-const band = [...site.phrases.slice(0, 3), site.values[0].title];
+const band = site.phrases.slice(0, 3);
+const band2 = site.values.map((v) => v.title);
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Band items={band} />
+      <Band items={band} items2={band2} />
       <Section cv>
-        <LitWords text={site.mission} className="statement display" />
+        <p className="kicker"><i>01</i> Why we exist</p>
+        <LitWords text={site.mission} className="statement display" accents={["candid", "answers", "science", "unhurriedly", "community"]} />
       </Section>
       <FocusPin />
       <section className="section cv cv-stack">

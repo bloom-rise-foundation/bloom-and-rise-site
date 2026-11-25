@@ -28,12 +28,12 @@ export function SplitWords({ text, delay = 0 }: { text: string; delay?: number }
 }
 
 /** Paragraph whose words light up one by one as it scrolls through the viewport. */
-export function LitWords({ text, className = "" }: { text: string; className?: string }) {
+export function LitWords({ text, className = "", accents = [] }: { text: string; className?: string; accents?: string[] }) {
   const words = text.split(" ");
   return (
     <p className={`lit ${className}`} aria-label={text}>
       {words.map((w, i) => (
-        <span key={i} className="lw" aria-hidden style={vars({ "--i": i, "--n": words.length })}>{w}{i < words.length - 1 ? " " : ""}</span>
+        <span key={i} className={`lw${accents.includes(w.toLowerCase().replace(/[^a-z]/g, "")) ? " ac" : ""}`} aria-hidden style={vars({ "--i": i, "--n": words.length })}>{w}{i < words.length - 1 ? " " : ""}</span>
       ))}
     </p>
   );

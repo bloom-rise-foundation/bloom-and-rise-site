@@ -54,18 +54,59 @@
   .bloom{opacity:.5}
 }
 
-/* ---------- band: oversized words drifting in opposite directions ---------- */
-.band{position:relative;z-index:1;background:var(--beet);color:var(--lemon);padding:clamp(1.2rem,3vw,2.4rem) 0;overflow:hidden}
-.band-row{overflow:hidden;padding:.2rem 0}
-.band-track{list-style:none;padding:0;display:flex;width:max-content;align-items:center;animation:bandMove 60s linear infinite}
-.band-row.rev .band-track{animation-direction:reverse;animation-duration:75s}
-@media(hover:hover) and (pointer:fine){.band:hover .band-track{animation-play-state:paused}}
-.band li{display:flex;align-items:center;gap:clamp(1.2rem,3vw,2.6rem);padding-right:clamp(1.2rem,3vw,2.6rem);font-family:var(--display);font-weight:900;font-size:clamp(3rem,9vw,7.5rem);line-height:1.05;letter-spacing:-.02em;white-space:nowrap}
-.band li.o{color:transparent;-webkit-text-stroke:2px var(--leaf)}
-.band li .flower{flex:none;width:clamp(36px,5vw,64px);height:auto}
+/* ---------- band: a dark room with a helix of particles over two tilted ribbons of words ---------- */
+.band{position:relative;z-index:1;background:var(--rum);color:var(--lemon);overflow:hidden;padding:clamp(7.5rem,15vw,11rem) 0 clamp(3.2rem,7vw,5.5rem)}
+.band::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 70% at 50% 0,rgba(198,92,106,.28),transparent 70%)}
+.ribbons{position:relative;z-index:1}
+.ribbon{position:relative;width:114vw;margin-left:-7vw;padding:.55rem 0;overflow:hidden;rotate:var(--rot);box-shadow:0 14px 40px rgba(0,0,0,.28)}
+.rb1{--rot:-2.2deg;background:var(--rose);color:var(--lemon);z-index:2}
+.rb2{--rot:1.4deg;background:var(--beet);color:var(--blush);margin-top:-.7rem;padding-top:1.3rem}
+.rb-track{list-style:none;padding:0;margin:0;display:flex;width:max-content;align-items:center;animation:bandMove 70s linear infinite}
+.rb2 .rb-track{animation-direction:reverse;animation-duration:90s}
+@media(hover:hover) and (pointer:fine){.band:hover .rb-track{animation-play-state:paused}}
+.rb-track li{display:flex;align-items:center;gap:clamp(1rem,2.4vw,2rem);padding-right:clamp(1rem,2.4vw,2rem);font-family:var(--display);font-size:clamp(1.5rem,3.7vw,3rem);line-height:1.15;white-space:nowrap}
+.rb-track li.bd{font-weight:800;letter-spacing:-.01em;text-transform:uppercase;font-size:clamp(1.3rem,3.2vw,2.6rem)}
+.rb-track li.it{font-weight:500;font-style:italic}
+.rb-track .flower{flex:none;width:clamp(24px,3vw,38px);height:auto}
+.rb-track .venus{flex:none;width:clamp(20px,2.6vw,32px);height:auto;color:var(--pink)}
 @keyframes bandMove{to{transform:translate3d(-50%,0,0)}}
+/* helix of particles */
+.helix{position:absolute;left:0;right:0;top:clamp(1.4rem,3.4vw,2.6rem);height:clamp(74px,9.5vw,128px);display:flex;justify-content:space-between;padding-inline:2vw;pointer-events:none;contain:layout paint}
+.hx{--R:clamp(24px,3.3vw,46px);position:relative;width:0;height:100%}
+.hx b{position:absolute;left:-4px;top:calc(50% - 4px);width:8px;height:8px;border-radius:50%}
+.hx b.a{background:radial-gradient(circle at 35% 30%,var(--lemon),var(--pink) 55%,var(--rose));box-shadow:0 0 12px rgba(227,147,155,.85);translate:0 calc(sin(var(--i) * .55) * var(--R))}
+.hx b.b{background:radial-gradient(circle at 35% 30%,#fff,var(--blue) 55%,var(--glacier));box-shadow:0 0 12px rgba(213,227,238,.7);translate:0 calc(sin(var(--i) * .55) * var(--R) * -1)}
+.hx s{position:absolute;left:-.5px;top:calc(50% - var(--R));width:1px;height:calc(var(--R) * 2);background:linear-gradient(var(--pink),var(--blue));opacity:.32;scale:1 calc(sin(var(--i) * .55))}
+.dust{position:absolute;left:var(--x);top:var(--y);width:var(--z);height:var(--z);border-radius:50%;background:var(--blush);opacity:.55}
+.dust.c1{background:var(--pink)} .dust.c2{background:var(--blue)}
+@media(max-width:700px){.hx:nth-child(even){display:none}}
+@media (prefers-reduced-motion:no-preference){
+  .hx b.a{animation:hxY 3.6s var(--ease-io) calc(var(--i) * -.17s) infinite alternate,hxZ 3.6s var(--ease-io) calc(var(--i) * -.17s - .9s) infinite alternate}
+  .hx b.b{animation:hxY 3.6s var(--ease-io) calc(var(--i) * -.17s) infinite alternate-reverse,hxZ 3.6s var(--ease-io) calc(var(--i) * -.17s - .9s) infinite alternate-reverse}
+  .hx s{animation:hxR 3.6s var(--ease-io) calc(var(--i) * -.17s) infinite alternate}
+  .dust{animation:twinkle var(--t) ease-in-out var(--dl) infinite alternate}
+  @keyframes hxY{from{translate:0 calc(var(--R) * -1)}to{translate:0 var(--R)}}
+  @keyframes hxZ{from{scale:.5;opacity:.4}to{scale:1.4;opacity:1}}
+  @keyframes hxR{from{scale:1 -1}to{scale:1 1}}
+  @keyframes twinkle{from{opacity:.12;scale:.7}to{opacity:.95;scale:1.25}}
+  @supports (animation-timeline:view()){
+    /* the ribbons unfurl: they start flat and tilt into place as the room scrolls into view */
+    .ribbon{animation:rbIn var(--ease) both;animation-timeline:view();animation-range:entry 0% entry 90%}
+    @keyframes rbIn{from{rotate:0deg;scale:.96;opacity:.6}}
+  }
+}
+
+/* ---------- strip of bold geometric tiles above the footer ---------- */
+.pat{overflow:hidden;height:clamp(54px,7.2vw,104px);margin-bottom:clamp(2.6rem,5vw,4rem)}
+.pat-track{display:flex;width:max-content;height:100%;animation:bandMove 80s linear infinite}
+.pat-track svg{display:block;height:100%;width:auto;aspect-ratio:8 / 1;flex:none}
+@media(hover:hover) and (pointer:fine){.pat:hover .pat-track{animation-play-state:paused}}
 
 /* ---------- statement ---------- */
+.kicker{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:1.4rem;font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--garnet)}
+.kicker i{font-style:normal;font-size:.72rem;letter-spacing:.04em;padding:.2rem .6rem;border-radius:999px;background:var(--blush);color:var(--garnet)}
+.statement .ac{font-style:italic;font-weight:500;color:var(--rose)}
+
 .statement{font-size:clamp(1.9rem,4.8vw,4rem);font-weight:700;line-height:1.16;max-width:20em;letter-spacing:-.015em;margin-inline:auto;text-align:center;text-wrap:balance}
 
 /* ---------- posters (focus areas) ---------- */
@@ -331,5 +372,39 @@ html.js .tile[data-reveal]{transition:opacity .65s var(--ease) var(--d,0s),trans
     @keyframes petBurst{55%{opacity:1}100%{translate:calc(var(--tx) * var(--art)) calc(var(--ty) * var(--art));rotate:calc(var(--sp) * 1deg);scale:var(--es);opacity:0}}
     @keyframes coreOut{to{scale:.6;opacity:0}}
     @keyframes pollenBurst{0%{opacity:0;scale:.6}10%{opacity:.95}100%{translate:calc(var(--tx) * var(--art)) calc(var(--ty) * var(--art));opacity:0;scale:1.3}}
+  }
+}
+
+/* ---------- stack: as the next card slides over, the one beneath recedes and almost disappears (never fully) ---------- */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()) and (timeline-scope:--a){
+    .stack{timeline-scope:--c1,--c2,--c3,--c4,--c5,--c6,--c7}
+    .stack-card:nth-child(2){view-timeline:--c1 block}
+    .stack-card:nth-child(3){view-timeline:--c2 block}
+    .stack-card:nth-child(4){view-timeline:--c3 block}
+    .stack-card:nth-child(5){view-timeline:--c4 block}
+    .stack-card:nth-child(6){view-timeline:--c5 block}
+    .stack-card:nth-child(7){view-timeline:--c6 block}
+    .stack-card:nth-child(8){view-timeline:--c7 block}
+    .stack-card:not(:last-child){animation:cardAway linear both;animation-range:entry 35% cover 38%}
+    .stack-card:nth-child(1){animation-timeline:--c1}
+    .stack-card:nth-child(2){animation-timeline:--c2}
+    .stack-card:nth-child(3){animation-timeline:--c3}
+    .stack-card:nth-child(4){animation-timeline:--c4}
+    .stack-card:nth-child(5){animation-timeline:--c5}
+    .stack-card:nth-child(6){animation-timeline:--c6}
+    .stack-card:nth-child(7){animation-timeline:--c7}
+    /* an opaque cream veil rather than opacity, so the cards beneath never show through */
+    .stack-card::after{content:"";position:absolute;inset:0;z-index:5;border-radius:inherit;background:var(--lemon);opacity:0;pointer-events:none}
+    .stack-card:not(:last-child)::after{animation:cardVeil linear both;animation-range:entry 35% cover 38%}
+    .stack-card:nth-child(1)::after{animation-timeline:--c1}
+    .stack-card:nth-child(2)::after{animation-timeline:--c2}
+    .stack-card:nth-child(3)::after{animation-timeline:--c3}
+    .stack-card:nth-child(4)::after{animation-timeline:--c4}
+    .stack-card:nth-child(5)::after{animation-timeline:--c5}
+    .stack-card:nth-child(6)::after{animation-timeline:--c6}
+    .stack-card:nth-child(7)::after{animation-timeline:--c7}
+    @keyframes cardAway{to{scale:.93}}
+    @keyframes cardVeil{to{opacity:.86}}
   }
 }

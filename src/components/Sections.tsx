@@ -63,28 +63,6 @@ export function Hero() {
   );
 }
 
-/** Two oversized rows of words drifting in opposite directions. */
-export function Band({ items }: { items: string[] }) {
-  const row = (rev: boolean) => (
-    <div className={`band-row${rev ? " rev" : ""}`}>
-      <ul className="band-track">
-        {[...items, ...items].map((t, i) => (
-          <li key={i} className={(i + (rev ? 1 : 0)) % 2 ? "o" : ""} aria-hidden={i >= items.length || rev || undefined}>
-            {t}
-            <Flower size={52} />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-  return (
-    <section className="band" aria-label={items.join(", ")}>
-      {row(false)}
-      {row(true)}
-    </section>
-  );
-}
-
 type TileData = { title: string; text: string; tone: string };
 
 export function Tile({ title, text, tone, i = 0, reveal = true, href }: TileData & { i?: number; reveal?: boolean; href?: string }) {
