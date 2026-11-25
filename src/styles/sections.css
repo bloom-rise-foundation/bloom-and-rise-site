@@ -4,6 +4,8 @@
    ===================================================================== */
 .hero{position:relative;isolation:isolate;margin-top:calc(var(--hdr) * -1);min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);align-items:center;overflow:hidden;background:var(--rum);padding:calc(3.6rem + var(--hdr)) 0 3.6rem}
 .hero-inner{position:relative;z-index:2;min-width:0}
+/* desktop: a wider column than the page grid, so the text sits further left and the whole flower fits on the right */
+@media(min-width:821px){.hero .hero-inner{width:min(1320px,100% - 2 * max(2rem,var(--inset-x)))}}
 .hero h1{font-size:clamp(2.3rem,4.4vw,4.2rem);line-height:1.04;max-width:min(12em,58vw);letter-spacing:-.025em;text-wrap:balance;color:var(--beet);animation:inkL 2.65s linear both}
 .hero h1 .ln{display:block}
 .hero h1 .w{animation:none}
@@ -26,7 +28,7 @@
 @keyframes cyc{0%{opacity:0;transform:translate3d(0,60%,0)}4%,22%{opacity:1;transform:none}26%,100%{opacity:0;transform:translate3d(0,-60%,0)}}
 .hero .row{align-items:center}
 
-.hero-art{position:absolute;z-index:1;right:max(-3vw,-2.5rem);top:54%;translate:0 -50%;width:min(40vw,590px);aspect-ratio:1;pointer-events:none}
+.hero-art{position:absolute;z-index:1;right:max(3vw,2rem);top:54%;translate:0 -50%;width:min(37vw,560px);aspect-ratio:1;pointer-events:none}
 @supports (animation-timeline:scroll()){.hero-art{animation:heroOut linear both;animation-timeline:scroll(root);animation-range:0 95vh}}
 @keyframes heroOut{to{transform:translate3d(0,-14vh,0) scale(1.18)}}
 .dawn{position:absolute;left:50%;top:50%;width:250vmax;height:250vmax;margin:-125vmax 0 0 -125vmax;border-radius:50%;z-index:-1;transform:scale(1);animation:dawn 1.7s var(--ease-dawn) 1s backwards;background:var(--lemon)}
