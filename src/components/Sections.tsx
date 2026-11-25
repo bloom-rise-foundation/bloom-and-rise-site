@@ -191,7 +191,7 @@ export function Steps({ items }: { items: { title: string; script: string; text:
 // Phones have a narrower, taller stage where the headline wraps to four lines, so each word has its own spot clear of it.
 const WORDS: [string, number, number, number, number, number, number][] = [
   ["periods", 12, 72, -6, 0, 22, 71],
-  ["puberty", 58, 71, 4, 1, 62, 72],
+  ["puberty", 58, 77, 4, 1, 62, 72],
   ["stigma", 30, 82, -3, 2.2, 30, 82],
   ["questions", 75, 85, 5, 3, 66, 88],
   ["science", 16, 36, 4, 4.3, 20, 26],
@@ -202,9 +202,20 @@ const WORDS: [string, number, number, number, number, number, number][] = [
   ["listen", 87, 71, -4, 9, 84, 79],
 ];
 
-/** The pull-cord lamp. The page pins for a stretch of scroll and the scroll position drives a short story:
- *  the cord is tugged down, the lamp clicks and sways, the light flickers, floods on brightly, then the hidden words light one by one.
- *  All of it is CSS scroll-driven animation (transform/opacity only); see styles/sections.css. Without scroll timelines it simply shows the lit room. */
+// A few specks of dust drifting up through the beam. Deterministic values (no hydration mismatch); they only show once the light is on.
+const MOTES = Array.from({ length: 10 }, (_, i) => ({
+  x: 36 + ((i * 17) % 29),
+  y: (i * 23) % 70,
+  s: 2 + (i % 3),
+  d: 5 + (i % 4) * 1.3,
+  t: -((i * 1.1) % 6),
+  dx: (i % 2 ? 1 : -1) * (8 + ((i * 5) % 22)),
+}));
+
+/** The pull-cord lamp. The page pins for a short stretch of scroll and the scroll position drives a story:
+ *  the cord is tugged down, the lamp clicks and swings, the light flickers, floods on brightly, then the hidden words light one by one.
+ *  The story is CSS scroll-driven animation (transform/opacity only); the idle life (sway, glow breath, dust, word bob) is compositor-only loops.
+ *  Without scroll timelines, or under reduced motion, it is simply the lit room. See styles/sections.css. */
 export function Spotlight() {
   return (
     <section className="spot cv">
@@ -212,25 +223,39 @@ export function Spotlight() {
         <div className="light" aria-hidden>
           <div className="cone" />
           <div className="bulb-glow" />
+          {MOTES.map((m, i) => (
+            <i key={i} className="mote" style={vars({ "--x": `${m.x}%`, "--y": `${m.y}%`, "--s": `${m.s}px`, "--d": `${m.d}s`, "--t": `${m.t}s`, "--dx": `${m.dx}px` })} />
+          ))}
         </div>
         <div className="flash" aria-hidden />
         <div className="spot-words" aria-hidden>
           {WORDS.map(([w, x, y, r, o, mx, my]) => (
-            <span key={w} className="script" style={vars({ "--x": `${x}%`, "--y": `${y}%`, "--mx": `${mx}%`, "--my": `${my}%`, "--r": `${r}deg`, "--o": o })}>{w}</span>
+            <span key={w} className="script" style={vars({ "--x": `${x}%`, "--y": `${y}%`, "--mx": `${mx}%`, "--my": `${my}%`, "--r": `${r}deg`, "--o": o })}>
+              <em>{w}</em>
+            </span>
           ))}
         </div>
         <div className="lamp-rig" aria-hidden>
-          <svg className="lamp-svg" viewBox="0 0 200 232">
-            <line x1="100" y1="0" x2="100" y2="120" stroke="rgba(248,227,232,.45)" strokeWidth="2" />
-            <path d="M36 196C36 152 66 120 100 120C134 120 164 152 164 196Z" fill="#3A557D" stroke="#F2B38F" strokeWidth="1.5" />
-            <ellipse cx="100" cy="196" rx="64" ry="9" fill="#05213B" stroke="#F2B38F" strokeWidth="1.5" />
-            <circle cx="100" cy="203" r="15" fill="#2A3F5F" />
-            <circle className="bulb-on" cx="100" cy="203" r="15" fill="#FFE9D2" stroke="#F2B38F" strokeWidth="1.5" />
-          </svg>
-          <div className="cord-wrap">
-            <i className="cord" />
-            <b className="bead" />
+          <div className="lamp-idle">
+            <svg className="lamp-svg" viewBox="0 0 200 232">
+              <line x1="100" y1="0" x2="100" y2="120" stroke="rgba(248,227,232,.45)" strokeWidth="2" />
+              <path d="M36 196C36 152 66 120 100 120C134 120 164 152 164 196Z" fill="#3A557D" stroke="#F2B38F" strokeWidth="1.5" />
+              <ellipse cx="100" cy="196" rx="64" ry="9" fill="#05213B" stroke="#F2B38F" strokeWidth="1.5" />
+              <circle cx="100" cy="203" r="15" fill="#2A3F5F" />
+              <circle className="bulb-on" cx="100" cy="203" r="15" fill="#FFE9D2" stroke="#F2B38F" strokeWidth="1.5" />
+            </svg>
+            <div className="cord-wrap">
+              <i className="cord" />
+              <b className="bead" />
+            </div>
           </div>
+        </div>
+        <div className="scroll-note" aria-hidden>
+          <span>
+            Keep scrolling
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+          </span>
+          <i className="sn-bar"><b /></i>
         </div>
         <div className="wrap spot-in">
           <h2 className="display">Some conversations are easy to ignore.</h2>

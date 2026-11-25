@@ -102,7 +102,7 @@ html.navd .page{animation:fade-up .55s var(--ease) both}
 /* below-the-fold sections are not styled, laid out or painted until they near the viewport */
 .cv{content-visibility:auto;contain-intrinsic-size:auto 700px}
 .cv-stack{contain-intrinsic-size:auto 2400px}
-.spot.cv{contain-intrinsic-size:auto 300vh}
+.spot.cv{contain-intrinsic-size:auto 220vh}
 
 /* ---- details ---- */
 html{scroll-padding-top:calc(6.5rem + env(safe-area-inset-top,0px));-webkit-tap-highlight-color:transparent}
