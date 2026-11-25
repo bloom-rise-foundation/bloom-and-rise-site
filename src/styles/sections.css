@@ -8,9 +8,9 @@
 .hero h1 .ln{display:block}
 .hero h1 .w{animation:none}
 .hero h1 .ln:last-child .w{font-style:italic;font-weight:700;color:var(--rum);animation:inkP 2.65s linear both}
-.hero .chip{animation:fade-up .7s var(--ease) var(--d) both}
-.hero .lead{margin-top:1.1rem;max-width:33em;color:var(--rum);animation:fade-up .7s var(--ease) var(--d) both,inkL 1.5s 1.15s ease-in-out both}
-.hero .through{color:var(--rum);animation:fade-up .7s var(--ease) var(--d) both,inkL 1.5s 1.15s ease-in-out both}
+.hero .chip{animation:fade-up .5s var(--ease) var(--d) both}
+.hero .lead{margin-top:1.1rem;max-width:33em;color:var(--rum);animation:fade-up .5s var(--ease) var(--d) both,inkL 1.5s 1.15s ease-in-out both}
+.hero .through{color:var(--rum);animation:fade-up .5s var(--ease) var(--d) both,inkL 1.5s 1.15s ease-in-out both}
 .through{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,3vw,2rem);margin-top:.9rem;line-height:1.2}
 .hero .btn{animation:btnL 2.6s linear both}
 .hero .btn.ghost{animation:btnG 2.6s linear both}

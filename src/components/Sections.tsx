@@ -40,13 +40,13 @@ export function Hero() {
         <Bloom />
       </div>
       <div className="wrap hero-inner">
-        <p className="chip fade-up" style={vars({ "--d": ".1s" })}>{site.statusShort}</p>
+        <p className="chip fade-up" style={vars({ "--d": ".05s" })}>{site.statusShort}</p>
         <h1 className="display">
           <span className="ln"><span className="mask"><span className="w">Some conversations are left unspoken.</span></span></span>
           <span className="ln"><span className="mask"><span className="w">We coax them into the light.</span></span></span>
         </h1>
-        <p className="lead fade-up" style={vars({ "--d": ".6s" })}>Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children.</p>
-        <p className="through fade-up" style={vars({ "--d": ".75s" })}>
+        <p className="lead fade-up" style={vars({ "--d": ".2s" })}>Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children.</p>
+        <p className="through fade-up" style={vars({ "--d": ".3s" })}>
           through{" "}
           <span className="cycle" style={vars({ "--n": site.phrases.length })} aria-label={site.phrases.join(", ")}>
             {site.phrases.map((w, i) => (
@@ -54,7 +54,7 @@ export function Hero() {
             ))}
           </span>
         </p>
-        <div className="row fade-up" style={vars({ "--d": ".9s" })}>
+        <div className="row fade-up" style={vars({ "--d": ".4s" })}>
           <div data-fx="mag"><Link className="btn" href="/get-involved">Join us</Link></div>
           <div data-fx="mag"><Link className="btn ghost" href="/about">Our blueprint</Link></div>
         </div>
