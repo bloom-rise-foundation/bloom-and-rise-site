@@ -6,7 +6,7 @@
   --bg:var(--lemon); --ink:var(--rum);
   --display:var(--font-display),"Playfair Display",Georgia,serif;
   --body:var(--font-body),system-ui,sans-serif;
-  --wrap:1120px; --r:32px; --ease:cubic-bezier(.23,1,.32,1); --ease-io:cubic-bezier(.77,0,.175,1); --hdr:calc(72px + env(safe-area-inset-top,0px));
+  --wrap:1120px; --r:32px; --ease:cubic-bezier(.23,1,.32,1); --ease-io:cubic-bezier(.77,0,.175,1); --ease-dawn:cubic-bezier(.55,0,.15,1); --ease-overshoot:cubic-bezier(.2,1.2,.35,1); --ease-stamp:cubic-bezier(.3,1.6,.5,1); --hdr:calc(72px + env(safe-area-inset-top,0px));
   --inset-x:max(env(safe-area-inset-left,0px),env(safe-area-inset-right,0px));
 }
 *{box-sizing:border-box;margin:0}

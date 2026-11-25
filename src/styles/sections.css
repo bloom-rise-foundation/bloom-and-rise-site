@@ -29,7 +29,7 @@
 .hero-art{position:absolute;z-index:1;right:max(-11vw,-9rem);top:54%;translate:0 -50%;width:min(50vw,680px);aspect-ratio:1;pointer-events:none}
 @supports (animation-timeline:scroll()){.hero-art{animation:heroOut linear both;animation-timeline:scroll(root);animation-range:0 95vh}}
 @keyframes heroOut{to{transform:translate3d(0,-14vh,0) scale(1.18)}}
-.dawn{position:absolute;left:50%;top:50%;width:250vmax;height:250vmax;margin:-125vmax 0 0 -125vmax;border-radius:50%;z-index:-1;transform:scale(1);animation:dawn 1.7s cubic-bezier(.55,0,.15,1) 1s backwards;background:var(--lemon)}
+.dawn{position:absolute;left:50%;top:50%;width:250vmax;height:250vmax;margin:-125vmax 0 0 -125vmax;border-radius:50%;z-index:-1;transform:scale(1);animation:dawn 1.7s var(--ease-dawn) 1s backwards;background:var(--lemon)}
 @keyframes dawn{from{transform:scale(0)}}
 
 .bloom{position:absolute;inset:0}
@@ -37,7 +37,7 @@
 .bloom .glow{position:absolute;left:50%;top:50%;width:62%;aspect-ratio:1;margin:-31% 0 0 -31%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(242,179,143,.95),rgba(242,179,143,.4) 38%,transparent);animation:budGlow 2.6s ease-out both}
 @keyframes budGlow{0%{opacity:0;transform:scale(.6)}35%{opacity:1;transform:scale(.9)}100%{opacity:.4;transform:scale(1.15)}}
 /* each ring blooms as one composited layer (scale + a little twist), staggered; no per-petal animation */
-.bw{position:absolute;inset:0;animation:bloomOpen 1.5s cubic-bezier(.2,1.2,.35,1) var(--dl,1s) both}
+.bw{position:absolute;inset:0;animation:bloomOpen 1.5s var(--ease-overshoot) var(--dl,1s) both}
 @keyframes bloomOpen{from{transform:scale(.6) rotate(-60deg);opacity:0}}
 @keyframes fadeIn{from{opacity:0}}
 .bl{position:absolute;inset:0;width:100%;height:100%;overflow:visible;translate:calc(var(--px,0) * var(--k) * 1px) calc(var(--py,0) * var(--k) * 1px);transition:translate .6s var(--ease)}
@@ -174,8 +174,8 @@
     .bead{animation-name:beadTug}
     .lamp-rig{animation-name:lampSway}
     .cord-wrap{animation-name:cordSwing;transform-origin:50% 0}
-    @keyframes cordTug{0%{transform:scaleY(1)}70%{transform:scaleY(1.75);animation-timing-function:cubic-bezier(.23,1,.32,1)}77%{transform:scaleY(.86)}86%{transform:scaleY(1.07)}93%{transform:scaleY(.98)}100%{transform:scaleY(1)}}
-    @keyframes beadTug{0%{transform:translateY(0)}70%{transform:translateY(calc(var(--L) * .75));animation-timing-function:cubic-bezier(.23,1,.32,1)}77%{transform:translateY(calc(var(--L) * -.14))}86%{transform:translateY(calc(var(--L) * .07))}93%{transform:translateY(calc(var(--L) * -.02))}100%{transform:translateY(0)}}
+    @keyframes cordTug{0%{transform:scaleY(1)}70%{transform:scaleY(1.75);animation-timing-function:var(--ease)}77%{transform:scaleY(.86)}86%{transform:scaleY(1.07)}93%{transform:scaleY(.98)}100%{transform:scaleY(1)}}
+    @keyframes beadTug{0%{transform:translateY(0)}70%{transform:translateY(calc(var(--L) * .75));animation-timing-function:var(--ease)}77%{transform:translateY(calc(var(--L) * -.14))}86%{transform:translateY(calc(var(--L) * .07))}93%{transform:translateY(calc(var(--L) * -.02))}100%{transform:translateY(0)}}
     /* the lamp leans into the pull, then rings back and forth after the click */
     @keyframes lampSway{0%{rotate:0deg}70%{rotate:-2deg}74%{rotate:4.2deg}81%{rotate:-3deg}88%{rotate:1.8deg}94%{rotate:-.7deg}100%{rotate:0deg}}
     @keyframes cordSwing{0%,70%{rotate:0deg}76%{rotate:9deg}84%{rotate:-6deg}91%{rotate:3deg}97%{rotate:-1deg}100%{rotate:0deg}}
@@ -188,11 +188,11 @@
     @keyframes textLit{0%{opacity:.07}8%{opacity:.4}16%{opacity:.09}28%{opacity:.55}36%{opacity:.07}52%{opacity:.35}60%{opacity:.08}78%{opacity:1}100%{opacity:1}}
 
     /* 3. the flash: one bright spike the moment it comes fully on, easing down to a warm steady glow */
-    .flash{animation:flashOn cubic-bezier(.23,1,.32,1) both;animation-timeline:--spot;animation-range:cover calc(var(--s0) + .38 * var(--sL)) cover calc(var(--s0) + .52 * var(--sL))}
+    .flash{animation:flashOn var(--ease) both;animation-timeline:--spot;animation-range:cover calc(var(--s0) + .38 * var(--sL)) cover calc(var(--s0) + .52 * var(--sL))}
     @keyframes flashOn{0%{opacity:0}25%{opacity:.9}100%{opacity:.14}}
 
     /* 4. the words: each lights in turn after the room is lit, with irregular gaps (--o is its place in the sequence) */
-    .spot-words span{animation:wordOn cubic-bezier(.23,1,.32,1) both;animation-timeline:--spot;
+    .spot-words span{animation:wordOn var(--ease) both;animation-timeline:--spot;
       animation-range:cover calc(var(--s0) + (.46 + var(--o) * .045) * var(--sL)) cover calc(var(--s0) + (.56 + var(--o) * .045) * var(--sL))}
     /* the note: tiny but readable (12.5px), a progress hairline fills as you scroll, and it fades once the story is over */
     .scroll-note{display:flex;position:absolute;z-index:5;left:max(1.25rem,var(--inset-x));top:calc(var(--hdr) + .9rem);flex-direction:column;gap:.4rem;pointer-events:none;font-size:.78rem;line-height:1;letter-spacing:.04em;font-weight:600;color:var(--lemon);opacity:.8;
