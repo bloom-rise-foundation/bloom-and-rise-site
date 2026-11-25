@@ -53,33 +53,64 @@ const STAMENS = Array.from({ length: 34 }, (_, i) => {
   };
 });
 
-type LayerProps = { cls: string; count: number; scale: number; offset?: number; grad: string; seed: number; veins?: number };
+// Pollen specks that burst from the centre when the flower breaks apart. Deterministic, hidden until the burst.
+const POLLEN = Array.from({ length: 18 }, (_, i) => {
+  const ang = rnd(i, 20) * Math.PI * 2;
+  const dist = 0.9 + rnd(i, 21) * 1.3;
+  return {
+    tx: +(Math.cos(ang) * dist).toFixed(2),
+    ty: +(Math.sin(ang) * dist).toFixed(2),
+    o: +(5.5 + rnd(i, 22) * 4).toFixed(2),
+    s: 3 + Math.round(rnd(i, 23) * 3),
+    c: i % 3,
+  };
+});
 
-/** One ring of petals, drawn once as static SVG. It is animated as a whole (scale/rotate on its box), never petal by petal,
- *  so the bloom stays on the compositor instead of repainting dozens of SVG paths every frame.
- *  Each petal is shaded from a dark base to a light tip, outlined so overlaps read as shadow, and veined. */
-function Layer({ cls, count, scale, offset = 0, grad, seed, veins = 5 }: LayerProps) {
+type LayerProps = { cls: string; count: number; scale: number; offset?: number; grad: string; seed: number; veins?: number; ring: 0 | 1 | 2 };
+
+// Where each ring sits in the break-apart sequence (units of 3.5vh of scroll): outer petals go first, the centre last.
+const RING_START = [0, 3, 5.5];
+
+/** One ring of petals. Every petal is its own element (so it can fly out on its own, on the compositor), made of three nested boxes:
+ *  .pet places and shapes it (angle, size, slight skew) around the flower's centre,
+ *  .pet-in carries the scatter (outward, spin, shrink, fade; driven by scroll in sections.css),
+ *  and the SVG draws one shaded, veined, outlined petal. */
+function Layer({ cls, count, scale, offset = 0, grad, seed, veins = 5, ring }: LayerProps) {
   return (
-    <svg className={`bl ${cls}`} viewBox="-70 -70 140 140" aria-hidden>
+    <div className={`bl ${cls}`}>
       {Array.from({ length: count }, (_, i) => {
         const a = (360 / count) * i + offset + (rnd(i, seed) - 0.5) * 9;
         const sc = scale * (0.93 + rnd(i, seed + 1) * 0.14);
         const sk = (rnd(i, seed + 2) - 0.5) * 9;
         return (
-          <g key={i} transform={`rotate(${a.toFixed(1)}) scale(${sc.toFixed(3)}) skewX(${sk.toFixed(1)})`}>
-            <path d={PETAL_NAT} fill={`url(#${grad})`} stroke="rgba(87,15,29,.3)" strokeWidth=".45" />
-            {VEINS.slice(0, veins).map((d, v) => (
-              <path key={v} d={d} fill="none" stroke="rgba(87,15,29,.16)" strokeWidth=".3" />
-            ))}
-          </g>
+          <div key={i} className="pet" style={vars({ "--a": a.toFixed(1), "--s": sc.toFixed(3), "--k": sk.toFixed(1) })}>
+            <div
+              className="pet-in"
+              style={vars({
+                "--o": (RING_START[ring] + rnd(i, seed + 3) * 2.2).toFixed(2),
+                "--tx": ((rnd(i, seed + 4) - 0.5) * 0.9).toFixed(2),
+                "--ty": (-(1 + ring * 0.35 + rnd(i, seed + 5) * 0.5)).toFixed(2),
+                "--sp": ((rnd(i, seed + 6) - 0.5) * 2 * (300 + rnd(i, seed + 7) * 420)).toFixed(0),
+                "--es": (0.22 + rnd(i, seed + 8) * 0.28).toFixed(2),
+              })}
+            >
+              <svg viewBox="-30 -56 60 60" aria-hidden>
+                <path d={PETAL_NAT} fill={`url(#${grad})`} stroke="rgba(87,15,29,.3)" strokeWidth=".45" />
+                {VEINS.slice(0, veins).map((d, v) => (
+                  <path key={v} d={d} fill="none" stroke="rgba(87,15,29,.16)" strokeWidth=".3" />
+                ))}
+              </svg>
+            </div>
+          </div>
         );
       })}
-    </svg>
+    </div>
   );
 }
 
 /** The hero flower: three rings of shaded petals (so each can drift on its own with the cursor) around a stamened centre,
- *  blooming from a glowing bud. Shared gradients live in the first <svg>. Pure CSS animation. */
+ *  blooming from a glowing bud. Scrolling past it breaks it into particles (and back again): see sections.css.
+ *  Shared gradients live in the first <svg>. Pure CSS animation. */
 export function Bloom() {
   return (
     <div className="bloom" aria-hidden>
@@ -93,9 +124,9 @@ export function Bloom() {
       </svg>
       <div className="warm" />
       <div className="glow" />
-      <div className="bw bw1" style={vars({ "--dl": "1.1s" })}><Layer cls="bl1" count={8} scale={1.22} offset={0} grad="gOuter" seed={1} /></div>
-      <div className="bw bw2" style={vars({ "--dl": "1.3s" })}><Layer cls="bl2" count={8} scale={0.98} offset={22} grad="gMid" seed={2} veins={3} /></div>
-      <div className="bw bw3" style={vars({ "--dl": "1.5s" })}><Layer cls="bl3" count={6} scale={0.72} offset={8} grad="gInner" seed={3} veins={3} /></div>
+      <div className="bw bw1" style={vars({ "--dl": "1.1s" })}><Layer cls="bl1" count={8} scale={1.22} offset={0} grad="gOuter" seed={1} ring={0} /></div>
+      <div className="bw bw2" style={vars({ "--dl": "1.3s" })}><Layer cls="bl2" count={8} scale={0.98} offset={22} grad="gMid" seed={2} veins={3} ring={1} /></div>
+      <div className="bw bw3" style={vars({ "--dl": "1.5s" })}><Layer cls="bl3" count={6} scale={0.72} offset={8} grad="gInner" seed={3} veins={3} ring={2} /></div>
       <div className="bw bw4" style={vars({ "--dl": ".3s" })}>
         <svg className="bl bl4" viewBox="-70 -70 140 140" aria-hidden>
           <circle r="9.5" fill="url(#gCore)" />
@@ -109,6 +140,9 @@ export function Bloom() {
           <circle r="1.4" fill="#94404F" />
         </svg>
       </div>
+      {POLLEN.map((pl, i) => (
+        <i key={i} className={`pollen c${pl.c}`} style={vars({ "--tx": pl.tx, "--ty": pl.ty, "--o": pl.o, "--ps": `${pl.s}px` })} />
+      ))}
     </div>
   );
 }
