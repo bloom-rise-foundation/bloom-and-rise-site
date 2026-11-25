@@ -4,14 +4,9 @@ import { useEffect, useRef } from "react";
 const HOT = "a,button,[role=button],summary,label,select,.btn,.burger";
 const TEXT = "input:not([type=checkbox]):not([type=radio]):not([type=submit]),textarea";
 
-// relative luminance (0..1) of a computed css colour string
-function lum(c: string): number {
-  const n = (c.match(/-?[\d.]+/g) || []).map(Number);
-  if (n.length < 3) return 0;
-  const scale = c.startsWith("color(") ? 1 : 255;
-  const [r, g, b] = n.slice(0, 3).map((v) => v / scale);
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
+// Surfaces that are dark: the cursor switches to its light style over them. A selector match is far cheaper than
+// reading getComputedStyle (which forces a style recalculation every time the pointer crosses an element).
+const DARK = ".spot,.footer,.band,.menu,.section.dark,.section.beet,.section.rum,.page-hero.dark,.page-hero.beet,.page-hero.rum,.poster.beet,.poster.rum,.stack-card.beet,.stack-card.rum,.tile.beet,.tile.rum";
 
 export function Cursor() {
   const ref = useRef<HTMLDivElement>(null);
@@ -39,8 +34,7 @@ export function Cursor() {
         last = t;
         node.classList.toggle("hot", !!t.closest(HOT));
         node.classList.toggle("text", !!t.closest(TEXT));
-        // light text colour => dark surface underneath
-        node.classList.toggle("on-dark", lum(getComputedStyle(t).color) > 0.6);
+        node.classList.toggle("on-dark", !!t.closest(DARK));
       }
     };
     const leave = () => node.classList.add("out");

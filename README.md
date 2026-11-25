@@ -14,7 +14,7 @@
 - Scroll effects (`animation-timeline: view()/scroll()`): word-lit statement, pinned focus tiles, steps rail, header pill, footer wordmark, scroll reveals. Each has a plain fallback where unsupported.
 - `data-reveal="up|left|right|scale|tilt"` (via `Reveal` in `components/ui.tsx`): CSS-only where scroll timelines exist, otherwise the shared observer in `RevealRoot.tsx`.
 - `data-fx="mag|tilt|glow|light"`: one delegated pointer handler (`Pointer.tsx`, mouse only) drives magnetic buttons, card tilt, tile glow and the spotlight room.
-- Extras load after the page is idle (`Lazy.tsx`): petal canvas (`PetalField.tsx`, skipped on weak devices / reduced motion) and the flower cursor.
+- Falling petals are plain CSS (`Petals` in `Decor.tsx`, transform-only keyframes). The flower cursor and pointer effects load after the page is idle (`Lazy.tsx`), mouse users only.
 - The hero bloom plays once per session (`html.seen`, set in the boot script in `layout.tsx`); it never blocks the page.
 
 ## Credentials

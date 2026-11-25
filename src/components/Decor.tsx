@@ -107,3 +107,28 @@ export function PosterFlower({ count = 8 }: { count?: number }) {
     </svg>
   );
 }
+
+const PETAL_COLORS = ["var(--pink)", "var(--blue)", "var(--pink)", "var(--leaf)"];
+
+/** Falling petals: plain elements animated with CSS transform only, so they run on the compositor (no JavaScript, no canvas,
+ *  nothing to repaint), keep falling for the whole page, and cost nothing on interaction. Fewer on small screens. */
+export function Petals({ count = 18 }: { count?: number }) {
+  return (
+    <div className="petals" aria-hidden>
+      {Array.from({ length: count }, (_, i) => (
+        <i
+          key={i}
+          className={`petal${i % 3 === 0 ? " extra" : ""}`}
+          style={vars({
+            "--px0": `${(i * 37 + 11) % 100}%`,
+            "--ps": `${7 + ((i * 5) % 8)}px`,
+            "--pd": `${16 + ((i * 3) % 11)}s`,
+            "--pt": `-${((i * 1.7) % 22).toFixed(1)}s`,
+            "--pw": `${(i % 2 ? 1 : -1) * (24 + ((i * 7) % 40))}px`,
+            "--pc": PETAL_COLORS[i % PETAL_COLORS.length],
+          })}
+        />
+      ))}
+    </div>
+  );
+}

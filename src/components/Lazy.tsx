@@ -1,9 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { isLite } from "@/lib/perf";
 
-const PetalImpl = dynamic(() => import("./PetalField"), { ssr: false });
 const CursorImpl = dynamic(() => import("./Cursor").then((m) => m.Cursor), { ssr: false });
 const PointerImpl = dynamic(() => import("./Pointer"), { ssr: false });
 
@@ -28,31 +26,19 @@ function afterLoadIdle(cb: () => void): () => void {
   };
 }
 
-/** Optional extras: none of them is needed for first paint, and each only exists where it is useful.
- *  - petal canvas: capable, motion-friendly devices only
- *  - custom cursor + pointer effects: mouse users only */
+/** Optional extras for mouse users only (never needed for first paint): the flower cursor and the pointer effects. */
 export function Extras() {
-  const [petals, setPetals] = useState(false);
   const [mouse, setMouse] = useState(false);
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    return afterLoadIdle(() => {
-      if (!reduce && !isLite()) setPetals(true);
-      if (fine) setMouse(true);
-    });
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    return afterLoadIdle(() => setMouse(true));
   }, []);
 
-  return (
+  return mouse ? (
     <>
-      {petals && <PetalImpl />}
-      {mouse && (
-        <>
-          <PointerImpl />
-          <CursorImpl />
-        </>
-      )}
+      <PointerImpl />
+      <CursorImpl />
     </>
-  );
+  ) : null;
 }

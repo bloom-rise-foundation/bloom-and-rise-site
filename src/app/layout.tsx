@@ -8,7 +8,7 @@ import Closing from "@/components/Closing";
 import RevealRoot from "@/components/RevealRoot";
 import { Extras } from "@/components/Lazy";
 import { Footer } from "@/components/Chrome";
-import { FlowerDefs } from "@/components/Decor";
+import { FlowerDefs, Petals } from "@/components/Decor";
 import { site } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -55,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <FlowerDefs />
         <div className="bg" aria-hidden><i /><i /><i /></div>
+        <Petals />
         <Header />
         <main>{children}</main>
         <Closing />
