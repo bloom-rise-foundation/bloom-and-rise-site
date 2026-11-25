@@ -153,7 +153,7 @@ export default function ParticleBloom() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches; // touch screens get no ghost ring
+    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
     const S0 = el.clientWidth || 500;
     const f = buildField(S0 < 520 ? 3 : 2);
     const dpr = Math.min(window.devicePixelRatio || 1, S0 < 520 ? 1.5 : 2);
@@ -201,7 +201,7 @@ export default function ParticleBloom() {
       const R = S * 0.17;
       let tx: number, ty: number, str: number;
       if (!idle && !still) { tx = mx - rect.left; ty = my - rect.top; str = 1; }
-      else { const t = now / 1000; tx = S / 2 + Math.cos(t * 0.55) * S * 0.2; ty = S / 2 + Math.sin(t * 0.8) * S * 0.17; str = still || !fine ? 0 : 0.75; }
+      else { tx = gx; ty = gy; str = 0; } // idle: the lens fades out, nothing drifts on its own
       gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12; gStr += (str - gStr) * 0.08;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
