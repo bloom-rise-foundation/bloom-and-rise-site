@@ -9,7 +9,7 @@
 @supports (animation-timeline:scroll()){
   @media(min-width:1020px){
     .header .bar::before{animation:tighten linear both;animation-timeline:scroll(root);animation-range:0 160px}
-    @keyframes tighten{to{transform:translate3d(0,-3px,0) scale(.893,.88)}}
+    @keyframes tighten{to{transform:translate3d(0,-3px,0) scale(1,.88)}}
   }
 }
 .logo{display:flex;align-items:baseline;gap:.5rem;text-decoration:none;color:var(--beet)}
