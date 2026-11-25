@@ -93,9 +93,15 @@ html.navd .page{animation:page-in .22s var(--ease) both}
 
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  /* animations jump to their end state: no movement, no loops */
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important}
+  /* transitions: keep colour / opacity / shadow feedback, drop transform / translate / clip-path movement */
+  *,*::before,*::after{transition-property:color,background-color,border-color,opacity,box-shadow,text-decoration-color!important;transition-duration:.15s!important;transition-delay:0s!important}
   html.js [data-reveal]{opacity:1;transform:none}
+  /* route change: opacity only, still gentle */
+  html.navd .page{animation:page-fade .2s ease both!important;animation-duration:.2s!important}
 }
+@keyframes page-fade{from{opacity:0}}
 
 /* interactive effects driven by components/Pointer.tsx (mouse only) */
 [data-fx=mag]{display:inline-block;transform:translate3d(var(--tx,0px),var(--ty,0px),0);transition:transform .3s var(--ease)}
