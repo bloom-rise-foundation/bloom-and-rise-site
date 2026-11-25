@@ -1,6 +1,7 @@
 import { Hero, Section, FocusPin, Stack, Spotlight, Steps } from "@/components/Sections";
 import { Band } from "@/components/Ribbons";
-import { Reveal, LitWords } from "@/components/ui";
+import { Reveal } from "@/components/ui";
+import LitLines from "@/components/Lit";
 import { site } from "@/config/site";
 
 const band = site.phrases.slice(0, 3);
@@ -13,7 +14,7 @@ export default function Home() {
       <Band items={band} items2={band2} />
       <section className="section mission cv">
         <div className="wrap">
-          <LitWords text={site.mission} className="statement display" accents={["candid", "answers", "science", "unhurriedly", "community"]} />
+          <LitLines text={site.mission} className="statement display" accents={["candid", "answers", "science", "unhurriedly", "community"]} />
         </div>
       </section>
       <FocusPin />

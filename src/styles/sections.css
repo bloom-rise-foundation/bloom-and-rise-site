@@ -77,7 +77,6 @@
 
 /* ---------- statement ---------- */
 .mission{background:var(--rum);color:var(--lemon);padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(4.5rem,10vw,8rem)}
-.mission .lit .lw{opacity:.14}
 .statement .ac{font-style:italic;font-weight:500}
 .statement .a0{color:var(--pink)} .statement .a1{color:var(--blue)} .statement .a2{color:var(--rose)} .statement .a3{color:var(--glacier)}
 

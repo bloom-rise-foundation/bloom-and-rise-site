@@ -88,8 +88,9 @@ html.navd .page{animation:page-in .22s var(--ease) both}
 
 /* the statement lights up word by word as you scroll (CSS scroll timeline; plain text elsewhere) */
 @supports (animation-timeline:view()){
-  .lit .lw{opacity:.18;animation:lw linear both;animation-timeline:view();animation-range:cover calc(2% + var(--i)/var(--n)*30%) cover calc(14% + var(--i)/var(--n)*30%)}
-  @keyframes lw{to{opacity:1}}
+  .lit .lw{opacity:.1;animation:lw linear both;animation-timeline:view();animation-range:cover calc(4% + var(--t,0) * 44%) cover calc(15% + var(--t,0) * 44%)}
+  /* a word catches like the rope's words: it flares with a glow, then settles into its own colour */
+  @keyframes lw{0%{opacity:.1;text-shadow:0 0 0 transparent}55%{opacity:1;text-shadow:0 0 22px currentColor}100%{opacity:1;text-shadow:0 0 0 transparent}}
 }
 
 @media(prefers-reduced-motion:reduce){

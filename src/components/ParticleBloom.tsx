@@ -153,6 +153,7 @@ export default function ParticleBloom() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches; // touch screens get no ghost ring
     const S0 = el.clientWidth || 500;
     const f = buildField(S0 < 520 ? 3 : 2);
     const dpr = Math.min(window.devicePixelRatio || 1, S0 < 520 ? 1.5 : 2);
@@ -171,8 +172,17 @@ export default function ParticleBloom() {
     const t0 = performance.now();
     let mx = 0, my = 0, moved = -1e9, real = false;
     let gx = 0, gy = 0, gStr = 0; // the eased pointer the lens follows
+    let clickT = -1e9, ckx = 0, cky = 0; // last click on the flower (desktop): a brief glow
     const onMove = (e: PointerEvent) => { mx = e.clientX; my = e.clientY; moved = performance.now(); real = e.pointerType !== "touch"; };
     const onLeave = () => { moved = -1e9; };
+    const onDown = (e: PointerEvent) => {
+      if (!fine || e.pointerType === "touch") return;
+      const r = canvas.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      if (Math.hypot(x - r.width / 2, y - r.height / 2) > r.width * 0.5) return;
+      clickT = performance.now(); ckx = x; cky = y;
+      kick();
+    };
 
     const draw = (now: number) => {
       raf = 0;
@@ -191,16 +201,28 @@ export default function ParticleBloom() {
       const R = S * 0.17;
       let tx: number, ty: number, str: number;
       if (!idle && !still) { tx = mx - rect.left; ty = my - rect.top; str = 1; }
-      else { const t = now / 1000; tx = S / 2 + Math.cos(t * 0.55) * S * 0.2; ty = S / 2 + Math.sin(t * 0.8) * S * 0.17; str = still ? 0 : 0.75; }
+      else { const t = now / 1000; tx = S / 2 + Math.cos(t * 0.55) * S * 0.2; ty = S / 2 + Math.sin(t * 0.8) * S * 0.17; str = still || !fine ? 0 : 0.75; }
       gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12; gStr += (str - gStr) * 0.08;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, S, S);
       if (P >= 0.995) { if (!still) raf = requestAnimationFrame(draw); return; }
 
+      let cur = -1;
       const c = S / 2;
       const t = now / 1000;
-      let cur = -1;
+      // click glow: a soft halo plus a ring of swelling particles that travels out from the click, gone in ~0.65s
+      const gl = Math.max(0, 1 - (now - clickT) / 650);
+      const g = gl * gl;
+      if (g > 0.001) {
+        const grad = ctx.createRadialGradient(c, c, 0, c, c, S * 0.62);
+        grad.addColorStop(0, `rgba(249,218,216,${0.9 * g})`);
+        grad.addColorStop(0.5, `rgba(227,147,155,${0.45 * g})`);
+        grad.addColorStop(1, "rgba(227,147,155,0)");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, S, S);
+        cur = -2;
+      }
       for (let i = 0; i < f.n; i++) {
         const k = f.col[i];
         if (k !== cur) { ctx.fillStyle = COLORS[k]; cur = k; }
@@ -215,6 +237,11 @@ export default function ParticleBloom() {
           s *= 1 - 0.65 * e;
           ctx.globalAlpha = 1 - 0.97 * e;
         } else if (ctx.globalAlpha !== 1) ctx.globalAlpha = 1;
+        if (g > 0.001) {
+          const d = Math.hypot(x - ckx, y - cky);
+          const w = Math.max(0, 1 - Math.abs(d - (1 - gl) * S * 0.75) / (S * 0.22));
+          s *= 1 + 0.9 * w * gl + 0.25 * g;
+        }
         if (!still) {
           const dx = x - gx, dy = y - gy;
           const d2 = dx * dx + dy * dy;
@@ -257,6 +284,7 @@ export default function ParticleBloom() {
     document.addEventListener("visibilitychange", onVis);
     if (!still) {
       addEventListener("pointermove", onMove, { passive: true });
+      addEventListener("pointerdown", onDown, { passive: true });
       document.addEventListener("pointerleave", onLeave);
       addEventListener("scroll", kick, { passive: true });
     }
@@ -267,6 +295,7 @@ export default function ParticleBloom() {
       ro.disconnect();
       document.removeEventListener("visibilitychange", onVis);
       removeEventListener("pointermove", onMove);
+      removeEventListener("pointerdown", onDown);
       document.removeEventListener("pointerleave", onLeave);
       removeEventListener("scroll", kick);
     };
