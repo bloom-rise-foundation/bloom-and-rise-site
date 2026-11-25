@@ -29,8 +29,8 @@
 .hero-art{position:absolute;z-index:1;right:max(-11vw,-9rem);top:54%;translate:0 -50%;width:min(50vw,680px);aspect-ratio:1;pointer-events:none}
 @supports (animation-timeline:scroll()){.hero-art{animation:heroOut linear both;animation-timeline:scroll(root);animation-range:0 95vh}}
 @keyframes heroOut{to{transform:translate3d(0,-14vh,0) scale(1.18)}}
-.dawn{position:absolute;left:50%;top:50%;width:250vmax;height:250vmax;margin:-125vmax 0 0 -125vmax;border-radius:50%;z-index:-1;will-change:transform;transform:scale(0);animation:dawn 1.7s cubic-bezier(.55,0,.15,1) 1s both;background:var(--lemon)}
-@keyframes dawn{to{transform:scale(1)}}
+.dawn{position:absolute;left:50%;top:50%;width:250vmax;height:250vmax;margin:-125vmax 0 0 -125vmax;border-radius:50%;z-index:-1;transform:scale(1);animation:dawn 1.7s cubic-bezier(.55,0,.15,1) 1s backwards;background:var(--lemon)}
+@keyframes dawn{from{transform:scale(0)}}
 
 .bloom{position:absolute;inset:0}
 .bloom .warm{position:absolute;left:50%;top:50%;width:190%;aspect-ratio:1;margin:-95% 0 0 -95%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(242,179,143,.55),rgba(194,218,232,.25) 62%,transparent);animation:fadeIn 1.4s ease 1.7s both}
@@ -94,7 +94,7 @@
     .pin{height:340vh;view-timeline:--pin block}
     .pin-stick{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0}
     .pin-stick h2{margin-bottom:2.4rem;font-size:clamp(2.6rem,6vw,5rem)}
-    .pin-track{display:flex;gap:1.6rem;width:max-content;margin:0;padding-inline:max(1.25rem,calc((100vw - var(--wrap)) / 2));animation:slide linear both;animation-timeline:--pin;animation-range:cover 100vh cover calc(100% - 100vh);will-change:transform}
+    .pin-track{display:flex;gap:1.6rem;width:max-content;margin:0;padding-inline:max(1.25rem,calc((100vw - var(--wrap)) / 2));animation:slide linear both;animation-timeline:--pin;animation-range:cover 100vh cover calc(100% - 100vh)}
     .pin-track .poster{flex:none;width:min(540px,44vw);height:min(62vh,520px);min-height:0;opacity:1;transform:none;animation:none}
     .pin-track .poster-flower{animation:flTurn linear both;animation-timeline:--pin;animation-range:cover 100vh cover calc(100% - 100vh)}
     .pin-prog{display:block;position:absolute;left:max(1.25rem,calc((100vw - var(--wrap)) / 2));right:max(1.25rem,calc((100vw - var(--wrap)) / 2));bottom:clamp(1.5rem,6vh,3.5rem);height:5px;border-radius:5px;background:color-mix(in srgb,var(--rum) 16%,transparent)}
