@@ -3,39 +3,6 @@ import { vars } from "./ui";
 
 /* Server-rendered, CSS-only decoration (no JavaScript). All motion is transform / opacity, see styles/sections.css. */
 
-const rnd = (i: number, k: number) => {
-  const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453;
-  return x - Math.floor(x);
-};
-
-const DUST = Array.from({ length: 26 }, (_, i) => ({
-  x: +(rnd(i, 1) * 100).toFixed(1),
-  y: +(rnd(i, 2) * 100).toFixed(1),
-  s: 2 + Math.round(rnd(i, 3) * 2),
-  d: +(rnd(i, 4) * -6).toFixed(2),
-  t: +(3 + rnd(i, 5) * 3.5).toFixed(2),
-  c: i % 3,
-}));
-
-/** A double helix of particles drifting across the top of the dark room: two strands (rose and sky) that twist past each other,
- *  with a faint rung between each pair, over a sprinkle of twinkling pollen. */
-export function Helix({ n = 44 }: { n?: number }) {
-  return (
-    <div className="helix" aria-hidden>
-      {Array.from({ length: n }, (_, i) => (
-        <span key={i} className="hx" style={vars({ "--i": i })}>
-          <s />
-          <b className="a" />
-          <b className="b" />
-        </span>
-      ))}
-      {DUST.map((d, i) => (
-        <i key={i} className={`dust c${d.c}`} style={vars({ "--x": `${d.x}%`, "--y": `${d.y}%`, "--z": `${d.s}px`, "--dl": `${d.d}s`, "--t": `${d.t}s` })} />
-      ))}
-    </div>
-  );
-}
-
 /** The symbol for women and girls, drawn as a stroke so it can take any colour. */
 export function Venus({ size = 34 }: { size?: number }) {
   return (
@@ -56,11 +23,10 @@ function ribbonItems(items: string[], sep: "flower" | "venus") {
   ));
 }
 
-/** Two tilted ribbons of words sliding in opposite directions, under a helix of particles, in a dark room. */
+/** Two tilted ribbons of words sliding in opposite directions (they never pause), in a dark room. */
 export function Band({ items, items2 }: { items: string[]; items2: string[] }) {
   return (
     <section className="band" aria-label={[...items, ...items2].join(", ")}>
-      <Helix />
       <div className="ribbons">
         <div className="ribbon rb1">
           <ul className="rb-track">{ribbonItems(items, "flower")}</ul>

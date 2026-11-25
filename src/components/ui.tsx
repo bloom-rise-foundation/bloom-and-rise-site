@@ -30,11 +30,16 @@ export function SplitWords({ text, delay = 0 }: { text: string; delay?: number }
 /** Paragraph whose words light up one by one as it scrolls through the viewport. */
 export function LitWords({ text, className = "", accents = [] }: { text: string; className?: string; accents?: string[] }) {
   const words = text.split(" ");
+  const isAc = (w: string) => accents.includes(w.toLowerCase().replace(/[^a-z]/g, ""));
+  let hue = -1;
   return (
     <p className={`lit ${className}`} aria-label={text}>
-      {words.map((w, i) => (
-        <span key={i} className={`lw${accents.includes(w.toLowerCase().replace(/[^a-z]/g, "")) ? " ac" : ""}`} aria-hidden style={vars({ "--i": i, "--n": words.length })}>{w}{i < words.length - 1 ? " " : ""}</span>
-      ))}
+      {words.map((w, i) => {
+        if (isAc(w) && !(i > 0 && isAc(words[i - 1]))) hue++; // consecutive accent words share a colour
+        return (
+          <span key={i} className={`lw${isAc(w) ? ` ac a${hue % 4}` : ""}`} aria-hidden style={vars({ "--i": i, "--n": words.length })}>{w}{i < words.length - 1 ? " " : ""}</span>
+        );
+      })}
     </p>
   );
 }

@@ -11,10 +11,11 @@ export default function Home() {
     <>
       <Hero />
       <Band items={band} items2={band2} />
-      <Section cv>
-        <p className="kicker"><i>01</i> Why we exist</p>
-        <LitWords text={site.mission} className="statement display" accents={["candid", "answers", "science", "unhurriedly", "community"]} />
-      </Section>
+      <section className="section mission cv">
+        <div className="wrap">
+          <LitWords text={site.mission} className="statement display" accents={["candid", "answers", "science", "unhurriedly", "community"]} />
+        </div>
+      </section>
       <FocusPin />
       <section className="section cv cv-stack">
         <div className="wrap">

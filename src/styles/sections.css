@@ -21,9 +21,10 @@
 @keyframes btnL{0%,46%{background:var(--leaf);color:var(--beet);border-color:var(--leaf)}}
 @keyframes btnG{0%,46%{background:transparent;color:var(--lemon);border-color:var(--pink)}}
 /* rotating phrase: every phrase sits in one grid cell, so the box is as tall as the longest and nothing shifts */
-.cycle{display:grid;color:var(--beet);margin-top:.15em;animation:inkC 2.65s linear both}
-@keyframes inkC{0%,43%{color:var(--leaf)}}
-.cycle>.script{grid-area:1/1;display:block;opacity:0;animation:cyc calc(var(--n)*2.8s) var(--ease) infinite both;animation-delay:calc(var(--i)*2.8s - .4s)}
+.cycle{display:grid;margin-top:.15em}
+@keyframes inkS{0%,43%{color:var(--leaf)}}
+.cycle>.script{grid-area:1/1;display:block;opacity:0;color:var(--pc,var(--denim));animation:cyc calc(var(--n)*2.8s) var(--ease) infinite both,inkS 2.65s linear both;animation-delay:calc(var(--i)*2.8s - .4s),0s}
+.cycle>.script:nth-child(4n+1){--pc:var(--denim)} .cycle>.script:nth-child(4n+2){--pc:var(--rose)} .cycle>.script:nth-child(4n+3){--pc:var(--garnet)} .cycle>.script:nth-child(4n){--pc:var(--denim)}
 .cycle>.script:first-child{opacity:1}
 @keyframes cyc{0%{opacity:0;transform:translate3d(0,60%,0)}4%,22%{opacity:1;transform:none}26%,100%{opacity:0;transform:translate3d(0,-60%,0)}}
 .hero .row{align-items:center}
@@ -39,15 +40,7 @@
 .bloom .glow{position:absolute;left:50%;top:50%;width:62%;aspect-ratio:1;margin:-31% 0 0 -31%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(227,147,155,.95),rgba(227,147,155,.4) 38%,transparent);animation:budGlow 2.6s ease-out both}
 @keyframes budGlow{0%{opacity:0;transform:scale(.6)}35%{opacity:1;transform:scale(.9)}100%{opacity:.4;transform:scale(1.15)}}
 /* each ring blooms as one composited layer (scale + a little twist), staggered; no per-petal animation */
-.bw{position:absolute;inset:0;animation:bloomOpen 1.5s var(--ease-overshoot) var(--dl,1s) both}
-@keyframes bloomOpen{from{transform:scale(.6) rotate(-60deg);opacity:0}}
 @keyframes fadeIn{from{opacity:0}}
-.bl{position:absolute;inset:0;width:100%;height:100%;overflow:visible;translate:calc(var(--px,0) * var(--k) * 1px) calc(var(--py,0) * var(--k) * 1px);transition:translate .6s var(--ease)}
-.bl1{--k:-12;animation:sway 7s var(--ease-io) infinite alternate}
-.bl2{--k:-22;animation:sway 5.5s var(--ease-io) -2s infinite alternate-reverse}
-.bl3{--k:-34;animation:sway 6.5s var(--ease-io) -4s infinite alternate}
-.bl4{--k:-44}
-@keyframes sway{from{rotate:-1.4deg}to{rotate:1.4deg}}
 @media(max-width:820px){
   .hero-art{--art:104vw;width:var(--art);right:-38vw;top:auto;bottom:-10vw;translate:none}
   /* dim only the flower behind the text (not the light-flood circle that shares this box, which would turn the hero muddy) */
@@ -55,40 +48,21 @@
 }
 
 /* ---------- band: a dark room with a helix of particles over two tilted ribbons of words ---------- */
-.band{position:relative;z-index:1;background:var(--rum);color:var(--lemon);overflow:hidden;padding:clamp(7.5rem,15vw,11rem) 0 clamp(3.2rem,7vw,5.5rem)}
+.band{position:relative;z-index:1;background:var(--rum);color:var(--lemon);overflow:clip;padding:clamp(3.4rem,7vw,5.5rem) 0 clamp(2.6rem,5vw,4rem)}
 .band::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 70% at 50% 0,rgba(198,92,106,.28),transparent 70%)}
 .ribbons{position:relative;z-index:1}
 .ribbon{position:relative;width:114vw;margin-left:-7vw;padding:.55rem 0;overflow:hidden;rotate:var(--rot);box-shadow:0 14px 40px rgba(0,0,0,.28)}
 .rb1{--rot:-2.2deg;background:var(--rose);color:var(--lemon);z-index:2}
-.rb2{--rot:1.4deg;background:var(--beet);color:var(--blush);margin-top:-.7rem;padding-top:1.3rem}
+.rb2{--rot:1.4deg;background:var(--denim);color:var(--blue);margin-top:-.7rem;padding-top:1.3rem}
 .rb-track{list-style:none;padding:0;margin:0;display:flex;width:max-content;align-items:center;animation:bandMove 70s linear infinite}
 .rb2 .rb-track{animation-direction:reverse;animation-duration:90s}
-@media(hover:hover) and (pointer:fine){.band:hover .rb-track{animation-play-state:paused}}
 .rb-track li{display:flex;align-items:center;gap:clamp(1rem,2.4vw,2rem);padding-right:clamp(1rem,2.4vw,2rem);font-family:var(--display);font-size:clamp(1.5rem,3.7vw,3rem);line-height:1.15;white-space:nowrap}
 .rb-track li.bd{font-weight:800;letter-spacing:-.01em;text-transform:uppercase;font-size:clamp(1.3rem,3.2vw,2.6rem)}
 .rb-track li.it{font-weight:500;font-style:italic}
 .rb-track .flower{flex:none;width:clamp(24px,3vw,38px);height:auto}
-.rb-track .venus{flex:none;width:clamp(20px,2.6vw,32px);height:auto;color:var(--pink)}
+.rb-track .venus{flex:none;width:clamp(20px,2.6vw,32px);height:auto;color:var(--blush)}
 @keyframes bandMove{to{transform:translate3d(-50%,0,0)}}
-/* helix of particles */
-.helix{position:absolute;left:0;right:0;top:clamp(1.4rem,3.4vw,2.6rem);height:clamp(74px,9.5vw,128px);display:flex;justify-content:space-between;padding-inline:2vw;pointer-events:none;contain:layout paint}
-.hx{--R:clamp(24px,3.3vw,46px);position:relative;width:0;height:100%}
-.hx b{position:absolute;left:-4px;top:calc(50% - 4px);width:8px;height:8px;border-radius:50%}
-.hx b.a{background:radial-gradient(circle at 35% 30%,var(--lemon),var(--pink) 55%,var(--rose));box-shadow:0 0 12px rgba(227,147,155,.85);translate:0 calc(sin(var(--i) * .55) * var(--R))}
-.hx b.b{background:radial-gradient(circle at 35% 30%,#fff,var(--blue) 55%,var(--glacier));box-shadow:0 0 12px rgba(213,227,238,.7);translate:0 calc(sin(var(--i) * .55) * var(--R) * -1)}
-.hx s{position:absolute;left:-.5px;top:calc(50% - var(--R));width:1px;height:calc(var(--R) * 2);background:linear-gradient(var(--pink),var(--blue));opacity:.32;scale:1 calc(sin(var(--i) * .55))}
-.dust{position:absolute;left:var(--x);top:var(--y);width:var(--z);height:var(--z);border-radius:50%;background:var(--blush);opacity:.55}
-.dust.c1{background:var(--pink)} .dust.c2{background:var(--blue)}
-@media(max-width:700px){.hx:nth-child(even){display:none}}
 @media (prefers-reduced-motion:no-preference){
-  .hx b.a{animation:hxY 3.6s var(--ease-io) calc(var(--i) * -.17s) infinite alternate,hxZ 3.6s var(--ease-io) calc(var(--i) * -.17s - .9s) infinite alternate}
-  .hx b.b{animation:hxY 3.6s var(--ease-io) calc(var(--i) * -.17s) infinite alternate-reverse,hxZ 3.6s var(--ease-io) calc(var(--i) * -.17s - .9s) infinite alternate-reverse}
-  .hx s{animation:hxR 3.6s var(--ease-io) calc(var(--i) * -.17s) infinite alternate}
-  .dust{animation:twinkle var(--t) ease-in-out var(--dl) infinite alternate}
-  @keyframes hxY{from{translate:0 calc(var(--R) * -1)}to{translate:0 var(--R)}}
-  @keyframes hxZ{from{scale:.5;opacity:.4}to{scale:1.4;opacity:1}}
-  @keyframes hxR{from{scale:1 -1}to{scale:1 1}}
-  @keyframes twinkle{from{opacity:.12;scale:.7}to{opacity:.95;scale:1.25}}
   @supports (animation-timeline:view()){
     /* the ribbons unfurl: they start flat and tilt into place as the room scrolls into view */
     .ribbon{animation:rbIn var(--ease) both;animation-timeline:view();animation-range:entry 0% entry 90%}
@@ -100,12 +74,12 @@
 .pat{overflow:hidden;height:clamp(54px,7.2vw,104px);margin-bottom:clamp(2.6rem,5vw,4rem)}
 .pat-track{display:flex;width:max-content;height:100%;animation:bandMove 80s linear infinite}
 .pat-track svg{display:block;height:100%;width:auto;aspect-ratio:8 / 1;flex:none}
-@media(hover:hover) and (pointer:fine){.pat:hover .pat-track{animation-play-state:paused}}
 
 /* ---------- statement ---------- */
-.kicker{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:1.4rem;font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--garnet)}
-.kicker i{font-style:normal;font-size:.72rem;letter-spacing:.04em;padding:.2rem .6rem;border-radius:999px;background:var(--blush);color:var(--garnet)}
-.statement .ac{font-style:italic;font-weight:500;color:var(--rose)}
+.mission{background:var(--rum);color:var(--lemon);padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(4.5rem,10vw,8rem)}
+.mission .lit .lw{opacity:.14}
+.statement .ac{font-style:italic;font-weight:500}
+.statement .a0{color:var(--pink)} .statement .a1{color:var(--blue)} .statement .a2{color:var(--rose)} .statement .a3{color:var(--glacier)}
 
 .statement{font-size:clamp(1.9rem,4.8vw,4rem);font-weight:700;line-height:1.16;max-width:20em;letter-spacing:-.015em;margin-inline:auto;text-align:center;text-wrap:balance}
 
@@ -354,26 +328,7 @@ html.js .tile[data-reveal]{transition:opacity .65s var(--ease) var(--d,0s),trans
   .fcol a,.footer .socials a{display:inline-block;padding:.3rem 0}
 }
 
-/* ---------- the flower breaks apart as you scroll past it, and comes back together as you scroll up ----------
-   Scroll-driven (scroll(root)), compositor-only (translate / rotate / scale / opacity). Because it is scrubbed by the
-   scroll position, scrolling back up plays it in reverse for free: the particles return and the flower is whole again.
-   Each petal has its own start (--o, in units of 3.5vh of scroll): outer ring first, then the middle, the inner ring, the centre. */
-.pet{position:absolute;left:calc(50% - 21.43%);top:10%;width:42.857%;height:42.857%;transform-origin:50% 93.33%;rotate:calc(var(--a) * 1deg);scale:var(--s);transform:skewX(calc(var(--k) * 1deg))}
-.pet-in{position:absolute;inset:0}
-.pet svg{display:block;width:100%;height:100%;overflow:visible}
-.pollen{position:absolute;left:50%;top:50%;width:var(--ps);height:var(--ps);margin:calc(var(--ps) / -2);border-radius:50%;background:var(--blush);box-shadow:0 0 8px rgba(227,147,155,.8);opacity:0}
-.pollen.c1{background:var(--lemon)}
-.pollen.c2{background:var(--pink)}
-@media (prefers-reduced-motion:no-preference){
-  @supports (animation-timeline:scroll()){
-    .pet-in{animation:petBurst var(--ease) both;animation-timeline:scroll(root);animation-range:calc(var(--o) * 3.5vh) calc(var(--o) * 3.5vh + 36vh)}
-    .bl4{animation:coreOut var(--ease) both;animation-timeline:scroll(root);animation-range:calc(6.5 * 3.5vh) calc(6.5 * 3.5vh + 30vh)}
-    .pollen{animation:pollenBurst var(--ease) both;animation-timeline:scroll(root);animation-range:calc(var(--o) * 3.5vh) calc(var(--o) * 3.5vh + 40vh)}
-    @keyframes petBurst{55%{opacity:1}100%{translate:calc(var(--tx) * var(--art)) calc(var(--ty) * var(--art));rotate:calc(var(--sp) * 1deg);scale:var(--es);opacity:0}}
-    @keyframes coreOut{to{scale:.6;opacity:0}}
-    @keyframes pollenBurst{0%{opacity:0;scale:.6}10%{opacity:.95}100%{translate:calc(var(--tx) * var(--art)) calc(var(--ty) * var(--art));opacity:0;scale:1.3}}
-  }
-}
+.pbloom{position:absolute;inset:0;width:100%;height:100%;display:block}
 
 /* ---------- stack: as the next card slides over, the one beneath recedes and almost disappears (never fully) ---------- */
 @media (prefers-reduced-motion:no-preference){
@@ -408,3 +363,8 @@ html.js .tile[data-reveal]{transition:opacity .65s var(--ease) var(--d,0s),trans
     @keyframes cardVeil{to{opacity:.86}}
   }
 }
+
+/* accent words in headings take a hue that differs from the heading itself */
+h1 .script,h2 .script,h3 .script{color:var(--rose)}
+.section.pink .script,.page-hero.pink .script{color:var(--denim)}
+.section.blue .script{color:var(--garnet)}

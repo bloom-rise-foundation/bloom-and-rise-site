@@ -54,12 +54,12 @@ html:has(.menu.open){overflow:hidden}
 @media(min-width:821px) and (hover:hover) and (pointer:fine){.menu{display:none}}
 
 /* ---------- closing + footer ---------- */
-.closing{--dome:clamp(9rem,18vw,15rem);--dia:min(150vw,2400px);position:relative;overflow:hidden;padding:6rem 0 calc(var(--dome) + 4rem);text-align:center;margin-top:4rem}
+.closing{--dome:clamp(9rem,18vw,15rem);--dia:min(150vw,2400px);position:relative;overflow:clip;padding:6rem 0 calc(var(--dome) + 4rem);text-align:center;margin-top:4rem}
 .closing .wrap{position:relative;z-index:1}
-.closing h2{max-width:13em;margin:0 auto 1rem;font-size:clamp(2.6rem,7.4vw,6.2rem)} .closing h2{background:linear-gradient(100deg,var(--rum) 0%,var(--garnet) 34%,var(--rose) 58%,var(--garnet) 80%,var(--rum) 100%) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-bottom:.12em}
+.closing h2{max-width:13em;margin:0 auto 1rem;font-size:clamp(2.6rem,7.4vw,6.2rem)} .closing h2{background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='240'%3E%3Crect%20width='120'%20height='120'%20fill='%23C65C6A'/%3E%3Ccircle%20cx='60'%20cy='60'%20r='27'%20fill='%23F9DAD8'/%3E%3Ccircle%20cx='60'%20cy='60'%20r='11'%20fill='%23570F1D'/%3E%3Crect%20x='120'%20width='120'%20height='120'%20fill='%233A557D'/%3E%3Ccircle%20cx='138'%20cy='18'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='138'%20cy='36'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='138'%20cy='54'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='138'%20cy='72'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='138'%20cy='90'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='138'%20cy='108'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='156'%20cy='18'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='156'%20cy='36'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='156'%20cy='54'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='156'%20cy='72'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='156'%20cy='90'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='156'%20cy='108'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='174'%20cy='18'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='174'%20cy='36'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='174'%20cy='54'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='174'%20cy='72'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='174'%20cy='90'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='174'%20cy='108'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='192'%20cy='18'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='192'%20cy='36'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='192'%20cy='54'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='192'%20cy='72'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='192'%20cy='90'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='192'%20cy='108'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='210'%20cy='18'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='210'%20cy='36'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='210'%20cy='54'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='210'%20cy='72'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='210'%20cy='90'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Ccircle%20cx='210'%20cy='108'%20r='3.4'%20fill='%23D5E3EE'/%3E%3Crect%20y='120'%20width='120'%20height='120'%20fill='%23570F1D'/%3E%3Cellipse%20cx='60'%20cy='150'%20rx='11'%20ry='20'%20fill='%23E3939B'%20transform='rotate%280%2060%20180%29'/%3E%3Cellipse%20cx='60'%20cy='150'%20rx='11'%20ry='20'%20fill='%23E3939B'%20transform='rotate%2890%2060%20180%29'/%3E%3Cellipse%20cx='60'%20cy='150'%20rx='11'%20ry='20'%20fill='%23E3939B'%20transform='rotate%28180%2060%20180%29'/%3E%3Cellipse%20cx='60'%20cy='150'%20rx='11'%20ry='20'%20fill='%23E3939B'%20transform='rotate%28270%2060%20180%29'/%3E%3Ccircle%20cx='60'%20cy='180'%20r='7'%20fill='%23FCF1DA'/%3E%3Crect%20x='120'%20y='120'%20width='120'%20height='120'%20fill='%2394404F'/%3E%3Ccircle%20cx='180'%20cy='168'%20r='20'%20fill='none'%20stroke='%23F9DAD8'%20stroke-width='9'/%3E%3Cpath%20d='M180%20188v36M166%20208h28'%20stroke='%23F9DAD8'%20stroke-width='9'%20stroke-linecap='round'/%3E%3C/svg%3E") 0 0/150px 150px;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;-webkit-text-stroke:2px var(--rum);padding-bottom:.12em;font-size:clamp(2.8rem,8.4vw,7rem);line-height:1;max-width:11em}
 .closing .script{display:block;color:inherit;-webkit-text-fill-color:transparent;margin-inline-start:0} .closing .row{justify-content:center}
 .closing::after{content:"";position:absolute;z-index:0;left:50%;width:var(--dia);aspect-ratio:1;bottom:calc(var(--dome) - var(--dia));transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle closest-side,var(--blush) 0 88%,var(--pink) 88% 94%,var(--garnet) 94% 100%)}
-.footer{background:var(--rum);color:var(--lemon);padding:4.5rem 0 calc(1.5rem + env(safe-area-inset-bottom,0px));overflow:hidden}
+.footer{background:var(--rum);color:var(--lemon);padding:4.5rem 0 calc(1.5rem + env(safe-area-inset-bottom,0px));overflow:clip}
 .fcols{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:2.5rem}
 .fbrand .display{font-size:1.6rem} .fbrand .script{font-size:1.6rem;color:var(--leaf);margin-bottom:.8rem}
 .fcol h4{font-size:.95rem;margin-bottom:.9rem;color:var(--leaf)}
@@ -71,7 +71,7 @@ html:has(.menu.open){overflow:hidden}
 .section .socials a{display:inline-block;padding:.5rem 1.1rem;border-radius:999px;background:var(--pink);font-weight:600;border:0}
 .footer .socials a{background:none;padding:0;color:var(--lemon);font-weight:400}
 /* giant wordmark: crisp solid type that rises into place as the footer scrolls into view */
-.wordmark{overflow:hidden;font-family:var(--display);font-weight:900;font-size:clamp(3.2rem,15.4vw,12.8rem);line-height:1;padding-bottom:.12em;letter-spacing:-.03em;text-align:center;margin-top:3rem;white-space:nowrap;color:var(--leaf);user-select:none}
+.wordmark{overflow:clip;font-family:var(--display);font-weight:900;font-size:clamp(3.2rem,15.4vw,12.8rem);line-height:1;padding-bottom:.12em;letter-spacing:-.03em;text-align:center;margin-top:3rem;white-space:nowrap;color:var(--leaf);user-select:none}
 .wordmark span{display:inline-block}
 .wordmark em{font-style:italic;font-weight:700;color:var(--lemon)}
 @supports (animation-timeline:view()){
@@ -102,11 +102,11 @@ html.cursor-on :is(input:not([type=checkbox]):not([type=radio]):not([type=submit
   .header .bar::before{-webkit-backdrop-filter:blur(10px) saturate(1.4);backdrop-filter:blur(10px) saturate(1.4)}
 }
 
-/* the closing line grows into frame as it arrives, and its colour sweeps across as you scroll past */
+/* the closing line grows into frame as it arrives: big tile-filled letters that start small and pale, then settle */
 @media (prefers-reduced-motion:no-preference){
   @supports (animation-timeline:view()){
-    .closing h2{animation:closeIn var(--ease) both,closeSweep linear both;animation-timeline:view(),view();animation-range:entry 0% entry 80%,entry 0% exit 20%}
-    @keyframes closeIn{from{scale:.86;translate:0 5vh;opacity:.3}}
-    @keyframes closeSweep{to{background-position:100% 0}}
+    .closing h2{animation:closeIn linear both,closeDrift linear both;animation-timeline:view(),view();animation-range:cover 0% cover 30%,cover 0% cover 100%;transform-origin:50% 60%}
+    @keyframes closeIn{from{scale:.5;opacity:0}60%{opacity:1}}
+    @keyframes closeDrift{from{background-position:0 0}to{background-position:-300px -150px}}
   }
 }

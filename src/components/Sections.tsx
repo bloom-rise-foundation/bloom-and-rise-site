@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Reveal, SplitWords, vars } from "./ui";
-import { Bloom, Flower, PetalRing, PosterFlower } from "./Decor";
+import { Flower, PetalRing, PosterFlower } from "./Decor";
+import ParticleBloom from "./ParticleBloom";
 import { site } from "@/config/site";
 import { team, type Member } from "@/data/team";
 
@@ -37,7 +38,7 @@ export function Hero() {
     <section className="hero" data-fx="hero">
       <div className="hero-art" aria-hidden>
         <div className="dawn" />
-        <Bloom />
+        <ParticleBloom />
       </div>
       <div className="wrap hero-inner">
         <p className="chip fade-up" style={vars({ "--d": ".05s" })}>{site.statusShort}</p>
