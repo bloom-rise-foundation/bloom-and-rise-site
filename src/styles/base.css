@@ -72,8 +72,9 @@ html.js [data-reveal].in,html.js.rv-fallback [data-reveal]{opacity:1;transform:n
 @keyframes fade-up{from{opacity:0;transform:translate3d(0,18px,0)}}
 .w{display:inline-block;animation:rise .85s var(--ease) both;animation-delay:calc(var(--i,0)*60ms)}
 .fade-up{animation:fade-up .7s var(--ease) both;animation-delay:var(--d,.3s)}
+@keyframes page-in{from{opacity:0;transform:translate3d(0,8px,0)}}
 /* route-change ease-in: only after the first client-side navigation (an opacity animation on the wrapper would delay LCP on first load) */
-html.navd .page{animation:fade-up .55s var(--ease) both}
+html.navd .page{animation:page-in .22s var(--ease) both}
 
 /* sections: colour-blocked with scalloped (petal) edges */
 .section{position:relative;padding:clamp(4rem,9vw,7rem) 0}
