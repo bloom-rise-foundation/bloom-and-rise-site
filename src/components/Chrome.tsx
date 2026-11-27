@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/config/site";
 import { PatternStrip } from "./Ribbons";
+import { EdgeDivider, claimEdge } from "./Dividers";
 
 export function SocialLinks() {
   return (
@@ -15,7 +16,10 @@ export function SocialLinks() {
 }
 
 export function Footer({ year }: { year: number }) {
+  const variant = claimEdge();
   return (
+    <div className="footer-shell">
+    <EdgeDivider variant={variant} />
     <footer className="footer cv">
       <PatternStrip />
       <div className="wrap fcols">
@@ -42,5 +46,6 @@ export function Footer({ year }: { year: number }) {
         <span>{site.statusShort}</span>
       </div>
     </footer>
+    </div>
   );
 }

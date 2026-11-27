@@ -3,14 +3,19 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Reveal, SplitWords, vars } from "./ui";
 import { Bloom, Flower, PetalRing, PosterFlower } from "./Decor";
+import { EdgeDivider, claimEdge } from "./Dividers";
+import SpotFit from "./SpotFit";
 import { site, partnerHref } from "@/config/site";
 import { team, type Member } from "@/data/team";
 
 type Tone = "" | "pink" | "blue" | "beet" | "rum" | "dark";
 
-export function Section({ children, tone = "", id, cv = false }: { children: ReactNode; tone?: Tone; id?: string; cv?: boolean }) {
+export function Section({ children, tone = "", id, cv = false, edge = true }: { children: ReactNode; tone?: Tone; id?: string; cv?: boolean; edge?: boolean }) {
+  // a coloured section opens with its own edge (a different shape every time on a page); pass edge={false} when a WaveMarquee already opens it
+  const variant = tone && edge ? claimEdge() : null;
   return (
-    <section id={id} className={`section ${tone}${tone ? " edge" : ""}${cv && !tone ? " cv" : ""}`}>
+    <section id={id} className={`section ${tone}${cv && !tone ? " cv" : ""}`}>
+      {variant && <EdgeDivider variant={variant} />}
       <div className="wrap">{children}</div>
     </section>
   );
@@ -18,9 +23,11 @@ export function Section({ children, tone = "", id, cv = false }: { children: Rea
 
 /** Colour-blocked page opener: giant Playfair title, an oversized petal ring that turns as you scroll, a scalloped edge. */
 export function PageHero({ title, script, lead, tone = "" }: { title: string; script: string; lead?: string; tone?: Tone }) {
+  const variant = tone ? claimEdge() : null;
   return (
     <section className={`page-hero ${tone}`}>
       <div className="ph-art" aria-hidden><PetalRing /></div>
+      {variant && <EdgeDivider variant={variant} side="bottom" />}
       <div className="wrap">
         <h1 className="display">
           <SplitWords text={title.trim()} /><span className="script">{script}</span>
@@ -214,6 +221,7 @@ const MOTES = Array.from({ length: 10 }, (_, i) => ({
 export function Spotlight() {
   return (
     <section className="spot">
+      <SpotFit />
       <div className="spot-stick">
         <div className="light" aria-hidden>
           <div className="cone" />

@@ -73,7 +73,6 @@ html.navd .page{animation:page-in .22s var(--ease) both}
 .section.dark,.section.beet{background:var(--beet);--c:var(--beet);color:var(--lemon)}
 .section.rum{background:var(--denim);--c:var(--denim);color:var(--lemon)}
 .section.dark .script,.section.beet .script,.section.rum .script{color:var(--pink)}
-.section.edge::before{content:"";position:absolute;left:0;right:0;top:-27px;height:28px;pointer-events:none;background:radial-gradient(circle at 50% 100%,var(--c) 0 14px,transparent 14.5px) 0 0/28px 28px repeat-x}
 
 /* the statement lights up word by word as you scroll (CSS scroll timeline; plain text elsewhere) */
 @supports (animation-timeline:view()){

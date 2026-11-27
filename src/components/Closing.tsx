@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { partnerHref } from "@/config/site";
+import { FlankFlowers } from "./FlankFlowers";
 import { closingDefaults, closingByPage, type ClosingContent } from "@/config/closing";
 
 /** The per-page call to action above the footer (copy lives in config/closing.ts). */
@@ -11,6 +12,7 @@ export default function Closing() {
   const pick = (k: keyof ClosingContent) => o[k]?.trim() || closingDefaults[k];
   return (
     <section className="closing">
+      <FlankFlowers>
       <div className="wrap">
         <h2 className="display">{pick("title")} <span className="script">{pick("script")}</span></h2>
         <div className="row">
@@ -21,6 +23,7 @@ export default function Closing() {
           )}
         </div>
       </div>
+      </FlankFlowers>
     </section>
   );
 }

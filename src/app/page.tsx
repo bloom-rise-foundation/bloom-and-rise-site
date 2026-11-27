@@ -1,4 +1,5 @@
 import { Hero, Section, FocusPin, Stack, Spotlight, Stages, Steps } from "@/components/Sections";
+import { WaveMarquee } from "@/components/Dividers";
 import { Band } from "@/components/Ribbons";
 import { Reveal } from "@/components/ui";
 import LitLines from "@/components/Lit";
@@ -24,6 +25,7 @@ export default function Home() {
           <Stack items={site.values} />
         </div>
       </section>
+      <WaveMarquee items={site.phrases} tone="wine" />
       <Spotlight />
       <Section tone="pink">
         <Reveal><h2 className="display">Where we <span className="script">stand</span></h2></Reveal>

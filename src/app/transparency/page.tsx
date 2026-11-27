@@ -1,4 +1,5 @@
 import { PageHero, Section, Stages, TileGrid } from "@/components/Sections";
+import { WaveMarquee } from "@/components/Dividers";
 import { Reveal } from "@/components/ui";
 import { site } from "@/config/site";
 export const metadata = { title: "Status & safeguards" };
@@ -22,7 +23,8 @@ export default function Transparency() {
           })}
         />
       </Section>
-      <Section tone="dark">
+      <WaveMarquee items={site.values.map((v) => v.title)} tone="beet" />
+      <Section tone="dark" edge={false}>
         <Reveal><h2 className="display">What we <span className="script">won’t do</span></h2></Reveal>
         <ul className="limits">{site.limits.map((l) => <li key={l}>{l}</li>)}</ul>
       </Section>
