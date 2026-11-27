@@ -1,6 +1,7 @@
 import { PageHero, Section } from "@/components/Sections";
 import { SocialLinks } from "@/components/Chrome";
 import { Reveal } from "@/components/ui";
+import CopyEmail from "@/components/CopyEmail";
 import { site } from "@/config/site";
 export const metadata = { title: "Contact" };
 
@@ -12,6 +13,7 @@ export default function Contact() {
         <Reveal>
           <h2 className="sr-only">Ways to reach us</h2>
           <a className="btn" href={`mailto:${site.email}`}>{site.email}</a>
+          <div><CopyEmail email={site.email} /></div>
           <h2 className="display follow">Or find us here</h2>
           <SocialLinks />
         </Reveal>

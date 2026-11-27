@@ -8,6 +8,8 @@ import Header from "@/components/Header";
 import Closing from "@/components/Closing";
 import RevealRoot from "@/components/RevealRoot";
 import { Extras } from "@/components/Lazy";
+import ScrollGovernor from "@/components/ScrollGovernor";
+import Delights from "@/components/Delights";
 import { Footer } from "@/components/Chrome";
 import { FlowerDefs, Petals } from "@/components/Decor";
 import { site } from "@/config/site";
@@ -59,12 +61,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <FlowerDefs />
         <div className="bg" aria-hidden><i /><i /><i /></div>
         <Petals />
+        <div className="stem" aria-hidden>
+          <i className="stem-line" />
+          <svg className="stem-head" viewBox="-50 -50 100 100"><use href="#flower-sym" x="-50" y="-50" width="100" height="100" /></svg>
+        </div>
         <Header />
         <main>{children}</main>
         <Closing />
         <Footer year={new Date().getFullYear()} />
         <RevealRoot />
         <Extras />
+        <ScrollGovernor />
+        <Delights />
         <Analytics />
         <SpeedInsights />
       </body>
