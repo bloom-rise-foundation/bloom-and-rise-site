@@ -298,7 +298,7 @@ html.js .tile[data-reveal]{transition:opacity .65s var(--ease) var(--d,0s),trans
 /* ---------- lists ---------- */
 .limits{list-style:none;padding:0;display:grid;gap:1rem;max-width:60ch}
 .limits li{padding-left:2rem;position:relative}.limits li::before{content:"✕";position:absolute;left:0;color:var(--leaf);font-weight:700}
-.follow{margin-top:2.5rem}
+.follow{margin:2.5rem 0 .6rem;font-size:1.5rem}
 
 @media(max-width:600px){
   h1{font-size:clamp(2.4rem,calc((100vw - 2.5rem) / 5.6),3.8rem)}

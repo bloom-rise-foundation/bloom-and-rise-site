@@ -2,7 +2,7 @@
 .header{position:fixed;top:0;left:0;right:0;z-index:50;pointer-events:none;padding-top:env(safe-area-inset-top,0px)}
 .header .bar{pointer-events:auto;position:relative;display:flex;align-items:center;justify-content:space-between;gap:clamp(1.2rem,3vw,2.6rem);height:66px;width:min(var(--wrap),100% - 2 * max(1rem,var(--inset-x)));margin:.8rem auto 0;padding:0 1.6rem}
 .header .bar::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:999px;pointer-events:none;
-  background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(252,241,218,.3)),rgba(252,241,218,.14);
+  background:linear-gradient(135deg,rgba(255,255,255,.74),rgba(252,241,218,.6)),rgba(252,241,218,.32);
   -webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6);
   border:1px solid rgba(255,255,255,.65);
   box-shadow:0 8px 32px rgba(87,15,29,.12),inset 0 1px 0 rgba(255,255,255,.75)}

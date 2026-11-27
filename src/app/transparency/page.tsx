@@ -11,6 +11,7 @@ export default function Transparency() {
     <>
       <PageHero tone="rum" title="Where we" script="stand" lead="We would rather admit we are early than overstate what we are. Last updated: 31/10/2026" />
       <Section>
+        <h2 className="sr-only">Our current status</h2>
         <TileGrid
           fill
           items={site.status.map((s, i) => {

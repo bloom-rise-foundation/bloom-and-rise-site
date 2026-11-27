@@ -8,7 +8,7 @@ export default function GetInvolved() {
   return (
     <>
       <PageHero tone="pink" title="Rise with " script="us" lead="You need not be an expert. Inquisitiveness and care are enough." />
-      <Section><Steps items={site.joinSteps} /></Section>
+      <Section><h2 className="sr-only">Three ways to start</h2><Steps items={site.joinSteps} /></Section>
       <Section tone="pink">
         <Reveal>
           <h2 className="display">Roles <span className="script">to step into</span></h2>

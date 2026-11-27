@@ -10,8 +10,9 @@ export default function Contact() {
       <PageHero tone="blue" title="Drop us a " script="line" lead="Questions, ideas, offers or a wish to join: we would love to hear from you." />
       <Section>
         <Reveal>
+          <h2 className="sr-only">Ways to reach us</h2>
           <a className="btn" href={`mailto:${site.email}`}>{site.email}</a>
-          <h3 className="display follow">Or find us here</h3>
+          <h2 className="display follow">Or find us here</h2>
           <SocialLinks />
         </Reveal>
       </Section>

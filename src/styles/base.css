@@ -29,6 +29,7 @@ h1 .script,h2 .script{margin-inline-start:.18em}
 .mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em}
 .lead{font-size:clamp(1.05rem,2.2vw,1.3rem);max-width:60ch;margin-top:1.4rem}
 .small{font-size:.9rem;opacity:.85}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .note{margin-top:1.5rem;max-width:60ch}
 .row{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
 .btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:var(--beet);color:var(--lemon);font-weight:700;text-decoration:none;border:2px solid var(--beet);transition:transform .16s var(--ease),background-color .18s ease,color .18s ease,box-shadow .18s ease}

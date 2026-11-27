@@ -15,6 +15,7 @@ export default function About() {
         lead="Bloom & Rise Foundation promotes girls’ and women’s health, encourages open conversations about overlooked issues, and expands access to STEM education and opportunities. We support orphans and vulnerable children to feel safe, valued, and able to thrive."
       />
       <Section>
+        <h2 className="sr-only">What we hold to</h2>
         <TileGrid items={site.values.map((v, i) => ({ ...v, tone: tones[i % tones.length] }))} />
       </Section>
       <Section tone="pink">
