@@ -62,8 +62,8 @@ export function Hero() {
       </div>
       <div className="wrap hero-inner">
         <h1 className="display">
-          <span className="ln"><span className="mask"><span className="w">Some conversations are left unspoken.</span></span></span>
-          <span className="ln"><span className="mask"><span className="w">We coax them into the light.</span></span></span>
+          <span className="ln"><span className="mask"><span className="w">Equipping girls, women, and children with</span></span></span>
+          <span className="ln"><span className="mask"><span className="w">vital health, safety & knowledge.</span></span></span>
         </h1>
         <p className="lead fade-up" style={vars({ "--d": ".2s" })}>Cultivating healthier, safer and brighter futures, together.</p>
         <p className="through fade-up" style={vars({ "--d": ".3s" })}>
