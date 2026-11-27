@@ -52,8 +52,8 @@ export const site = {
   phrases: ["health awareness", "open conversations", "STEM education", "support for orphans and vulnerable children"],
   focus: [
     { title: "Girls’ and women’s health", tone: "pink", text: "Forthright guidance on periods, puberty and stigma, with a discreet pointer to qualified help." },
-    { title: "Open conversations", tone: "beet", text: "Voluntary spaces to voice the questions that rarely find a hearing." },
-    { title: "STEM education", tone: "blue", text: "Workshops and mentors who bring a science career within reach." },
+    { title: "Open conversations", tone: "blue", text: "Voluntary spaces to voice the questions that rarely find a hearing." },
+    { title: "STEM education", tone: "beet", text: "Workshops and mentors who bring a science career within reach." },
     { title: "Vulnerable children", tone: "rum", text: "Supervised activities where every child feels cherished and secure." },
   ],
   joinSteps: [

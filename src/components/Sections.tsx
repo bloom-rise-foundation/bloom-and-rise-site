@@ -174,7 +174,6 @@ export function Steps({ items }: { items: { title: string; script: string; text:
               <h3 className="display">{s.title} <span className="script">{s.script}</span></h3>
               {s.text && <p>{s.text}</p>}
             </div>
-            <span className="rf" aria-hidden><Flower size={80} /></span>
           </li>
         ))}
       </ol>

@@ -96,8 +96,6 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
 @media(hover:hover) and (pointer:fine){
   .poster:hover .poster-flower{scale:1.1;opacity:.95}
   .stack-card:hover .sc-flower{rotate:32deg;scale:1.12}
-  .row-item:hover .rf .flower{rotate:40deg;scale:1.12}
-  .rf .flower{transition:rotate .8s var(--ease),scale .8s var(--ease)}
 }
 
 /* ---------- team: blob portraits, hairline ring instead of a hard shadow ---------- */
@@ -359,3 +357,11 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:min(22vh,12rem);background:linear-gradient(to bottom,transparent,var(--rum));pointer-events:none;z-index:1}
 
 @media(max-width:359px){.steps{--rw:22px;padding-left:calc(var(--rw) + .8rem)}.row-item{grid-template-columns:3.2rem minmax(0,1fr);gap:.8rem}.rn{font-size:clamp(3rem,16vw,4rem)}}
+
+/* the lists keep only the scrolling rail flower: two columns now (numeral, text) */
+.row-item{grid-template-columns:clamp(6.5rem,21vw,16rem) minmax(0,1fr)}
+@media(max-width:600px){.row-item{grid-template-columns:5.5rem minmax(0,1fr)}}
+@media(max-width:359px){.row-item{grid-template-columns:3.2rem minmax(0,1fr)}}
+
+/* the band's glow now sits at its foot, so the hero (which ends in the same wine) flows into it with no visible edge */
+.band::before{background:radial-gradient(55% 45% at 50% 58%,rgba(198,92,106,.2),transparent 100%)}
