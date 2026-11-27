@@ -256,6 +256,7 @@ function MemberPhoto({ m, i, sizes, first = false }: { m: Member; i: number; siz
 
 /** Shows the opening of a long bio and tucks the rest behind a smooth "Read more". */
 function Bio({ text }: { text: string }) {
+  if (!text) return null;
   const at = text.slice(150).search(/[.!?]\s/);
   if (at === -1 || text.length - (150 + at) < 120) return <p className="bio">{text}</p>;
   const cut = 150 + at + 2;
