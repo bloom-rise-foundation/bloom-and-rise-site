@@ -70,7 +70,6 @@ export function Hero() {
           <div data-fx="mag"><Link className="btn ghost" href="/about">Our blueprint</Link></div>
           <div data-fx="mag"><Link className="btn ghost" href="/get-involved#partner">Partner with us</Link></div>
         </div>
-        <p className="chip fade-up" style={vars({ "--d": ".5s" })}>{site.statusShort}</p>
       </div>
     </section>
   );

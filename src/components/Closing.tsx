@@ -15,6 +15,9 @@ export default function Closing() {
         <div className="row">
           <div data-fx="mag"><Link className="btn" href={pick("primaryHref")}>{pick("primaryLabel")}</Link></div>
           <div data-fx="mag"><Link className="btn ghost" href={pick("secondaryHref")}>{pick("secondaryLabel")}</Link></div>
+          {!`${pick("primaryHref")}${pick("secondaryHref")}`.includes("#partner") && (
+            <div data-fx="mag"><Link className="btn ghost" href="/get-involved#partner">Partner with us</Link></div>
+          )}
         </div>
       </div>
     </section>
