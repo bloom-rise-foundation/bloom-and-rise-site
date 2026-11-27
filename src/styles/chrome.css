@@ -93,6 +93,12 @@ html.cursor-on :is(input:not([type=checkbox]):not([type=radio]):not([type=submit
 
 /* ---- touch ---- */
 .menu.open a:active{transform:scale(.97);transition-duration:.1s}
+/* a link in the full-screen menu draws an underline under itself: on hover for a mouse, on the press for a finger */
+.menu a{position:relative;width:fit-content;max-width:100%}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.09em;min-height:2px;border-radius:2px;background:var(--leaf);transform:scaleX(0);transform-origin:left center;transition:transform .35s var(--ease)}
+.menu.open a.tap::after,.menu.open a:active::after,.menu a:focus-visible::after{transform:scaleX(1)}
+@media(hover:hover) and (pointer:fine){.menu.open a:hover::after{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.menu a::after{transition:none}}
 
 /* the closing line grows into frame as it arrives: the headline rises into place as it arrives */
 @media (prefers-reduced-motion:no-preference){

@@ -38,7 +38,12 @@ export default function Header() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => setOpen(false), [path]);
+  const [tap, setTap] = useState(-1); // the menu link just pressed: its underline draws at once, even if the page changes straight away
+  useEffect(() => {
+    setOpen(false);
+    const t = setTimeout(() => setTap(-1), 700);
+    return () => clearTimeout(t);
+  }, [path]);
   useEffect(() => {
     if (!open) return;
     const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -69,7 +74,7 @@ export default function Header() {
       </div>
       <nav id="menu" className={`menu${open ? " open" : ""}`} aria-label="Mobile" inert={!open}>
         {flat.map((n, i) => (
-          <Link key={`${n.href}-${i}`} href={n.href} style={{ ["--i" as string]: i }} className={`display${n.sub ? " sub" : ""}${path === n.href ? " on" : ""}`} tabIndex={open ? 0 : -1}>{n.label}</Link>
+          <Link key={`${n.href}-${i}`} href={n.href} style={{ ["--i" as string]: i }} className={`display${n.sub ? " sub" : ""}${path === n.href ? " on" : ""}${tap === i ? " tap" : ""}`} tabIndex={open ? 0 : -1} onPointerDown={() => setTap(i)}>{n.label}</Link>
         ))}
       </nav>
     </header>
