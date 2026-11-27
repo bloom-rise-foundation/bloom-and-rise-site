@@ -29,26 +29,29 @@ function Bloom5({ x, y, r, petal, rim, core }: { x: number; y: number; r: number
 
 function Flank({ side }: { side: "left" | "right" }) {
   const left = side === "left";
+  const g = left ? "" : "translate(220 0) scale(-1 1)";
+  // every leaf starts ON the stem (stem points were computed from its curve), and the small flower has its own twig off the stem
   return (
     <svg className={`flank ${side}`} viewBox="0 0 220 340" aria-hidden focusable="false">
+      <g transform={g}>
+        <path d="M76 226C92 190 140 176 182 186C160 226 112 240 76 226Z" fill="#7C95B6" stroke="#3A557D" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M76 226C110 206 146 196 178 188" fill="none" stroke="#3A557D" strokeWidth="1.3" strokeLinecap="round" />
+        <path d="M69 294C50 262 24 256 6 262C14 290 40 304 69 294Z" fill="#D5E3EE" stroke="#3A557D" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M69 294C48 282 28 270 8 263" fill="none" stroke="#3A557D" strokeWidth="1.3" strokeLinecap="round" />
+        <path d="M71 262C104 272 132 270 156 258" fill="none" stroke="#3A557D" strokeWidth="3" strokeLinecap="round" />
+        <path d="M70 330C66 270 74 210 100 150L94 116" fill="none" stroke="#3A557D" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
       {left ? (
         <>
-          <path d="M70 330C66 270 74 210 100 150" fill="none" stroke="#3A557D" strokeWidth="5" strokeLinecap="round" />
-          <path d="M100 160C128 120 160 96 196 90C186 128 158 156 112 176Z" fill="#7C95B6" stroke="#3A557D" strokeWidth="1.6" />
-          <path d="M88 236C60 220 38 222 18 236C38 256 64 258 88 244Z" fill="#D5E3EE" stroke="#3A557D" strokeWidth="1.6" />
           <Bloom5 x={92} y={112} r={44} petal="#E3939B" rim="#94404F" core="#C65C6A" />
-          <Bloom5 x={158} y={262} r={24} petal="#F9DAD8" rim="#C65C6A" core="#94404F" />
+          <Bloom5 x={158} y={256} r={24} petal="#F9DAD8" rim="#C65C6A" core="#94404F" />
         </>
       ) : (
         <>
-          <path d="M150 330C154 272 146 212 120 150" fill="none" stroke="#3A557D" strokeWidth="5" strokeLinecap="round" />
-          <path d="M120 160C92 120 60 96 24 90C34 128 62 156 108 176Z" fill="#7C95B6" stroke="#3A557D" strokeWidth="1.6" />
-          <path d="M132 236C160 220 182 222 202 236C182 256 156 258 132 244Z" fill="#D5E3EE" stroke="#3A557D" strokeWidth="1.6" />
           <Bloom5 x={128} y={112} r={44} petal="#F9DAD8" rim="#C65C6A" core="#6F2B34" />
-          <Bloom5 x={62} y={262} r={24} petal="#E3939B" rim="#94404F" core="#C65C6A" />
+          <Bloom5 x={62} y={256} r={24} petal="#E3939B" rim="#94404F" core="#C65C6A" />
         </>
       )}
     </svg>
   );
 }
-

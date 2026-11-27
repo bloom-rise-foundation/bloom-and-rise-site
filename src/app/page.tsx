@@ -27,7 +27,7 @@ export default function Home() {
       </section>
       <WaveMarquee items={site.phrases} tone="wine" />
       <Spotlight />
-      <Section tone="pink">
+      <Section tone="pink" close>
         <Reveal><h2 className="display">Where we <span className="script">stand</span></h2></Reveal>
         <Stages />
         <Reveal><h2 className="display">How to <span className="script">join in</span></h2></Reveal>

@@ -1,5 +1,4 @@
 import { PageHero, Section, Steps, TileGrid } from "@/components/Sections";
-import { WaveMarquee } from "@/components/Dividers";
 import { Reveal } from "@/components/ui";
 import { site } from "@/config/site";
 export const metadata = { title: "About" };
@@ -19,8 +18,7 @@ export default function About() {
         <h2 className="sr-only">What we hold to</h2>
         <TileGrid items={site.values.map((v, i) => ({ ...v, tone: tones[i % tones.length] }))} />
       </Section>
-      <WaveMarquee items={site.values.map((v) => v.title)} tone="pink" />
-      <Section tone="pink" edge={false}>
+      <Section tone="pink" close>
         <Reveal><h2 className="display">How we’ll <span className="script">begin</span></h2></Reveal>
         <Steps items={site.begin} />
       </Section>

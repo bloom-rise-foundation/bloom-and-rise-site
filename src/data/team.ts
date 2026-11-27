@@ -42,7 +42,7 @@ export const heads: Member[] = [
     name: "Arabella Grace Naa Ameley Dagadu",
     role: "Co-Head of Fundraising",
     bio: "Hello everyone my name is Arabella - an as level student who you will always catch reading a different book -and co- head of fundraising at bloom and rise, i am dedicated to helping girls discover them selves  and educating them on different aspects of womanhood and I am so  excited to have you join me on the journey to that",
-    photo: "/team/head-arabella.jpg",
+    photo: "/team/head-arabella-v4.jpg",
   },
   {
     name: "Nur Bilal Barakeh",
@@ -54,7 +54,7 @@ export const heads: Member[] = [
     name: "Sarah Kaliati",
     role: "Co-Head of Partnerships",
     bio: "Hi, I'm KT and I'm the Co-Head of Partnerships. My goal is to build meaningful relationships, create opportunities, and collaborate with organisations to make a lasting difference. I chose Bloom and Rise Foundation because it empowers individuals, supports communities, and gives me the opportunity to create positive change for those in need.",
-    photo: "/team/head-sarah-v2.jpg",
+    photo: "/team/head-sarah-v4.jpg",
   },
   {
     name: "Hasini Eaga",
@@ -66,19 +66,19 @@ export const heads: Member[] = [
     name: "Emmarine Madisa",
     role: "Head of Logistics",
     bio: "Hi everyone! I’m Emmarine Madisa, an AS Level student who finds joy in music, art and creative expression. I’m passionate about feminism, women’s rights and creating opportunities for young girls to dream boldly, find their voices and thrive.",
-    photo: "/team/head-emmarine-v2.jpg",
+    photo: "/team/head-emmarine-v4.jpg",
   },
   {
     name: "Iman Musah",
     role: "Co-Head of Logistics",
     bio: "My name is Iman i’m the co head of logistics at Bloom and Rise, i personally love trying new things so  i joined because i wanted to be part of something that can benefit society and make a difference",
-    photo: "/team/head-iman.jpg",
+    photo: "/team/head-iman-v4.jpg",
   },
   {
     name: "Ankit Ray",
     role: "Head of Volunteers",
     bio: "Hi! I'm Ankit, excited to join Bloom & Rise as Head of Volunteers. I value teamwork, equality and making a difference. I'm passionate about accessible health education, women's rights and challenging stigma surrounding women's health, while recognising wider health issues affecting our communities. I look forward to contributing to meaningful change!",
-    photo: "/team/head-ankit-v2.jpg",
+    photo: "/team/head-ankit-v4.jpg",
   },
   {
     name: "Maame Akua Twum-Barimah",
@@ -90,7 +90,7 @@ export const heads: Member[] = [
     name: "Melissa Akomaning",
     role: "Head of Education",
     bio: "My name is Melissa Akomaning, a Year 11 student who loved math and economics. I love learning hard things and teaching other people to understand it, because I believe that there nothing no person can’t understand.",
-    photo: "/team/head-melissa.jpg",
+    photo: "/team/head-melissa-v4.jpg",
   },
   {
     name: "Himanshi Joshi",

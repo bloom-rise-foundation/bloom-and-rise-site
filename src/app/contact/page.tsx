@@ -24,7 +24,7 @@ export default function Contact() {
           <SocialLinks />
         </Reveal>
       </Section>
-      <Section tone="blue">
+      <Section tone="blue" close>
         <Reveal>
           <h2 className="display">Please <span className="script">note</span></h2>
           <p className="lead">We cannot give medical advice, counselling or crisis support. In an emergency, contact your local emergency services. Please send no sensitive personal details by email.</p>

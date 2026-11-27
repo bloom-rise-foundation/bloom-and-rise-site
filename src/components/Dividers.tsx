@@ -5,15 +5,15 @@ import { Flower } from "./Decor";
    TRANSITIONS: reusable pieces that carry one section into the next. All of them are server-rendered, CSS-only, and take
    the colour of the section they open. The edge shapes are repeating masks (see styles/dividers.css), so they stretch to any width.
 
-   - EdgeDivider    one ragged / perforated / wavy edge. Never repeated on a page: claimEdge() hands out each shape once per page.
+   - EdgeDivider    one torn / stacked-pages / notebook-spiral / perforated / wavy edge. Never repeated on a page: claimEdge() hands out each shape once per page.
    - WaveMarquee    a line of words sliding along a wavy edge, opening the next section (used instead of a plain edge).
    - FlankFlowers   (FlankFlowers.tsx) a pair of drawn flowers either side of a heading: the closing call to action.
    ===================================================================================================================== */
 
-export type EdgeVariant = "torn" | "stamp" | "cloud" | "torn-soft" | "pinked" | "deckle" | "ripple" | "wave";
+export type EdgeVariant = "torn" | "pages" | "spiral" | "stamp" | "cloud" | "torn-soft" | "pinked" | "deckle" | "ripple" | "wave";
 
 /** Preferred order; "wave" is last because the wave marquee reserves it. */
-const ORDER: EdgeVariant[] = ["torn", "stamp", "cloud", "torn-soft", "pinked", "deckle", "ripple", "wave"];
+const ORDER: EdgeVariant[] = ["torn", "pages", "spiral", "deckle", "stamp", "torn-soft", "pinked", "cloud", "ripple", "wave"];
 
 /** The shapes already used on the page being rendered (React's cache() is scoped to one render, i.e. one page). */
 const used = cache(() => new Set<EdgeVariant>());

@@ -23,11 +23,6 @@ export function Footer({ year }: { year: number }) {
     <footer className="footer cv">
       <PatternStrip />
       <div className="wrap fcols">
-        <div className="fbrand">
-          <p className="display">{site.name}</p>
-          <p className="script">{site.suffix}</p>
-          <p className="small">{site.tagline}</p>
-        </div>
         {site.footer.map((c) => (
           <nav key={c.title} className="fcol" aria-label={c.title}>
             <h2 className="fh">{c.title}</h2>

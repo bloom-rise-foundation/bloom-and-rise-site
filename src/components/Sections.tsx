@@ -10,13 +10,16 @@ import { team, type Member } from "@/data/team";
 
 type Tone = "" | "pink" | "blue" | "beet" | "rum" | "dark";
 
-export function Section({ children, tone = "", id, cv = false, edge = true }: { children: ReactNode; tone?: Tone; id?: string; cv?: boolean; edge?: boolean }) {
+export function Section({ children, tone = "", id, cv = false, edge = true, close = false }: { children: ReactNode; tone?: Tone; id?: string; cv?: boolean; edge?: boolean; close?: boolean }) {
   // a coloured section opens with its own edge (a different shape every time on a page); pass edge={false} when a WaveMarquee already opens it
   const variant = tone && edge ? claimEdge() : null;
+  // close: the section also lets its colour hang down into the plain section that follows, in a different shape
+  const closer = tone && close ? claimEdge() : null;
   return (
     <section id={id} className={`section ${tone}${cv && !tone ? " cv" : ""}`}>
       {variant && <EdgeDivider variant={variant} />}
       <div className="wrap">{children}</div>
+      {closer && <EdgeDivider variant={closer} side="bottom" />}
     </section>
   );
 }
@@ -62,7 +65,7 @@ export function Hero() {
           <span className="ln"><span className="mask"><span className="w">Some conversations are left unspoken.</span></span></span>
           <span className="ln"><span className="mask"><span className="w">We coax them into the light.</span></span></span>
         </h1>
-        <p className="lead fade-up" style={vars({ "--d": ".2s" })}>Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children.</p>
+        <p className="lead fade-up" style={vars({ "--d": ".2s" })}>Cultivating healthier, safer and brighter futures, together.</p>
         <p className="through fade-up" style={vars({ "--d": ".3s" })}>
           through{" "}
           <span className="cycle" style={vars({ "--n": site.phrases.length })}>
