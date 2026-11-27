@@ -23,10 +23,18 @@ export default function ScrollGovernor() {
     let target = pos;
     let raf = 0;
     let last = 0;
+    let path = window.location.pathname;
 
     const maxScroll = () => Math.max(0, root.scrollHeight - window.innerHeight);
 
     const frame = (t: number) => {
+      if (window.location.pathname !== path) {
+        // a new page opened: it starts at the top, so drop whatever scroll was still being eased
+        path = window.location.pathname;
+        raf = 0;
+        pos = target = window.scrollY;
+        return;
+      }
       const dt = Math.min(0.034, (t - last) / 1000 || 0.016);
       last = t;
       const cap = MAX_SPEED * dt;

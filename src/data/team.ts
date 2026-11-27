@@ -54,7 +54,7 @@ export const heads: Member[] = [
     name: "Sarah Kaliati",
     role: "Co-Head of Partnerships",
     bio: "Hi, I'm KT and I'm the Co-Head of Partnerships. My goal is to build meaningful relationships, create opportunities, and collaborate with organisations to make a lasting difference. I chose Bloom and Rise Foundation because it empowers individuals, supports communities, and gives me the opportunity to create positive change for those in need.",
-    photo: "/team/head-sarah.jpg",
+    photo: "/team/head-sarah-v2.jpg",
   },
   {
     name: "Hasini Eaga",
@@ -66,7 +66,7 @@ export const heads: Member[] = [
     name: "Emmarine Madisa",
     role: "Head of Logistics",
     bio: "Hi everyone! I’m Emmarine Madisa, an AS Level student who finds joy in music, art and creative expression. I’m passionate about feminism, women’s rights and creating opportunities for young girls to dream boldly, find their voices and thrive.",
-    photo: "/team/head-emmarine.jpg",
+    photo: "/team/head-emmarine-v2.jpg",
   },
   {
     name: "Iman Musah",
