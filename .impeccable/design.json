@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-27T11:44:32.407951+00:00",
+  "generatedAt": "2026-11-27T12:28:23.033Z",
   "title": "Design System: Bloom & Rise Foundation",
   "extensions": {
     "colorMeta": {
@@ -9,29 +9,29 @@
         "displayName": "Logo Cream",
         "canonical": "#FCF1DA",
         "tonalRamp": [
-          "#14060A",
-          "#564945",
-          "#998C81",
-          "#DBCFBC",
-          "#FCF2DD",
-          "#FCF4E3",
-          "#FCF6E9",
-          "#FCF7F0"
+          "#5a4c47",
+          "#887b71",
+          "#bbaf9f",
+          "#FCF1DA",
+          "#fdf3e0",
+          "#fdf5e5",
+          "#fef8eb",
+          "#fefaf0"
         ]
       },
       "mulberry": {
-        "role": "primary",
+        "role": "secondary",
         "displayName": "Mulberry",
         "canonical": "#6F2B34",
         "tonalRamp": [
-          "#14060A",
-          "#2E1116",
-          "#481B22",
-          "#62262E",
-          "#81454C",
-          "#A57A7D",
-          "#CAAFAE",
-          "#EEE4DF"
+          "#2f1015",
+          "#42181e",
+          "#562028",
+          "#6F2B34",
+          "#8c555b",
+          "#a97f82",
+          "#c5a8a8",
+          "#e2d2cf"
         ]
       },
       "wine": {
@@ -39,14 +39,14 @@
         "displayName": "Wine",
         "canonical": "#570F1D",
         "tonalRamp": [
-          "#14060A",
-          "#27090F",
-          "#3A0B15",
-          "#4D0E1A",
-          "#6C2D38",
-          "#97696F",
-          "#C1A5A6",
-          "#ECE1DD"
+          "#28080e",
+          "#360a13",
+          "#440c17",
+          "#570F1D",
+          "#793e48",
+          "#9a6e74",
+          "#bc9d9f",
+          "#ddcdcb"
         ]
       },
       "petal": {
@@ -54,14 +54,14 @@
         "displayName": "Petal",
         "canonical": "#E3939B",
         "tonalRamp": [
-          "#14060A",
-          "#4F2E33",
-          "#8A575D",
-          "#C57F86",
-          "#E6A0A6",
-          "#EDBABD",
-          "#F3D4D3",
-          "#FAEEE9"
+          "#523034",
+          "#7c4c52",
+          "#a96b72",
+          "#E3939B",
+          "#e9a8ad",
+          "#eebdbf",
+          "#f4d2d2",
+          "#f9e7e4"
         ]
       },
       "old-rose": {
@@ -69,29 +69,29 @@
         "displayName": "Old Rose",
         "canonical": "#C65C6A",
         "tonalRamp": [
-          "#14060A",
-          "#471F25",
-          "#7A3741",
-          "#AD505C",
-          "#CD707B",
-          "#DB989E",
-          "#E9C0C1",
-          "#F7E8E4"
+          "#491f25",
+          "#6d3139",
+          "#94444f",
+          "#C65C6A",
+          "#d17c86",
+          "#dd9ca2",
+          "#e8bcbe",
+          "#f4dcda"
         ]
       },
       "garnet": {
-        "role": "secondary",
+        "role": "tertiary",
         "displayName": "Garnet",
         "canonical": "#94404F",
         "tonalRamp": [
-          "#14060A",
-          "#39171E",
-          "#5D2731",
-          "#823845",
-          "#A15864",
-          "#BC878E",
-          "#D7B6B8",
-          "#F2E6E2"
+          "#3a171d",
+          "#54232c",
+          "#702f3b",
+          "#94404F",
+          "#a96670",
+          "#bf8b92",
+          "#d4b1b3",
+          "#ead6d5"
         ]
       },
       "blush": {
@@ -99,44 +99,44 @@
         "displayName": "Blush",
         "canonical": "#F9DAD8",
         "tonalRamp": [
-          "#14060A",
-          "#554345",
-          "#977F80",
-          "#D8BCBB",
-          "#F9DEDB",
-          "#FAE6E2",
-          "#FBEDE9",
-          "#FCF5EF"
+          "#594546",
+          "#877070",
+          "#b99e9e",
+          "#F9DAD8",
+          "#fae1de",
+          "#fbe8e4",
+          "#fdeeea",
+          "#fef5f0"
         ]
       },
       "frozen-blue": {
-        "role": "tertiary",
+        "role": "neutral",
         "displayName": "Frozen Blue",
         "canonical": "#D5E3EE",
         "tonalRamp": [
-          "#14060A",
-          "#4B454B",
-          "#82848C",
-          "#B9C3CD",
-          "#DAE6EF",
-          "#E4EBF0",
-          "#EEF0F1",
-          "#F8F6F2"
+          "#4e484d",
+          "#75747b",
+          "#9fa5ae",
+          "#D5E3EE",
+          "#dde8f0",
+          "#e6edf1",
+          "#eef2f3",
+          "#f7f7f4"
         ]
       },
       "denim": {
-        "role": "tertiary",
+        "role": "primary",
         "displayName": "Denim",
         "canonical": "#3A557D",
         "tonalRamp": [
-          "#14060A",
-          "#1F1D2B",
-          "#2A334C",
-          "#354A6D",
-          "#536A8C",
-          "#8594AA",
-          "#B7BEC8",
-          "#E9E8E6"
+          "#1f1d2b",
+          "#272d43",
+          "#2f3f5c",
+          "#3A557D",
+          "#617695",
+          "#8998ad",
+          "#b0b9c6",
+          "#d8dbde"
         ]
       },
       "glacier": {
@@ -144,117 +144,116 @@
         "displayName": "Glacier",
         "canonical": "#7C95B6",
         "tonalRamp": [
-          "#14060A",
-          "#322F3B",
-          "#4F586C",
-          "#6D819D",
-          "#8CA2BE",
-          "#ADBBCD",
-          "#CED5DD",
-          "#EFEEEC"
+          "#33303c",
+          "#484d5f",
+          "#5f6d85",
+          "#7C95B6",
+          "#96aac3",
+          "#b0bed0",
+          "#cbd3dc",
+          "#e5e7e9"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Page heroes, Playfair 800."
+        "purpose": "Inner-page h1; Playfair 500."
+      },
+      "hero": {
+        "displayName": "Hero",
+        "purpose": "Home headline, off-centre in the left two-thirds."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section titles with an italic accent."
+        "purpose": "h2 section titles."
       },
-      "script": {
-        "displayName": "Script",
-        "purpose": "Italic accent word."
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Left-set word-lit mission paragraph."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Card and row titles."
+        "purpose": "h3 and card titles."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Montserrat copy."
+        "purpose": "Montserrat running text, 1.7 line height."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Intro paragraph under headings, 56ch max."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Nav links and chips."
+        "purpose": "Caps controls: buttons, nav, footer heads, toggles."
       }
     },
     "shadows": [
       {
-        "name": "button-hover",
-        "value": "0 10px 26px rgba(111,43,52,.28)",
-        "purpose": "Primary button on fine pointers."
+        "name": "shelf-glow",
+        "value": "0 14px 24px -10px rgba(87,15,29,.4)",
+        "purpose": "Under the 12px home shelf plank."
       },
       {
-        "name": "header-glass",
-        "value": "0 8px 32px rgba(87,15,29,.12), inset 0 1px 0 rgba(255,255,255,.75)",
-        "purpose": "Floating header pill."
+        "name": "page-shelf-glow",
+        "value": "0 12px 20px -10px rgba(87,15,29,.35)",
+        "purpose": "Under the 10px page-hero plank."
       },
       {
-        "name": "dropdown",
-        "value": "0 16px 40px rgba(87,15,29,.2)",
-        "purpose": "Cultivators menu."
+        "name": "menu-lift",
+        "value": "0 14px 30px -12px rgba(87,15,29,.3)",
+        "purpose": "Dropdown nav menu."
       },
       {
-        "name": "stack-card",
-        "value": "0 -22px 60px rgba(87,15,29,.22)",
-        "purpose": "Sticky stacking cards."
-      },
-      {
-        "name": "seal",
-        "value": "0 4px 6px rgba(87,15,29,.3)",
-        "purpose": "Credential wax seal."
+        "name": "stack-lift",
+        "value": "0 -18px 40px -14px rgba(87,15,29,.28)",
+        "purpose": "Upward shadow on pinned stack cards."
       }
     ],
     "motion": [
       {
-        "name": "ease",
+        "name": "ease-out",
         "value": "cubic-bezier(.23,1,.32,1)",
-        "purpose": "Default out-curve for reveals and presses."
+        "purpose": "Default easing: reveals, arrow slide, hover."
       },
       {
         "name": "ease-io",
         "value": "cubic-bezier(.77,0,.175,1)",
-        "purpose": "In-out moves."
+        "purpose": "Symmetric in-out for scroll stories."
       },
       {
         "name": "ease-dawn",
         "value": "cubic-bezier(.55,0,.15,1)",
-        "purpose": "The hero light flood."
+        "purpose": "The dark-room dawn flood."
       },
       {
-        "name": "ease-overshoot",
-        "value": "cubic-bezier(.2,1.2,.35,1)",
-        "purpose": "Playful settle."
+        "name": "arrow-slide",
+        "value": "translate 5px, .25s ease-out",
+        "purpose": "Button arrow nudge on hover."
       },
       {
-        "name": "ease-stamp",
-        "value": "cubic-bezier(.3,1.6,.5,1)",
-        "purpose": "Credential seal stamp."
+        "name": "reduced-motion",
+        "value": "animations jump to end; colour/opacity feedback kept at .15s",
+        "purpose": "prefers-reduced-motion treatment."
       }
     ],
     "breakpoints": [
       {
-        "name": "mobile",
+        "name": "phone",
+        "value": "600px"
+      },
+      {
+        "name": "tablet",
         "value": "820px"
       },
       {
-        "name": "poster-single",
-        "value": "700px"
+        "name": "desktop",
+        "value": "821px"
       },
       {
-        "name": "footer-2col",
+        "name": "wide-statement",
         "value": "900px"
-      },
-      {
-        "name": "footer-1col",
-        "value": "480px"
-      },
-      {
-        "name": "desktop-nav",
-        "value": "1020px"
       }
     ]
   },
@@ -263,123 +262,126 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Pill call to action; mulberry on cream.",
-      "html": "<button class=\"ds-btn\">Rise with us</button>",
-      "css": ".ds-btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:#6F2B34;color:#FCF1DA;font-weight:700;border:2px solid #6F2B34;font-family:Montserrat,system-ui,sans-serif;cursor:pointer;transition:transform .16s,box-shadow .18s}.ds-btn:hover{box-shadow:0 10px 26px rgba(111,43,52,.28)}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:3px solid #6F2B34;outline-offset:3px;border-radius:6px}"
+      "description": "Square denim action with caps label and masked arrow; fills wine on hover.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">Rise with us</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.9rem;padding:1rem 1.5rem;border-radius:2px;font-family:Montserrat,system-ui,sans-serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;line-height:1.2;text-decoration:none;cursor:pointer;transition:background-color .2s,color .2s} .ds-btn::after{content:\"\";width:1.25rem;height:.7rem;background:currentColor;transition:translate .25s cubic-bezier(.23,1,.32,1);-webkit-mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.5'%3E%3Cpath d='M0 6h20M15 1l5 5-5 5'/%3E%3C/svg%3E\") center/contain no-repeat;mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.5'%3E%3Cpath d='M0 6h20M15 1l5 5-5 5'/%3E%3C/svg%3E\") center/contain no-repeat} .ds-btn:hover::after{translate:5px 0} .ds-btn:focus-visible{outline:2px solid #3A557D;outline-offset:4px;border-radius:2px} .ds-btn-primary{background:#3A557D;color:#FCF1DA;border:1px solid #3A557D} .ds-btn-primary:hover{background:#570F1D;border-color:#570F1D}"
     },
     {
       "name": "Ghost Button",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "Secondary pill; fills mulberry on hover.",
-      "html": "<button class=\"ds-btn-ghost\">Our blueprint</button>",
-      "css": ".ds-btn-ghost{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:transparent;color:#6F2B34;font-weight:700;border:2px solid #6F2B34;font-family:Montserrat,system-ui,sans-serif;cursor:pointer;transition:background-color .18s,color .18s,transform .16s}.ds-btn-ghost:hover{background:#6F2B34;color:#FCF1DA}.ds-btn-ghost:active{transform:scale(.97)}.ds-btn-ghost:focus-visible{outline:3px solid #6F2B34;outline-offset:3px;border-radius:6px}"
+      "description": "Equal-weight hairline action; fills wine on hover.",
+      "html": "<a class=\"ds-btn ds-btn-ghost\" href=\"#\">Partner with us</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:.9rem;padding:1rem 1.5rem;border-radius:2px;font-family:Montserrat,system-ui,sans-serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;line-height:1.2;text-decoration:none;cursor:pointer;transition:background-color .2s,color .2s} .ds-btn::after{content:\"\";width:1.25rem;height:.7rem;background:currentColor;transition:translate .25s cubic-bezier(.23,1,.32,1);-webkit-mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.5'%3E%3Cpath d='M0 6h20M15 1l5 5-5 5'/%3E%3C/svg%3E\") center/contain no-repeat;mask:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.5'%3E%3Cpath d='M0 6h20M15 1l5 5-5 5'/%3E%3C/svg%3E\") center/contain no-repeat} .ds-btn:hover::after{translate:5px 0} .ds-btn:focus-visible{outline:2px solid #3A557D;outline-offset:4px;border-radius:2px} .ds-btn-ghost{background:transparent;color:#570F1D;border:1px solid #570F1D} .ds-btn-ghost:hover{background:#570F1D;color:#FCF1DA}"
     },
     {
-      "name": "Chip",
-      "kind": "chip",
-      "refersTo": "chip",
-      "description": "Small status label.",
-      "html": "<span class=\"ds-chip\">Student-led · Ghana · Fledgling</span>",
-      "css": ".ds-chip{display:inline-block;padding:.3rem .9rem;border-radius:999px;background:color-mix(in srgb,#D5E3EE 55%,transparent);color:#570F1D;font-size:.85rem;font-weight:600;font-family:Montserrat,system-ui,sans-serif}"
+      "name": "Quiet Link Button",
+      "kind": "button",
+      "description": "Underlined text action for low-emphasis routes.",
+      "html": "<a class=\"ds-quiet\" href=\"#\">Read the Blueprint</a>",
+      "css": ".ds-quiet{font-family:Montserrat,system-ui,sans-serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#570F1D;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.5em;padding:0 .4rem} .ds-quiet:hover{color:#3A557D} .ds-quiet:focus-visible{outline:2px solid #3A557D;outline-offset:4px}"
     },
     {
-      "name": "Poster Card",
-      "kind": "card",
-      "refersTo": "poster-petal",
-      "description": "Large tonal focus-area card with an outlined numeral.",
-      "html": "<article class=\"ds-poster\"><span class=\"ds-num\">1</span><h3>Open conversations</h3><p>Voluntary spaces to voice the questions that rarely find a hearing.</p></article>",
-      "css": ".ds-poster{position:relative;overflow:hidden;border-radius:44px;padding:2rem;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;background:#E3939B;color:#570F1D;font-family:Montserrat,system-ui,sans-serif;transition:translate .22s}.ds-poster:hover{translate:0 -4px}.ds-poster h3{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:2.2rem;line-height:1.04;margin:0 0 .6rem}.ds-poster p{max-width:30ch;margin:0}.ds-num{position:absolute;top:.9rem;left:1.6rem;font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:5rem;line-height:1;color:transparent;-webkit-text-stroke:2px #570F1D}"
-    },
-    {
-      "name": "Navigation Pill",
+      "name": "Header Nav",
       "kind": "nav",
-      "refersTo": "nav-menu",
-      "description": "Floating frosted header with growing underline.",
-      "html": "<nav class=\"ds-nav\"><span class=\"ds-logo\">Bloom <i>&amp; Rise</i></span><a class=\"on\" href=\"#\">Blueprint</a><a href=\"#\">Programmes</a><a href=\"#\">Contact</a></nav>",
-      "css": ".ds-nav{display:flex;align-items:center;gap:1.6rem;padding:0 1.6rem;height:66px;border-radius:999px;background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(252,241,218,.3)),rgba(252,241,218,.14);border:1px solid rgba(255,255,255,.65);box-shadow:0 8px 32px rgba(87,15,29,.12),inset 0 1px 0 rgba(255,255,255,.75);font-family:Montserrat,system-ui,sans-serif}.ds-logo{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:1.5rem;color:#6F2B34;margin-right:auto}.ds-logo i{font-weight:600}.ds-nav a{position:relative;text-decoration:none;color:#6F2B34;font-weight:600;font-size:.95rem}.ds-nav a::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;background:#6F2B34;transform:scaleX(0);transform-origin:left;transition:transform .22s}.ds-nav a:hover::after,.ds-nav a.on::after{transform:scaleX(1)}.ds-nav a:focus-visible{outline:3px solid #6F2B34;outline-offset:3px;border-radius:6px}"
+      "refersTo": "header",
+      "description": "Flat plaster band with hairline and tracked caps links; denim for the current page.",
+      "html": "<header class=\"ds-header\"><span class=\"ds-logo\">Bloom <i>&amp;</i> Rise</span><nav><a class=\"on\" href=\"#\">About</a><a href=\"#\">Programmes</a><a href=\"#\">Team</a><a href=\"#\">Contact</a></nav></header>",
+      "css": ".ds-header{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 1.5rem;background:#FCF1DA;border-bottom:1px solid rgba(87,15,29,.24)} .ds-logo{font-family:\"Playfair Display\",Georgia,serif;font-weight:600;font-size:1.45rem;color:#570F1D} .ds-logo i{font-weight:500} .ds-header nav{display:flex;gap:2rem} .ds-header nav a{position:relative;font-family:Montserrat,system-ui,sans-serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#570F1D;text-decoration:none} .ds-header nav a.on{color:#3A557D} .ds-header nav a.on::after{content:\"\";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:#3A557D} .ds-header nav a:hover{color:#3A557D} .ds-header nav a:focus-visible{outline:2px solid #3A557D;outline-offset:4px}"
+    },
+    {
+      "name": "Framed Poster Card",
+      "kind": "card",
+      "refersTo": "card-poster",
+      "description": "4px card with a 1px inset hairline frame, outlined numeral and a quiet title.",
+      "html": "<article class=\"ds-poster\"><span class=\"ds-num\">01</span><h3>Listen first</h3><p>We start small and ask before we plan.</p></article>",
+      "css": ".ds-poster{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:300px;padding:2rem;border-radius:4px;background:#E3939B;color:#570F1D;outline:1px solid color-mix(in srgb,currentColor 32%,transparent);outline-offset:-12px} .ds-num{position:absolute;top:.9rem;left:1.6rem;font-family:\"Playfair Display\",Georgia,serif;font-size:4.2rem;line-height:1;font-weight:400;color:transparent;-webkit-text-stroke:1.5px #570F1D} .ds-poster h3{font-family:\"Playfair Display\",Georgia,serif;font-weight:500;font-size:1.9rem;line-height:1.04;margin:0 0 .6rem} .ds-poster p{font-family:Montserrat,system-ui,sans-serif;max-width:30ch;margin:0;line-height:1.7}"
+    },
+    {
+      "name": "Framed Portrait",
+      "kind": "card",
+      "description": "4:5 portrait with a 1px wine outline offset outside the image; no shadow.",
+      "html": "<div class=\"ds-photo\"></div>",
+      "css": ".ds-photo{width:200px;aspect-ratio:4/5;border-radius:2px;background:color-mix(in srgb,#E3939B 40%,#FCF1DA);outline:1px solid #570F1D;outline-offset:8px;margin:12px}"
     },
     {
       "name": "Verify Field",
       "kind": "input",
-      "refersTo": "verify-input",
-      "description": "Pill input for credential lookup.",
-      "html": "<input class=\"ds-input\" placeholder=\"Credential ID\" />",
-      "css": ".ds-input{padding:.85rem 1.2rem;border-radius:999px;border:2px solid #570F1D;background:#FCF1DA;font:inherit;font-size:16px;color:#570F1D;letter-spacing:.04em;min-width:240px}.ds-input:focus-visible{outline:3px solid #6F2B34;outline-offset:3px}"
+      "refersTo": "input-field",
+      "description": "Cream field, 1px wine border, 2px radius.",
+      "html": "<input class=\"ds-input\" placeholder=\"Credential ID\">",
+      "css": ".ds-input{font-family:Montserrat,system-ui,sans-serif;letter-spacing:.04em;padding:.85rem 1.2rem;border-radius:2px;border:1px solid #570F1D;background:#FCF1DA;color:#570F1D} .ds-input:focus-visible{outline:2px solid #3A557D;outline-offset:4px}"
     },
     {
-      "name": "Credential Card",
-      "kind": "card",
-      "refersTo": "credential-card",
-      "description": "Certificate paper with a double border.",
-      "html": "<div class=\"ds-cred\"><p class=\"ds-type\">Volunteer credential</p><h3>Jane Doe</h3><p>Role title</p></div>",
-      "css": ".ds-cred{position:relative;padding:2rem;border-radius:32px;background:color-mix(in srgb,#E3939B 18%,#FCF1DA);border:2px solid #6F2B34;outline:1px solid color-mix(in srgb,#6F2B34 35%,transparent);outline-offset:-10px;color:#570F1D;font-family:Montserrat,system-ui,sans-serif}.ds-type{margin:0;font-weight:700;color:#6F2B34;letter-spacing:.04em;text-transform:uppercase;font-size:.85rem}.ds-cred h3{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:2.4rem;color:#6F2B34;margin:.4rem 0 .2rem}"
+      "name": "Stage Strip",
+      "kind": "custom",
+      "description": "Seed, bud, open on a hairline; the current stage gets an old-rose bar and italic name.",
+      "html": "<ol class=\"ds-stages\"><li class=\"ds-stage here\"><b>Seed</b><span>Where we stand</span></li><li class=\"ds-stage\"><b>Bud</b><span>Next</span></li><li class=\"ds-stage\"><b>Open</b><span>Later</span></li></ol>",
+      "css": ".ds-stages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(87,15,29,.24);font-family:Montserrat,system-ui,sans-serif} .ds-stage{display:grid;gap:.25rem;padding:1.1rem 1.2rem 0 0;color:color-mix(in srgb,#570F1D 78%,#FCF1DA)} .ds-stage b{font-family:\"Playfair Display\",Georgia,serif;font-weight:500;font-size:1.6rem} .ds-stage span{font-size:.95rem} .ds-stage.here{color:#570F1D;border-top:3px solid #C65C6A;margin-top:-2px} .ds-stage.here b{font-style:italic;color:#C65C6A}"
+    },
+    {
+      "name": "Wine Shelf",
+      "kind": "custom",
+      "description": "Solid wine plank with an ambient wine glow; the bloom and page-hero art stand on it.",
+      "html": "<div class=\"ds-room\"><div class=\"ds-shelf\"></div></div>",
+      "css": ".ds-room{position:relative;height:90px;background:color-mix(in srgb,#E3939B 16%,#FCF1DA)} .ds-shelf{position:absolute;left:0;right:0;bottom:0;height:10px;background:#570F1D;box-shadow:0 12px 20px -10px rgba(87,15,29,.35)}"
     }
   ],
   "narrative": {
-    "northStar": "The Dawn Garden",
-    "overview": "A dark wine room that blooms into light. The page opens in wine, a bud glows and a circle of cream floods the page; everything after is colour-blocked rooms with petal-scalloped edges. Warm, candid, unhurried, with poster-like playfulness. Rejects the corporate-charity template.",
+    "northStar": "The Alcove",
+    "overview": "The site is a tokonoma: one thing placed with patience, with charged emptiness around it. A plaster cream ground carries a fine visible grain; everything set on it is drawn in hairlines and square-ish frames; the one living thing, the particle bloom, stands on a wine lacquer shelf. Space does the speaking. Headlines are Playfair at a medium weight set off-centre in wide rooms, and the foundation's honest status is shown as a stem of stages (seed, bud, open) rather than as a wall of equal tiles.\n\nThe mood is calm, candid and unhurried, with the warmth of the brand palette kept intact. Petal and old rose are saved for blooms and accents; denim, an iris blue, carries links, primary actions and the active state; wine is both the ink and the lacquered shelf. Four set pieces from the earlier build are preserved and sit inside this new frame: the particle-bloom hero with its dark-room dawn flood, the lamp-pull scroll story, the flower-ornamented posters and stack cards, and the word-by-word lit statement.\n\nAnti-reference carried over: the corporate-charity template (stock hero, equal-weight tile grid, pill buttons, donate-first urgency). Where the Alcove and that template disagree, empty space and plain text win.",
     "keyCharacteristics": [
-      "Cream page, wine ink; dark wine rooms for hero, statement, band and footer.",
-      "Playfair Display bold with italic accents; Montserrat for body.",
-      "Pill controls, 32 to 48px radii.",
-      "Colour-blocked sections with scalloped edges.",
-      "Outlined numerals as structural ornament.",
-      "CSS-first, scroll-linked motion that respects reduced motion."
+      "Plaster cream ground with a fixed fine-grain overlay; no drifting colour clouds.",
+      "Hairline rules and 1px inset outlines instead of heavy fills and thick borders.",
+      "Square 2px buttons with caps labels and a drawn arrow; frames at 2 to 4px.",
+      "A wine shelf plank under the home bloom and under every page hero.",
+      "Light-to-medium Playfair, small wide-tracked Montserrat caps for controls.",
+      "Shadows are ambient and wine-tinted only; no hard offset shadows."
     ],
     "rules": [
       {
-        "name": "The Daylight Rule",
-        "body": "The page is cream; dark wine is a room you enter, never the default surface.",
+        "name": "The Plaster Rule",
+        "body": "Tint never greys the cream. Pink and blue sections and page heroes are colour-mixes of the accent into Logo Cream (pink 24%, page hero tone 14 to 40%), so every ground stays warm.",
         "section": "colors"
       },
       {
-        "name": "The Two-Ink Rule",
-        "body": "Wine or mulberry ink on light, cream with petal or rose accents on dark. Never pure black or white.",
+        "name": "The One Cool Voice Rule",
+        "body": "Denim is the only cool colour that carries interaction. Links, primary buttons, active nav and the focus ring are denim; petal and rose are never used as link colour.",
         "section": "colors"
       },
       {
-        "name": "The Tint-Don't-Gray Rule",
-        "body": "Shadows, borders and overlays are tinted from wine or mulberry.",
-        "section": "colors"
-      },
-      {
-        "name": "The Italic Accent Rule",
-        "body": "Each major headline may carry one italic accent word; never italicise paragraphs.",
+        "name": "The Light Playfair Rule",
+        "body": "Playfair never goes heavier than 500 in headlines (600 for the small logo only). Weight is spent on space, not boldness.",
         "section": "typography"
       },
       {
-        "name": "The Balanced Headline Rule",
-        "body": "Headings use text-wrap: balance, body copy text-wrap: pretty.",
+        "name": "The Caps Are Controls Rule",
+        "body": "Tracked uppercase Montserrat is reserved for things you act on or navigate by. Running text, headings and decoration are never set in tracked caps.",
         "section": "typography"
       },
       {
-        "name": "The Tonal-First Rule",
-        "body": "Reach for a colour block or scalloped edge before a shadow.",
-        "section": "elevation"
-      },
-      {
-        "name": "The Glass-Once Rule",
-        "body": "Frosted blur is reserved for the floating header.",
+        "name": "The Ambient Wine Rule",
+        "body": "Every shadow is soft, negatively spread, and tinted wine. No hard offset shadows and no black shadows; the earlier offset-shadow portrait treatment is removed.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Keep the page cream and enter wine rooms deliberately.",
-      "Use mulberry for headings and primary buttons, wine for body text.",
-      "End major headlines with one italic Playfair accent word.",
-      "Separate sections with colour blocks and scalloped edges.",
-      "Use full pills for controls and 32 to 48px radii for cards.",
-      "Keep motion transform/opacity only, with a plain fallback and a gentle reduced-motion path.",
-      "Keep touch targets at 44px+, inputs at 16px+, focus visible."
+      "**Do** draw edges with 1px hairlines and inset outlines; use wine at 24 to 32% for rules.",
+      "**Do** keep buttons square (2px), caps (.74rem, 0.16em), and followed by the masked arrow.",
+      "**Do** tint plaster rooms by mixing accent into Logo Cream; give every page hero its wine shelf plank.",
+      "**Do** leave a room's empty side empty; set statements and headlines left with generous measure.",
+      "**Do** use denim for every link, primary action, active state and focus ring.",
+      "**Do** tint all shadows wine and keep them ambient and negatively spread.",
+      "**Do** keep reduced-motion graceful: movement drops out, colour and opacity feedback stays."
     ],
     "donts": [
-      "Don't use the corporate-charity template: stock-photo hero, donate button, fabricated impact.",
-      "Don't use pure black, pure white or neutral-gray shadows.",
-      "Don't add glass panels beyond the header, or heavy shadows first.",
-      "Don't add gradient text or side-stripe borders; the closing's tile-filled headline is the one exception.",
-      "Don't italicise body paragraphs or set display type in Montserrat.",
-      "Don't swap the palette or fonts."
+      "**Don't** use pill buttons, 32px+ rounded cards, scalloped section edges, tilted ribbons or hard offset shadows; the Alcove retired them.",
+      "**Don't** set Playfair above weight 500 in headlines, or any display face other than Playfair Display.",
+      "**Don't** use tracked caps for headings or running text.",
+      "**Don't** fill text with imagery or gradients; the closing headline is solid type.",
+      "**Don't** drift to the corporate-charity template: stock imagery, equal tile walls, donate-first urgency.",
+      "**Don't** introduce colour beyond the ten-colour brand palette, or let petal and rose become link colours.",
+      "**Don't** add any claim the status list in the site config does not support."
     ]
   }
 }
