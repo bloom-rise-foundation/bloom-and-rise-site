@@ -60,7 +60,7 @@ export const heads: Member[] = [
     name: "Hasini Eaga",
     role: "Treasurer",
     bio: "Hi!! I'm Hasini, and I'm the Treasurer for the BRF! I joined this foundation hoping to be a part of this social welfare initiative. I'm committed to managing resources transparently so every contribution makes a real difference!",
-    photo: "/team/head-hasini.jpg",
+    photo: "/team/head-hasini-v2.jpg",
   },
   {
     name: "Emmarine Madisa",
@@ -78,7 +78,7 @@ export const heads: Member[] = [
     name: "Ankit Ray",
     role: "Head of Volunteers",
     bio: "Hi! I'm Ankit, excited to join Bloom & Rise as Head of Volunteers. I value teamwork, equality and making a difference. I'm passionate about accessible health education, women's rights and challenging stigma surrounding women's health, while recognising wider health issues affecting our communities. I look forward to contributing to meaningful change!",
-    photo: "/team/head-ankit.jpg",
+    photo: "/team/head-ankit-v2.jpg",
   },
   {
     name: "Maame Akua Twum-Barimah",
@@ -108,7 +108,7 @@ export const heads: Member[] = [
     name: "Ademola Bello",
     role: "Co-Head of STEM",
     bio: "Hello! I'm Ademola Bello, a young girl who values thought and innovation over all other things. I joined Bloom and Rise because I want girls to have a voice they can rely on and trust.",
-    photo: "/team/head-ademola.jpg",
+    photo: "/team/head-ademola-v3.jpg",
   },
   {
     name: "Awurama S. Nti",
