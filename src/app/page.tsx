@@ -1,4 +1,4 @@
-import { Hero, Section, FocusPin, Stack, Spotlight, Steps } from "@/components/Sections";
+import { Hero, Section, FocusPin, Stack, Spotlight, Stages, Steps } from "@/components/Sections";
 import { Band } from "@/components/Ribbons";
 import { Reveal } from "@/components/ui";
 import LitLines from "@/components/Lit";
@@ -26,6 +26,8 @@ export default function Home() {
       </section>
       <Spotlight />
       <Section tone="pink">
+        <Reveal><h2 className="display">Where we <span className="script">stand</span></h2></Reveal>
+        <Stages />
         <Reveal><h2 className="display">How to <span className="script">join in</span></h2></Reveal>
         <Steps items={site.joinSteps} />
       </Section>

@@ -1,4 +1,4 @@
-import { PageHero, Section, TileGrid } from "@/components/Sections";
+import { PageHero, Section, Stages, TileGrid } from "@/components/Sections";
 import { Reveal } from "@/components/ui";
 import { site } from "@/config/site";
 export const metadata = { title: "Status & safeguards" };
@@ -12,11 +12,7 @@ export default function Transparency() {
       <PageHero tone="rum" title="Where we" script="stand" lead="We would rather admit we are early than overstate what we are. Last updated: 31/10/2026" />
       <Section>
         <h2 className="sr-only">Our current status</h2>
-        <ol className="stages" aria-label="Stages of growth">
-          <li className="stage here" aria-current="step"><b>Seed</b><span>We are here: forming the team and asking for guidance.</span></li>
-          <li className="stage"><b>Bud</b><span>First pilots, once safeguards are in place.</span></li>
-          <li className="stage"><b>Open</b><span>Programmes we can honestly report on.</span></li>
-        </ol>
+        <Stages />
         <TileGrid
           fill
           items={site.status.map((s, i) => {

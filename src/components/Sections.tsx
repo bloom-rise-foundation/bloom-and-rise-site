@@ -32,6 +32,17 @@ export function PageHero({ title, script, lead, tone = "" }: { title: string; sc
   );
 }
 
+/** Where we stand, as the stages of a stem. Honest: we are at the seed. */
+export function Stages() {
+  return (
+    <ol className="stages" aria-label="Stages of growth">
+      <li className="stage here" aria-current="step"><b>Seed</b><span>We are here: forming the team and asking for guidance.</span></li>
+      <li className="stage"><b>Bud</b><span>First pilots, once safeguards are in place.</span></li>
+      <li className="stage"><b>Open</b><span>Programmes we can honestly report on.</span></li>
+    </ol>
+  );
+}
+
 /** Home opener, replayed on every visit. It starts as a dark room; a bud glows, blooms, and the light floods the page. */
 export function Hero() {
   return (
@@ -56,8 +67,8 @@ export function Hero() {
         </p>
         <div className="row fade-up" style={vars({ "--d": ".4s" })}>
           <div data-fx="mag"><Link className="btn" href="/get-involved">Join us</Link></div>
-          <Link className="btn ghost quiet" href="/about">Our blueprint</Link>
-          <Link className="btn ghost quiet" href="/get-involved#partner">Partner with us</Link>
+          <div data-fx="mag"><Link className="btn ghost" href="/about">Our blueprint</Link></div>
+          <div data-fx="mag"><Link className="btn ghost" href="/get-involved#partner">Partner with us</Link></div>
         </div>
         <p className="chip fade-up" style={vars({ "--d": ".5s" })}>{site.statusShort}</p>
       </div>
