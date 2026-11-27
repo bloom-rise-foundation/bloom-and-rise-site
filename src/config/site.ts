@@ -1,8 +1,21 @@
 // ONE PLACE TO CUSTOMISE: copy, links, nav, footer, focus areas, steps, roles PDF, status.
+const domain = "bloomandrisefoundation.com";
+/** Role addresses shown on the site. Individual team addresses and the money-related ones (fundraising, donations) are
+ *  deliberately not published: team members are minors, and no funds are being collected. */
+export const emails = {
+  info: `info@${domain}`,
+  partnerships: `partnerships@${domain}`,
+  volunteers: `volunteers@${domain}`,
+  media: `media@${domain}`,
+};
+/** A mailto link, with an optional subject line. */
+export const mailto = (to: string, subject?: string) => `mailto:${to}${subject ? `?subject=${encodeURIComponent(subject)}` : ""}`;
+export const partnerHref = mailto(emails.partnerships, "Partnership enquiry");
+
 export const site = {
   name: "Bloom & Rise",
   suffix: "Foundation",
-  email: "bloomandrise.foundation@gmail.com",
+  email: emails.info,
   tagline: "Cultivating healthier, safer and brighter futures, together.",
   mission:
     "Everyone is owed candid answers, an open door to science and adults who keep them safe. We work unhurriedly, beside the community and not merely for it.",
@@ -13,7 +26,7 @@ export const site = {
     { label: "TikTok", href: "https://www.tiktok.com/@bloom.n.rise.foundation" },
     { label: "X", href: "" },
     { label: "LinkedIn", href: "" },
-    { label: "Email", href: "mailto:bloomandrise.foundation@gmail.com" },
+    { label: "Email", href: mailto(emails.info) },
     { label: "Linktree", href: "https://linktr.ee/bloomandrise.foundation" },
   ],
   nav: [
@@ -33,7 +46,7 @@ export const site = {
   // Footer columns render as vertical lists.
   footer: [
     { title: "Foundation", links: [{ label: "Blueprint", href: "/about" }, { label: "Programmes", href: "/programmes" }, { label: "Cultivators", href: "/team" }] },
-    { title: "Get involved", links: [{ label: "Rise with us", href: "/get-involved" }, { label: "Partner with us", href: "/get-involved#partner" }, { label: "Drop us a line", href: "/contact" }] },
+    { title: "Get involved", links: [{ label: "Rise with us", href: "/get-involved" }, { label: "Partner with us", href: partnerHref }, { label: "Drop us a line", href: "/contact" }] },
     { title: "Trust", links: [{ label: "Status & safeguards", href: "/transparency" }, { label: "Verify a credential", href: "/verify" }] },
   ],
   phrases: ["health awareness", "open conversations", "STEM education", "support for orphans and vulnerable children"],

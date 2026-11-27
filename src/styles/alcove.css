@@ -247,3 +247,10 @@ html.lite .stack-card{box-shadow:none}
 html.lite .poster::before,html.lite .tile::before{display:none}
 html.lite .bloom .warm{display:none}
 html.lite{scroll-behavior:auto}
+
+/* role addresses on the contact page */
+.mails{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.2rem;max-width:34rem}
+.mails li{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.2rem 1.5rem;padding:.9rem 0;border-top:2px solid var(--hair)}
+.mails li:last-child{border-bottom:2px solid var(--hair)}
+.mails span{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.mails a{font-weight:600;overflow-wrap:anywhere;text-underline-offset:.25em}

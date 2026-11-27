@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Reveal, SplitWords, vars } from "./ui";
 import { Flower, PetalRing, PosterFlower } from "./Decor";
 import ParticleBloom from "./ParticleBloom";
-import { site } from "@/config/site";
+import { site, partnerHref } from "@/config/site";
 import { team, type Member } from "@/data/team";
 
 type Tone = "" | "pink" | "blue" | "beet" | "rum" | "dark";
@@ -68,7 +68,7 @@ export function Hero() {
         <div className="row fade-up" style={vars({ "--d": ".4s" })}>
           <div data-fx="mag"><Link className="btn" href="/get-involved">Join us</Link></div>
           <div data-fx="mag"><Link className="btn ghost" href="/about">Our blueprint</Link></div>
-          <div data-fx="mag"><Link className="btn ghost" href="/get-involved#partner">Partner with us</Link></div>
+          <div data-fx="mag"><a className="btn ghost" href={partnerHref}>Partner with us</a></div>
         </div>
       </div>
     </section>

@@ -50,7 +50,7 @@ Existing voice, visible in current copy: warm, forthright, plain about limits ("
 
 - Team photos in `public/team/` (executive and 18 heads).
 - Roles PDF: `public/docs/available-roles.pdf`.
-- Social accounts: Instagram, TikTok, Linktree, email. X and LinkedIn are empty and hidden.
+- Social accounts: Instagram, TikTok, Linktree. Role addresses on the domain bloomandrisefoundation.com: info@ (general), partnerships@, volunteers@, media@ (individual team addresses exist but are deliberately not published, since team members are minors). X and LinkedIn are empty and hidden.
 - Absent, and must not be fabricated: testimonials, beneficiary stories, impact figures, partners, funders, registration numbers, programme outcomes.
 
 ## Product Principles

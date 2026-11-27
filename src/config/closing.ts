@@ -1,3 +1,5 @@
+import { partnerHref } from "./site";
+
 export type ClosingContent = {
   title: string;
   script: string;
@@ -47,7 +49,7 @@ export const closingByPage: Record<string, Partial<ClosingContent>> = {
     title: "Know a host for a pilot?",
     script: "Let us talk.",
     primaryLabel: "Partner with us",
-    primaryHref: "/get-involved#partner",
+    primaryHref: partnerHref,
     secondaryLabel: "Say hello",
     secondaryHref: "/contact",
   },

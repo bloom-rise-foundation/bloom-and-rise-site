@@ -2,7 +2,7 @@ import { PageHero, Section } from "@/components/Sections";
 import { SocialLinks } from "@/components/Chrome";
 import { Reveal } from "@/components/ui";
 import CopyEmail from "@/components/CopyEmail";
-import { site } from "@/config/site";
+import { site, emails, mailto } from "@/config/site";
 export const metadata = { title: "Contact" };
 
 export default function Contact() {
@@ -14,6 +14,12 @@ export default function Contact() {
           <h2 className="sr-only">Ways to reach us</h2>
           <a className="btn" href={`mailto:${site.email}`}>{site.email}</a>
           <div><CopyEmail email={site.email} /></div>
+          <h2 className="display follow">Or a specific team</h2>
+          <ul className="mails">
+            <li><span>Partnerships</span><a href={mailto(emails.partnerships, "Partnership enquiry")}>{emails.partnerships}</a></li>
+            <li><span>Volunteering</span><a href={mailto(emails.volunteers, "Volunteering")}>{emails.volunteers}</a></li>
+            <li><span>Media</span><a href={mailto(emails.media, "Media enquiry")}>{emails.media}</a></li>
+          </ul>
           <h2 className="display follow">Or find us here</h2>
           <SocialLinks />
         </Reveal>

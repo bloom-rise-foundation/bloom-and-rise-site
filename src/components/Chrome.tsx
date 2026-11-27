@@ -27,7 +27,7 @@ export function Footer({ year }: { year: number }) {
         {site.footer.map((c) => (
           <nav key={c.title} className="fcol" aria-label={c.title}>
             <h4>{c.title}</h4>
-            <ul>{c.links.map((l) => <li key={l.href}><Link href={l.href}>{l.label}</Link></li>)}</ul>
+            <ul>{c.links.map((l) => <li key={l.href}>{l.href.startsWith("mailto:") ? <a href={l.href}>{l.label}</a> : <Link href={l.href}>{l.label}</Link>}</li>)}</ul>
           </nav>
         ))}
         <div className="fcol">
