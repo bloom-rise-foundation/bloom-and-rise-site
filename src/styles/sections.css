@@ -147,14 +147,14 @@
 @supports not (animation-timeline:view()){.rn{color:var(--ink)}}
 @media(max-width:600px){.row-item{grid-template-columns:5.5rem minmax(0,1fr)}.rf{display:none}}
 
-/* ---------- spotlight: a pull-cord lamp, driven by scroll ----------
+/* ---------- spotlight: a hanging lamp, driven by scroll ----------
    Base styles show the finished, lit room (used without scroll timelines and under reduced motion).
    The story is scrubbed by scroll while the stage is pinned; P below = progress through the pinned stretch.
-     P 0-.21    the cord is tugged down            P .21-.40  the light flickers, then holds
+     P 0-.21    the lamp is nudged            P .21-.40  the light flickers, then holds
      P .21-.30  release: it snaps back and swings  P .38-.52  a single bright flash settling to a warm glow
      P .21-.30  the lamp rocks after the click     P .46-.97  the hidden words light one by one (overlapping the flash)
    The pinned stretch is short on purpose (~1.2 screens on desktop): every beat overlaps the one before it.            */
-.spot{position:relative;background:#060102;color:var(--lemon);--lw:clamp(92px,min(14vw,23svh),176px);--bulb-h:calc(var(--lw) * 1.63);--bulb-y:calc(var(--bulb-h) + env(safe-area-inset-top,0px));--L:calc(var(--lw) * .5)}
+.spot{position:relative;background:#060102;color:var(--lemon);--lw:clamp(92px,min(14vw,23svh),176px);--bulb-h:calc(var(--lw) * 1.63);--bulb-y:calc(var(--bulb-h) + env(safe-area-inset-top,0px))}
 .spot-stick{position:relative;min-height:max(100svh,31rem);overflow:hidden;isolation:isolate;background:#060102}
 /* the light: a soft beam from the bulb, a pool on the floor, a warm wash on the wall; it all sways with the lamp from the rope's top */
 .light{position:absolute;left:0;right:0;top:var(--bulb-y);bottom:0;z-index:0}
@@ -170,9 +170,6 @@
 .lamp-idle{position:relative;transform-origin:50% 0}
 .lamp-img{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.6))}
 .lamp-dim{position:absolute;inset:0;background:#050102;opacity:0;-webkit-mask:url(/lamp.png) center/100% 100% no-repeat;mask:url(/lamp.png) center/100% 100% no-repeat;pointer-events:none}
-.cord-wrap{position:absolute;left:93%;top:90%;width:2px}
-.cord{display:block;width:2px;height:var(--L);background:linear-gradient(rgba(252,241,218,.85),rgba(252,241,218,.5));transform-origin:50% 0}
-.bead{position:absolute;left:-6px;top:var(--L);width:14px;height:14px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 2px rgba(0,0,0,.4),0 0 12px rgba(227,147,155,.6)}
 .scroll-note{display:none}
 .spot-in{position:absolute;z-index:3;left:0;right:0;top:calc(var(--bulb-y) + 5vh);margin-inline:auto;text-align:center}
 .spot h2{margin:0 auto 1rem;max-width:14em;font-size:clamp(2.2rem,6vw,5rem);text-shadow:0 2px 14px var(--rum)}
@@ -186,17 +183,11 @@
     .spot-stick{position:sticky;top:0;height:100svh;min-height:0}
     @media(max-width:820px){.spot{height:190vh}}
 
-    /* 1. the tug: cord stretches and the bead rides it down; at the click it snaps back with a small overshoot */
-    .cord,.bead,.lamp-rig,.light-sway,.cord-wrap{animation-timeline:--spot;animation-fill-mode:both;animation-timing-function:linear;animation-range:cover var(--s0) cover calc(var(--s0) + .30 * var(--sL))}
-    .cord{animation-name:cordTug}
-    .bead{animation-name:beadTug}
+    /* 1. the nudge: the lamp leans, then rings back and forth after the click */
+    .lamp-rig,.light-sway{animation-timeline:--spot;animation-fill-mode:both;animation-timing-function:linear;animation-range:cover var(--s0) cover calc(var(--s0) + .30 * var(--sL))}
     .lamp-rig,.light-sway{animation-name:lampSway}
-    .cord-wrap{animation-name:cordSwing;transform-origin:50% 0}
-    @keyframes cordTug{0%{transform:scaleY(1)}70%{transform:scaleY(1.75);animation-timing-function:var(--ease)}77%{transform:scaleY(.86)}86%{transform:scaleY(1.07)}93%{transform:scaleY(.98)}100%{transform:scaleY(1)}}
-    @keyframes beadTug{0%{transform:translateY(0)}70%{transform:translateY(calc(var(--L) * .75));animation-timing-function:var(--ease)}77%{transform:translateY(calc(var(--L) * -.14))}86%{transform:translateY(calc(var(--L) * .07))}93%{transform:translateY(calc(var(--L) * -.02))}100%{transform:translateY(0)}}
     /* the lamp leans into the pull, then rings back and forth after the click */
     @keyframes lampSway{0%{rotate:0deg}70%{rotate:-2deg}74%{rotate:4.2deg}81%{rotate:-3deg}88%{rotate:1.8deg}94%{rotate:-.7deg}100%{rotate:0deg}}
-    @keyframes cordSwing{0%,70%{rotate:0deg}76%{rotate:9deg}84%{rotate:-6deg}91%{rotate:3deg}97%{rotate:-1deg}100%{rotate:0deg}}
 
     /* 2. the flicker: four short bursts at low contrast, then it holds. Step easing keeps each burst crisp whatever the scroll speed. */
     .light,.lamp-dim,.spot-in{animation-timeline:--spot;animation-fill-mode:both;animation-timing-function:step-end;animation-range:cover calc(var(--s0) + .21 * var(--sL)) cover calc(var(--s0) + .40 * var(--sL))}

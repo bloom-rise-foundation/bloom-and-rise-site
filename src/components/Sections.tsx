@@ -218,8 +218,8 @@ const MOTES = Array.from({ length: 10 }, (_, i) => ({
   dx: (i % 2 ? 1 : -1) * (8 + ((i * 5) % 22)),
 }));
 
-/** The pull-cord lamp. The page pins for a short stretch of scroll and the scroll position drives a story:
- *  the cord is tugged down, the lamp clicks and swings, the light flickers, floods on brightly, then the hidden words light one by one.
+/** The hanging lamp. The page pins for a short stretch of scroll and the scroll position drives a story:
+ *  the lamp is nudged, clicks and swings, the light flickers, floods on brightly, then the hidden words light one by one.
  *  The story is CSS scroll-driven animation (transform/opacity only); the idle life (sway, glow breath, dust, word bob) is compositor-only loops.
  *  Without scroll timelines, or under reduced motion, it is simply the lit room. See styles/sections.css. */
 export function Spotlight() {
@@ -253,10 +253,6 @@ export function Spotlight() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="lamp-img" src="/lamp.png" width={380} height={638} alt="" decoding="async" />
             <i className="lamp-dim" />
-            <div className="cord-wrap">
-              <i className="cord" />
-              <b className="bead" />
-            </div>
           </div>
         </div>
         <div className="scroll-note" aria-hidden>
