@@ -57,7 +57,7 @@ export default function LitLines({ text, className = "", accents = [] }: { text:
       {words.map((w, i) => {
         if (isAc(w) && !(i > 0 && isAc(words[i - 1]))) hue++;
         return (
-          <span key={i} className={`lw${isAc(w) ? ` ac a${hue % 4}` : ""}`} aria-hidden style={{ "--t": (i / words.length).toFixed(4) } as React.CSSProperties}>{w}{i < words.length - 1 ? " " : ""}</span>
+          <span key={i} className={`lw${isAc(w) ? ` ac a${hue % 4}` : ""}`} aria-hidden data-w={w} style={{ "--t": (i / words.length).toFixed(4) } as React.CSSProperties}>{w}{i < words.length - 1 ? " " : ""}</span>
         );
       })}
     </p>
