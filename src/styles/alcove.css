@@ -386,7 +386,7 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
 
 /* FlankFlowers: two drawn flowers stand either side of the closing call to action */
 .flank-wrap{position:relative}
-.flank{position:absolute;bottom:calc(-1 * var(--cb));width:clamp(64px,15vw,210px);height:auto;z-index:0;pointer-events:none}
+.flank{position:absolute;bottom:calc(-1 * var(--cb));height:var(--fh,200px);width:auto;z-index:0;pointer-events:none}
 .flank.left{left:clamp(.4rem,3vw,3rem)}
 .flank.right{right:clamp(.4rem,3vw,3rem)}
 .flank-wrap>.wrap{position:relative;z-index:1}
@@ -405,12 +405,12 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
 }
 
 /* the closing flowers stand wholly above the footer edge: the section keeps clear space below them for the edge, and on narrow screens they sit under the buttons instead of beside them */
-.closing{--cb:0px;--clear:4.6rem;padding-bottom:var(--clear)}
+.closing{--cb:0px;--fh:clamp(130px,19vw,280px);--clear:4.6rem;padding-bottom:var(--clear)}
 .flank-wrap{--cb:0px}
 .closing .flank{bottom:calc(3.8rem - var(--clear))}
 @media(max-width:1000px){
-  .closing{--fh:clamp(84px,26vw,150px);padding-bottom:calc(var(--clear) + var(--fh) + 1.2rem)}
-  .closing .flank{width:var(--fh);bottom:calc(3.8rem - var(--clear) - var(--fh) - 1.2rem)}
+  .closing{--fh:clamp(120px,34vw,210px);padding-bottom:calc(var(--clear) + var(--fh) + 1.2rem)}
+  .closing .flank{bottom:calc(3.8rem - var(--clear) - var(--fh) - 1.2rem)}
   .closing .flank.left{left:clamp(1rem,12vw,5rem)}
   .closing .flank.right{right:clamp(1rem,12vw,5rem)}
 }

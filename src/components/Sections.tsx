@@ -131,7 +131,7 @@ export function FocusPin() {
   return (
     <section className="pin">
       <div className="pin-stick">
-        <div className="wrap"><h2 className="display">What we <span className="script">hold dear</span></h2></div>
+        <div className="wrap"><h2 className="display">Our core <span className="script">values</span></h2></div>
         <div className="pin-track">
           {site.focus.map((f, i) => <Poster key={f.title} f={f} i={i} reveal />)}
         </div>
