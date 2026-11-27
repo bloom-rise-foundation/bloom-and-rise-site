@@ -196,16 +196,16 @@ export function Steps({ items }: { items: { title: string; script: string; text:
 // `order` is the lighting-up sequence (deliberately irregular, so it reads as a wave rather than a metronome).
 // Phones have a narrower, taller stage where the headline wraps to four lines, so each word has its own spot clear of it.
 const WORDS: [string, number, number, number, number, number, number][] = [
-  ["periods", 12, 72, -6, 0, 22, 71],
-  ["puberty", 58, 77, 4, 1, 62, 72],
-  ["stigma", 30, 82, -3, 2.2, 30, 82],
-  ["questions", 75, 85, 5, 3, 66, 88],
-  ["science", 16, 36, 4, 4.3, 20, 26],
-  ["health", 84, 22, 5, 5, 80, 22],
-  ["safety", 50, 93, -5, 6.2, 56, 96],
-  ["consent", 82, 47, -3, 7, 82, 32],
-  ["privacy", 22, 91, 3, 8.3, 22, 93],
-  ["listen", 87, 71, -4, 9, 84, 79],
+  ["periods", 25, 77, -6, 0, 26, 70],
+  ["puberty", 62, 78, 4, 1, 70, 72],
+  ["stigma", 42, 87, -3, 2.2, 32, 80],
+  ["questions", 74, 89, 5, 3, 68, 86],
+  ["science", 18, 90, 4, 4.3, 24, 90],
+  ["health", 85, 86, 5, 5, 80, 79],
+  ["safety", 52, 95, -5, 6.2, 52, 95],
+  ["consent", 86, 94, -3, 7, 84, 90],
+  ["privacy", 28, 96, 3, 8.3, 22, 96],
+  ["listen", 66, 96, -4, 9, 76, 95],
 ];
 
 // A few specks of dust drifting up through the beam. Deterministic values (no hydration mismatch); they only show once the light is on.
@@ -228,11 +228,17 @@ export function Spotlight() {
       <SpotFit />
       <div className="spot-stick">
         <div className="light" aria-hidden>
-          <div className="cone" />
-          <div className="bulb-glow" />
-          {MOTES.map((m, i) => (
-            <i key={i} className="mote" style={vars({ "--x": `${m.x}%`, "--y": `${m.y}%`, "--s": `${m.s}px`, "--d": `${m.d}s`, "--t": `${m.t}s`, "--dx": `${m.dx}px` })} />
-          ))}
+          <div className="light-sway">
+            <div className="light-idle">
+              <div className="wall" />
+              <div className="beam" />
+              <div className="bulb-glow" />
+              {MOTES.map((m, i) => (
+                <i key={i} className="mote" style={vars({ "--x": `${m.x}%`, "--y": `${m.y}%`, "--s": `${m.s}px`, "--d": `${m.d}s`, "--t": `${m.t}s`, "--dx": `${m.dx}px` })} />
+              ))}
+            </div>
+          </div>
+          <div className="pool" />
         </div>
         <div className="flash" aria-hidden />
         <div className="spot-words" aria-hidden>
@@ -244,13 +250,9 @@ export function Spotlight() {
         </div>
         <div className="lamp-rig" aria-hidden>
           <div className="lamp-idle">
-            <svg className="lamp-svg" viewBox="0 0 200 232">
-              <line x1="100" y1="0" x2="100" y2="120" stroke="rgba(252,241,218,.45)" strokeWidth="2" />
-              <path d="M36 196C36 152 66 120 100 120C134 120 164 152 164 196Z" fill="#3A557D" stroke="#E3939B" strokeWidth="1.5" />
-              <ellipse cx="100" cy="196" rx="64" ry="9" fill="#570F1D" stroke="#E3939B" strokeWidth="1.5" />
-              <circle cx="100" cy="203" r="15" fill="#6F2B34" />
-              <circle className="bulb-on" cx="100" cy="203" r="15" fill="#FCF1DA" stroke="#E3939B" strokeWidth="1.5" />
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="lamp-img" src="/lamp.png" width={380} height={638} alt="" decoding="async" />
+            <i className="lamp-dim" />
             <div className="cord-wrap">
               <i className="cord" />
               <b className="bead" />

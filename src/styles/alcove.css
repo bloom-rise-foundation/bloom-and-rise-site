@@ -73,16 +73,16 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
   @keyframes lwGlow{0%{opacity:0}35%{opacity:1}100%{opacity:0}}
 }
 @media (prefers-reduced-motion:reduce){.lit .lw{opacity:1}}
-/* lamp words: bigger, and each is visible at rest in the dark, then flares like a struck match */
-.spot-words span{font-size:clamp(1.25rem,4.1vw,3.6rem);color:var(--pink);text-shadow:0 0 26px rgba(227,147,155,.6)}
+/* lamp words: bigger; they appear only once the light reaches them, flaring like a struck match */
+.spot-words span{font-size:clamp(1.25rem,3vw,2.7rem);color:var(--pink);text-shadow:0 0 26px rgba(227,147,155,.6)}
 @media (prefers-reduced-motion:no-preference){
   @supports (animation-timeline:view()){
     @keyframes wordOn{
-      from{opacity:.18;translate:-50% calc(-50% + 12px);scale:.94}
+      from{opacity:0;translate:-50% calc(-50% + 12px);scale:.94}
       50%{opacity:1;translate:-50% calc(-50% - 3px);scale:1.12}
       to{opacity:1;translate:-50% -50%;scale:1}
     }
-    @keyframes textLit{0%{opacity:.22}8%{opacity:.5}16%{opacity:.24}28%{opacity:.62}36%{opacity:.2}52%{opacity:.5}60%{opacity:.22}78%{opacity:1}100%{opacity:1}}
+    @keyframes textLit{0%{opacity:0}8%{opacity:.5}16%{opacity:0}28%{opacity:.62}36%{opacity:0}52%{opacity:.5}60%{opacity:0}78%{opacity:1}100%{opacity:1}}
   }
 }
 
@@ -339,7 +339,7 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
 .rail::before,.rail-fill{content:"";position:absolute;left:calc(var(--rw) / 2 - 1.5px);top:0;bottom:0;width:3px;border-radius:3px;background:color-mix(in srgb,var(--ink) 20%,transparent)}
 .rail-fill{background:var(--rose);transform-origin:top}
 .rail-ride{position:absolute;left:0;top:0;width:var(--rw);height:100%}
-.rail-flower{display:block;width:var(--rw);height:var(--rw);margin-top:calc(var(--rw) / -2)}
+.rail-flower{display:block;width:calc(var(--rw) * 1.5);height:calc(var(--rw) * 1.5);margin:calc(var(--rw) * -.75) 0 0 calc(var(--rw) * -.25);max-width:none}
 @supports (animation-timeline:view()){
   @media (prefers-reduced-motion:no-preference){
     .rail-fill{transform:scaleY(0);animation:railFill linear both;animation-timeline:--steps;animation-range:entry 30% cover 62%}
