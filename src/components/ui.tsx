@@ -17,7 +17,8 @@ export function Reveal({ children, delay = 0, from = "up", className }: { childr
 /** Headline that rises word by word on load. */
 export function SplitWords({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
-    <span aria-label={text}>
+    <span>
+      <span className="sr-only">{text}</span>
       {text.split(" ").map((w, i) => (
         <span key={i} className="mask" aria-hidden>
           <span className="w" style={vars({ "--i": i + delay * 16 })}>{w}&nbsp;</span>

@@ -30,6 +30,123 @@ export function Flower({ size = 52, className = "" }: { size?: number; className
 // A teardrop petal pointing up from the origin, ~42 units long (outline decorations).
 const PETAL = "M0 0C-15-8-17-30 0-42C17-30 15-8 0 0Z";
 
+// A broad, softly notched petal (heart-shaped tip), base at the origin, ~54 units long: the realistic hero bloom.
+const PETAL_NAT = "M0 0C-11-3-26-20-22-38C-19-50-8-54-2.6-47.5C-1.2-45.8 1.2-45.8 2.6-47.5C8-54 19-50 22-38C26-20 11-3 0 0Z";
+const VEINS = ["M0-5C0-20 0-34 0-45", "M0-5C-1-18-4-32-9-44", "M0-5C1-18 4-32 9-44", "M0-4C-5-14-12-26-17-36", "M0-4C5-14 12-26 17-36"];
+
+// Deterministic pseudo-random in [0,1): petals are never mathematically identical, and server/client markup always matches.
+const rnd = (i: number, k: number) => {
+  const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+// Stamens: fine filaments with small anthers, fanned around the centre with natural irregularity.
+const STAMENS = Array.from({ length: 34 }, (_, i) => {
+  const a = (i / 34) * Math.PI * 2 + rnd(i, 9) * 0.3;
+  const r0 = 4 + rnd(i, 10) * 2;
+  const r1 = 10.5 + rnd(i, 11) * 6.5;
+  const bend = (rnd(i, 12) - 0.5) * 0.35;
+  return {
+    x0: +(Math.cos(a) * r0).toFixed(2), y0: +(Math.sin(a) * r0).toFixed(2),
+    x1: +(Math.cos(a + bend) * r1).toFixed(2), y1: +(Math.sin(a + bend) * r1).toFixed(2),
+    deg: +((a + bend) * (180 / Math.PI)).toFixed(1),
+  };
+});
+
+// Pollen specks that burst from the centre when the flower breaks apart. Deterministic, hidden until the burst.
+const POLLEN = Array.from({ length: 8 }, (_, i) => {
+  const ang = rnd(i, 20) * Math.PI * 2;
+  const dist = 0.9 + rnd(i, 21) * 1.3;
+  return {
+    tx: +(Math.cos(ang) * dist).toFixed(2),
+    ty: +(Math.sin(ang) * dist).toFixed(2),
+    o: +(5.5 + rnd(i, 22) * 4).toFixed(2),
+    s: 3 + Math.round(rnd(i, 23) * 3),
+    c: i % 3,
+  };
+});
+
+type LayerProps = { cls: string; count: number; scale: number; offset?: number; grad: string; seed: number; veins?: number; ring: 0 | 1 | 2 };
+
+// Where each ring sits in the break-apart sequence (units of 3.5vh of scroll): outer petals go first, the centre last.
+const RING_START = [0, 3, 5.5];
+
+/** One ring of petals. Every petal is its own element (so it can fly out on its own, on the compositor), made of three nested boxes:
+ *  .pet places and shapes it (angle, size, slight skew) around the flower's centre,
+ *  .pet-in carries the scatter (outward, spin, shrink, fade; driven by scroll in sections.css),
+ *  and the SVG draws one shaded, veined, outlined petal. */
+function Layer({ cls, count, scale, offset = 0, grad, seed, veins = 5, ring }: LayerProps) {
+  return (
+    <div className={`bl ${cls}`}>
+      {Array.from({ length: count }, (_, i) => {
+        const a = (360 / count) * i + offset + (rnd(i, seed) - 0.5) * 9;
+        const sc = scale * (0.93 + rnd(i, seed + 1) * 0.14);
+        const sk = (rnd(i, seed + 2) - 0.5) * 9;
+        return (
+          <div key={i} className="pet" style={vars({ "--a": a.toFixed(1), "--s": sc.toFixed(3), "--k": sk.toFixed(1) })}>
+            <div
+              className="pet-in"
+              style={vars({
+                "--o": (RING_START[ring] + rnd(i, seed + 3) * 2.2).toFixed(2),
+                "--tx": ((rnd(i, seed + 4) - 0.5) * 0.9).toFixed(2),
+                "--ty": (-(1 + ring * 0.35 + rnd(i, seed + 5) * 0.5)).toFixed(2),
+                "--sp": ((rnd(i, seed + 6) - 0.5) * 2 * (300 + rnd(i, seed + 7) * 420)).toFixed(0),
+                "--es": (0.22 + rnd(i, seed + 8) * 0.28).toFixed(2),
+              })}
+            >
+              <svg viewBox="-30 -56 60 60" aria-hidden>
+                <path d={PETAL_NAT} fill={`url(#${grad})`} stroke="rgba(87,15,29,.3)" strokeWidth=".45" />
+                {VEINS.slice(0, veins).map((d, v) => (
+                  <path key={v} d={d} fill="none" stroke="rgba(87,15,29,.16)" strokeWidth=".3" />
+                ))}
+              </svg>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/** The hero flower: three rings of shaded petals (so each can drift on its own with the cursor) around a stamened centre,
+ *  blooming from a glowing bud. Scrolling past it breaks it into particles (and back again): see sections.css.
+ *  Shared gradients live in the first <svg>. Pure CSS animation. */
+export function Bloom() {
+  return (
+    <div className="bloom" aria-hidden>
+      <svg width="0" height="0" style={{ position: "absolute" }}>
+        <defs>
+          <linearGradient id="gOuter" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#94404F" /><stop offset=".22" stopColor="#C65C6A" /><stop offset=".6" stopColor="#E3939B" /><stop offset="1" stopColor="#F9DAD8" /></linearGradient>
+          <linearGradient id="gMid" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#6F2B34" /><stop offset=".25" stopColor="#94404F" /><stop offset=".65" stopColor="#C65C6A" /><stop offset="1" stopColor="#E3939B" /></linearGradient>
+          <linearGradient id="gInner" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#570F1D" /><stop offset=".3" stopColor="#6F2B34" /><stop offset=".7" stopColor="#94404F" /><stop offset="1" stopColor="#C65C6A" /></linearGradient>
+          <radialGradient id="gCore" cx=".5" cy=".5" r=".5"><stop offset="0" stopColor="#94404F" /><stop offset="1" stopColor="#570F1D" /></radialGradient>
+        </defs>
+      </svg>
+      <div className="warm" />
+      <div className="glow" />
+      <div className="bw bw1" style={vars({ "--dl": "1.1s" })}><Layer cls="bl1" count={8} scale={1.22} offset={0} grad="gOuter" seed={1} ring={0} /></div>
+      <div className="bw bw2" style={vars({ "--dl": "1.3s" })}><Layer cls="bl2" count={8} scale={0.98} offset={22} grad="gMid" seed={2} veins={3} ring={1} /></div>
+      <div className="bw bw3" style={vars({ "--dl": "1.5s" })}><Layer cls="bl3" count={6} scale={0.72} offset={8} grad="gInner" seed={3} veins={3} ring={2} /></div>
+      <div className="bw bw4" style={vars({ "--dl": ".3s" })}>
+        <svg className="bl bl4" viewBox="-70 -70 140 140" aria-hidden>
+          <circle r="9.5" fill="url(#gCore)" />
+          {STAMENS.map((st, i) => (
+            <g key={i}>
+              <line x1={st.x0} y1={st.y0} x2={st.x1} y2={st.y1} stroke="#F9DAD8" strokeWidth=".55" strokeLinecap="round" opacity=".92" />
+              <ellipse cx={st.x1} cy={st.y1} rx="1.6" ry="1" fill="#FCF1DA" stroke="#E3939B" strokeWidth=".25" transform={`rotate(${st.deg} ${st.x1} ${st.y1})`} />
+            </g>
+          ))}
+          <circle r="3.2" fill="#FCF1DA" opacity=".95" />
+          <circle r="1.4" fill="#94404F" />
+        </svg>
+      </div>
+      {POLLEN.map((pl, i) => (
+        <i key={i} className={`pollen c${pl.c}`} style={vars({ "--tx": pl.tx, "--ty": pl.ty, "--o": pl.o, "--ps": `${pl.s}px` })} />
+      ))}
+    </div>
+  );
+}
+
 /** A big outlined ring of petals used as quiet page-hero decoration. */
 export function PetalRing({ count = 12 }: { count?: number }) {
   return (
@@ -54,27 +171,47 @@ export function PosterFlower({ count = 8 }: { count?: number }) {
   );
 }
 
-const PETAL_COLORS = ["var(--pink)", "var(--blue)", "var(--pink)", "var(--leaf)"];
-
-/** Falling petals: plain elements animated with CSS transform only, so they run on the compositor (no JavaScript, no canvas,
- *  nothing to repaint), keep falling for the whole page, and cost nothing on interaction. Fewer on small screens. */
-export function Petals({ count = 18 }: { count?: number }) {
+/** Petals that keep falling, slowly, down every page once the hero flower has broken apart. Each is a shaded, veined petal (the
+ *  flower's own shape) in two layers so the motions never fight, and every motion is a transform on the compositor:
+ *  .rp falls and sways (translate), and the svg inside tilts and turns edge-on and flat again (rotate, scaleX) like a real petal tumbling.
+ *  No filters, no layout, no JavaScript per frame. Sizes, speeds, phases and colours differ per petal. */
+const RAIN_GRADS = ["rpA", "rpB", "rpC"];
+export function Petals({ count = 10 }: { count?: number }) {
   return (
     <div className="petals" aria-hidden>
-      {Array.from({ length: count }, (_, i) => (
-        <i
-          key={i}
-          className={`petal${i % 3 === 0 ? " extra" : ""}`}
-          style={vars({
-            "--px0": `${(i * 37 + 11) % 100}%`,
-            "--ps": `${7 + ((i * 5) % 8)}px`,
-            "--pd": `${16 + ((i * 3) % 11)}s`,
-            "--pt": `-${((i * 1.7) % 22).toFixed(1)}s`,
-            "--pw": `${(i % 2 ? 1 : -1) * (24 + ((i * 7) % 40))}px`,
-            "--pc": PETAL_COLORS[i % PETAL_COLORS.length],
-          })}
-        />
-      ))}
+      {Array.from({ length: count }, (_, i) => {
+        const fall = 26 + rnd(i, 62) * 22;
+        return (
+          <div
+            key={i}
+            className="rp"
+            style={vars({
+              "--x": `${((i * 100) / count + rnd(i, 63) * (100 / count)).toFixed(1)}%`,
+              "--s": `${(14 + rnd(i, 61) * 16).toFixed(1)}px`,
+              "--d": `${fall.toFixed(1)}s`,
+              "--t": `-${(rnd(i, 64) * fall).toFixed(1)}s`,
+              "--amp": `${(30 + rnd(i, 65) * 80).toFixed(0)}px`,
+              "--sw": `${(4.5 + rnd(i, 66) * 4.5).toFixed(1)}s`,
+              "--t2": `-${(rnd(i, 67) * 9).toFixed(1)}s`,
+              "--fl": `${(2.6 + rnd(i, 68) * 3).toFixed(1)}s`,
+              "--t3": `-${(rnd(i, 69) * 6).toFixed(1)}s`,
+            })}
+          >
+              <svg viewBox="-30 -56 60 60" aria-hidden>
+                <path d={PETAL_NAT} fill={`url(#${RAIN_GRADS[i % 3]})`} stroke="rgba(87,15,29,.32)" strokeWidth=".5" />
+                <path d={VEINS[0]} fill="none" stroke="rgba(87,15,29,.18)" strokeWidth=".35" />
+                <path d={VEINS[1]} fill="none" stroke="rgba(87,15,29,.14)" strokeWidth=".3" />
+              </svg>
+          </div>
+        );
+      })}
+      <svg width="0" height="0" style={{ position: "absolute" }}>
+        <defs>
+          <linearGradient id="rpA" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#C65C6A" /><stop offset=".55" stopColor="#E3939B" /><stop offset="1" stopColor="#F9DAD8" /></linearGradient>
+          <linearGradient id="rpB" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#94404F" /><stop offset=".5" stopColor="#C65C6A" /><stop offset="1" stopColor="#E3939B" /></linearGradient>
+          <linearGradient id="rpC" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#E3939B" /><stop offset=".6" stopColor="#F9DAD8" /><stop offset="1" stopColor="#FCF1DA" /></linearGradient>
+        </defs>
+      </svg>
     </div>
   );
 }

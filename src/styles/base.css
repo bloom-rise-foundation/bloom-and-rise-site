@@ -47,12 +47,8 @@ h1 .script,h2 .script{margin-inline-start:.18em}
 .bg i:nth-child(3){left:6vw;bottom:-40vmax;background:radial-gradient(closest-side,color-mix(in srgb,var(--pink) 55%,var(--lemon)),transparent);animation:drift1 60s ease-in-out infinite alternate-reverse}
 @keyframes drift1{to{transform:translate3d(14vmax,10vmax,0) scale(1.12)}}
 @keyframes drift2{to{transform:translate3d(-16vmax,8vmax,0) scale(.92)}}
-/* falling petals: transform-only keyframes, so the compositor does all the work */
-.petals{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:strict}
-.petal{position:absolute;top:-6vh;left:var(--px0);width:var(--ps);height:calc(var(--ps) * 1.9);border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;background:var(--pc);opacity:.72;animation:petalFall var(--pd) linear var(--pt) infinite}
-@keyframes petalFall{0%{transform:translate3d(0,-8vh,0) rotate(0)}50%{transform:translate3d(var(--pw),56vh,0) rotate(200deg)}100%{transform:translate3d(calc(var(--pw) * -.5),116vh,0) rotate(400deg)}}
-@media(max-width:820px),(pointer:coarse){.petal.extra{display:none}}
-@media(prefers-reduced-motion:reduce){.petals{display:none}}
+/* falling petals: see alcove.css (PETAL RAIN) */
+.petals{position:fixed;inset:0;z-index:35;pointer-events:none;overflow:hidden;contain:strict}
 
 /* ---------- reveal on scroll (one shared IntersectionObserver adds .in) ---------- */
 html.js [data-reveal]{--rx:0px;--ry:32px;--rr:0deg;--rs:1;opacity:0;transform:translate3d(var(--rx),var(--ry),0) rotate(var(--rr)) scale(var(--rs));transition:opacity .65s var(--ease) var(--d,0s),transform .65s var(--ease) var(--d,0s)}
@@ -61,14 +57,6 @@ html.js [data-reveal=right]{--rx:48px;--ry:0px}
 html.js [data-reveal=scale]{--rs:.88;--ry:0px}
 html.js [data-reveal=tilt]{--ry:44px;--rr:-3deg}
 html.js [data-reveal].in,html.js.rv-fallback [data-reveal]{opacity:1;transform:none}
-/* Where CSS scroll timelines exist, the reveal runs entirely in CSS: nothing waits for JavaScript, so content that is
-   already on screen at load is simply visible (it starts past the end of the animation range). */
-@supports (animation-timeline:view()){
-  html.js [data-reveal],html.js .tile[data-reveal]{opacity:1;transform:none;transition:none;animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 65%}
-  html.js .tile[data-reveal]{transition:translate .22s var(--ease)}
-  @keyframes rv{from{opacity:0;transform:translate3d(var(--rx),var(--ry),0) rotate(var(--rr)) scale(var(--rs))}}
-}
-
 /* entrance animations that run on load (no JS, nothing waits for hydration) */
 @keyframes rise{from{transform:translate3d(0,110%,0)}}
 @keyframes fade-up{from{opacity:0;transform:translate3d(0,18px,0)}}
@@ -117,8 +105,7 @@ html.navd .page{animation:page-in .22s var(--ease) both}
 /* ---- details ---- */
 html{scroll-padding-top:calc(6.5rem + env(safe-area-inset-top,0px));-webkit-tap-highlight-color:transparent}
 ::selection{background:var(--pink);color:var(--lemon)}
-h1,h2,h3{text-wrap:balance}
-p,li{text-wrap:pretty}
+h1,h2{text-wrap:balance}
 
 /* ================= touch / mobile =================
    Everything here is either capability-gated ((pointer:coarse), (hover:none)) or driven by env() (0 on desktop),

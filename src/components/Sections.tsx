@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Reveal, SplitWords, vars } from "./ui";
-import { Flower, PetalRing, PosterFlower } from "./Decor";
-import ParticleBloom from "./ParticleBloom";
+import { Bloom, Flower, PetalRing, PosterFlower } from "./Decor";
 import { site, partnerHref } from "@/config/site";
 import { team, type Member } from "@/data/team";
 
@@ -49,7 +48,7 @@ export function Hero() {
     <section className="hero" data-fx="hero">
       <div className="hero-art" aria-hidden>
         <div className="dawn" />
-        <ParticleBloom />
+        <Bloom />
       </div>
       <div className="wrap hero-inner">
         <h1 className="display">
@@ -59,7 +58,8 @@ export function Hero() {
         <p className="lead fade-up" style={vars({ "--d": ".2s" })}>Kindling frank exchanges on health, science and safety, for girls, women and vulnerable children.</p>
         <p className="through fade-up" style={vars({ "--d": ".3s" })}>
           through{" "}
-          <span className="cycle" style={vars({ "--n": site.phrases.length })} aria-label={site.phrases.join(", ")}>
+          <span className="cycle" style={vars({ "--n": site.phrases.length })}>
+            <span className="sr-only">{site.phrases.join(", ")}</span>
             {site.phrases.map((w, i) => (
               <span key={w} className="script" aria-hidden style={vars({ "--i": i })}>{w}</span>
             ))}
@@ -208,7 +208,7 @@ const MOTES = Array.from({ length: 10 }, (_, i) => ({
  *  Without scroll timelines, or under reduced motion, it is simply the lit room. See styles/sections.css. */
 export function Spotlight() {
   return (
-    <section className="spot cv">
+    <section className="spot">
       <div className="spot-stick">
         <div className="light" aria-hidden>
           <div className="cone" />

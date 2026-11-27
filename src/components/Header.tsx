@@ -52,7 +52,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="bar">
-        <Link href="/" className="logo" aria-label="Bloom & Rise Foundation, home">
+        <Link href="/" className="logo">
           <span className="display">{site.name}</span>
           <span className="script">{site.suffix}</span>
         </Link>

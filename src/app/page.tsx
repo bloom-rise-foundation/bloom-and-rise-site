@@ -12,13 +12,13 @@ export default function Home() {
     <>
       <Hero />
       <Band items={band} items2={band2} />
-      <section className="section mission cv">
+      <section className="section mission">
         <div className="wrap">
           <LitLines text={site.mission} className="statement display" accents={["candid", "answers", "science", "unhurriedly", "community"]} />
         </div>
       </section>
       <FocusPin />
-      <section className="section cv cv-stack">
+      <section className="section">
         <div className="wrap">
           <Reveal><h2 className="display">How we <span className="script">work</span></h2></Reveal>
           <Stack items={site.values} />

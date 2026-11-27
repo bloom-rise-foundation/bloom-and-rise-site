@@ -6,8 +6,8 @@ import { LITE_KEY } from "@/lib/perf";
  *  lite mode for the rest of the session: the costliest finishing effects step back, nothing is removed. It samples the first
  *  seconds after load and the first seconds of scrolling, the two moments the page works hardest. Capable devices never see it. */
 const WINDOW = 70; // frames per verdict
-const SLOW_MS = 40; // a frame longer than this counts as dropped
-const LIMIT = 0.4; // share of dropped frames that triggers lite
+const SLOW_MS = 50; // a frame longer than this counts as dropped
+const LIMIT = 0.5; // share of dropped frames that triggers lite
 
 export default function PerfWatch() {
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function PerfWatch() {
       if (!raf) { prev = 0; raf = requestAnimationFrame(tick); }
     };
 
-    const first = window.setTimeout(() => watch(6000), 1200);
+    const first = window.setTimeout(() => watch(6000), 1500);
     let armed = false;
     const onScroll = () => { if (!armed) { armed = true; watch(4000); } };
     window.addEventListener("scroll", onScroll, { passive: true, once: true });

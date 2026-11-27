@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 
 const CursorImpl = dynamic(() => import("./Cursor").then((m) => m.Cursor), { ssr: false });
 const PointerImpl = dynamic(() => import("./Pointer"), { ssr: false });
+const GovernorImpl = dynamic(() => import("./ScrollGovernor"), { ssr: false });
+const DelightsImpl = dynamic(() => import("./Delights"), { ssr: false });
+const WatchImpl = dynamic(() => import("./PerfWatch"), { ssr: false });
+const HeroImpl = dynamic(() => import("./HeroWatch"), { ssr: false });
 
 /** Runs `cb` once the window has loaded and the browser is idle, so it never competes with the first load. */
 function afterLoadIdle(cb: () => void): () => void {
@@ -26,19 +30,33 @@ function afterLoadIdle(cb: () => void): () => void {
   };
 }
 
-/** Optional extras for mouse users only (never needed for first paint): the flower cursor and the pointer effects. */
+/** Everything that is not needed for first paint loads once the window has loaded and the browser is idle, so none of it competes
+ *  with hydration: the frame watcher, the petal burst and (mouse users only) the scroll governor, flower cursor and pointer effects. */
 export function Extras() {
+  const [ready, setReady] = useState(false);
   const [mouse, setMouse] = useState(false);
 
   useEffect(() => {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    return afterLoadIdle(() => setMouse(true));
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    return afterLoadIdle(() => {
+      setReady(true);
+      if (fine) setMouse(true);
+    });
   }, []);
 
-  return mouse ? (
+  if (!ready) return null;
+  return (
     <>
-      <PointerImpl />
-      <CursorImpl />
+      <WatchImpl />
+      <HeroImpl />
+      <DelightsImpl />
+      {mouse && (
+        <>
+          <GovernorImpl />
+          <PointerImpl />
+          <CursorImpl />
+        </>
+      )}
     </>
-  ) : null;
+  );
 }

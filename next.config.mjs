@@ -6,6 +6,8 @@ export default {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  // the stylesheet is small (about 15KB gzipped): inline it so first paint never waits on a second request
+  experimental: { inlineCss: true },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: day * 30,

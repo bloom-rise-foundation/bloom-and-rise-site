@@ -8,9 +8,6 @@ import Header from "@/components/Header";
 import Closing from "@/components/Closing";
 import RevealRoot from "@/components/RevealRoot";
 import { Extras } from "@/components/Lazy";
-import ScrollGovernor from "@/components/ScrollGovernor";
-import Delights from "@/components/Delights";
-import PerfWatch from "@/components/PerfWatch";
 import { Footer } from "@/components/Chrome";
 import { FlowerDefs, Petals } from "@/components/Decor";
 import { site } from "@/config/site";
@@ -71,9 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer year={new Date().getFullYear()} />
         <RevealRoot />
         <Extras />
-        <ScrollGovernor />
-        <Delights />
-        <PerfWatch />
         <Analytics />
         <SpeedInsights />
       </body>

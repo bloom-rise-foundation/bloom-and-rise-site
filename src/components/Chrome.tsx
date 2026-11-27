@@ -26,12 +26,12 @@ export function Footer({ year }: { year: number }) {
         </div>
         {site.footer.map((c) => (
           <nav key={c.title} className="fcol" aria-label={c.title}>
-            <h4>{c.title}</h4>
+            <h2 className="fh">{c.title}</h2>
             <ul>{c.links.map((l) => <li key={l.href}>{l.href.startsWith("mailto:") ? <a href={l.href}>{l.label}</a> : <Link href={l.href}>{l.label}</Link>}</li>)}</ul>
           </nav>
         ))}
         <div className="fcol">
-          <h4>Follow</h4>
+          <h2 className="fh">Follow</h2>
           <SocialLinks />
         </div>
       </div>

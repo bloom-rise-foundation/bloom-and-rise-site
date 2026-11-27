@@ -13,12 +13,9 @@
 /* ---------- ground: fine plaster grain instead of drifting colour clouds ---------- */
 /* grain lives on the body as a static tile (no fixed, blended full-screen layer to re-composite on every scroll frame) */
 body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .34 0 0 0 0 .06 0 0 0 0 .11 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
-.petal{opacity:.62}
-/* the petals feel the wind: scrolling fast (the governor writes --sv, -1 to 1) pushes them sideways */
-.petals{transform:translate3d(calc(var(--sv,0) * -26px),0,0);transition:transform .5s var(--ease)}
 
 /* ---------- type: Playfair carries the weight again, caps for controls ---------- */
-.btn,.nav a,.chip,.fcol h4,.bio-more summary,.scroll-note{font-family:var(--body)}
+.btn,.nav a,.chip,.fcol .fh,.bio-more summary,.scroll-note{font-family:var(--body)}
 
 /* ---------- nav: caps links in the floating glass bar ---------- */
 /* The bar measures itself (container query), so the logo and the menu button always fit, on any width, zoom or font size:
@@ -68,13 +65,11 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
 
 /* ---------- the two "light on" effects, made unmistakable ---------- */
 @supports (animation-timeline:view()){
-  /* mission words: dim but readable at rest, then each one flares in its own colour and settles. The word itself only
-     changes opacity; the glow is a duplicate of the word (data-w) whose opacity swells and fades, so nothing repaints per frame. */
-  .lit .lw{position:relative;opacity:.3;--g:rgba(252,241,218,.95);animation:lw linear both;animation-timeline:view();animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(20% + var(--t,0) * 42%)}
-  .lit .lw.a0{--g:rgba(227,147,155,.95)} .lit .lw.a1{--g:rgba(213,227,238,.95)} .lit .lw.a2{--g:rgba(198,92,106,.95)} .lit .lw.a3{--g:rgba(124,149,182,.95)}
-  .lit .lw::after{content:attr(data-w);position:absolute;left:0;top:0;white-space:pre;color:transparent;pointer-events:none;text-shadow:0 0 34px var(--g),0 0 8px var(--g);opacity:0;animation:lwGlow linear both;animation-timeline:view();animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(20% + var(--t,0) * 42%)}
+  /* mission words: dim but readable at rest, then each one lights in its own colour. Only opacity animates (compositor); the glow is
+     a static shadow that rises and falls with it, so nothing repaints while you scroll. */
+  .lit .lw{opacity:.3;--g:rgba(252,241,218,.8);text-shadow:0 0 .55em var(--g),0 0 .12em var(--g);animation:lw linear both;animation-timeline:view();animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(20% + var(--t,0) * 42%)}
+  .lit .lw.a0{--g:rgba(227,147,155,.85)} .lit .lw.a1{--g:rgba(213,227,238,.85)} .lit .lw.a2{--g:rgba(198,92,106,.85)} .lit .lw.a3{--g:rgba(124,149,182,.85)}
   @keyframes lw{0%{opacity:.3}45%,100%{opacity:1}}
-  @keyframes lwGlow{0%{opacity:0}45%{opacity:1}100%{opacity:0}}
 }
 @media (prefers-reduced-motion:reduce){.lit .lw{opacity:1}}
 /* lamp words: bigger, and each is visible at rest in the dark, then flares like a struck match */
@@ -86,10 +81,6 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
       50%{opacity:1;translate:-50% calc(-50% - 3px);scale:1.12}
       to{opacity:1;translate:-50% -50%;scale:1}
     }
-    .spot-words em{position:relative}
-    .spot-words em::after{content:attr(data-w);position:absolute;left:0;top:0;white-space:pre;color:transparent;pointer-events:none;text-shadow:0 0 46px rgba(255,236,214,.95),0 0 14px rgba(227,147,155,1);opacity:0;
-      animation:wordGlow var(--ease) both;animation-timeline:--spot;animation-range:cover calc(var(--s0) + (.46 + var(--o) * .045) * var(--sL)) cover calc(var(--s0) + (.56 + var(--o) * .045) * var(--sL))}
-    @keyframes wordGlow{0%{opacity:0}50%{opacity:1}100%{opacity:.0}}
     @keyframes textLit{0%{opacity:.22}8%{opacity:.5}16%{opacity:.24}28%{opacity:.62}36%{opacity:.2}52%{opacity:.5}60%{opacity:.22}78%{opacity:1}100%{opacity:1}}
   }
 }
@@ -115,7 +106,7 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
 
 /* ---------- closing and footer ---------- */
 .closing .row{justify-content:center}
-.footer .fcol h4{font-weight:600;font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase}
+.footer .fcol .fh{font-weight:600;font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase}
 .limits li::before{content:"";width:.9rem;height:2px;border-radius:2px;background:var(--leaf);top:.85em}
 .limits li{padding-left:1.8rem}
 
@@ -237,15 +228,15 @@ img,svg,video,canvas{max-width:100%}
    Save-Data, and switched on at runtime (PerfWatch) the moment a device actually drops frames. Nothing is removed: the
    hero bloom, the lamp, the cards and the lit words all stay; only the costliest finishing effects step back.
    ===================================================================== */
-html.lite .header .bar::before{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(252,241,218,.96)}
+html.lite .header .bar::before{background:rgba(252,241,218,.96)}
 html.lite .petals{display:none}
 html.lite .stem{display:none!important}
 html.lite body{background-image:none}
-html.lite .lit .lw::after,html.lite .spot-words em::after{display:none}
 html.lite .mote{display:none}
 html.lite .stack-card{box-shadow:none}
 html.lite .poster::before,html.lite .tile::before{display:none}
 html.lite .bloom .warm{display:none}
+html.lite .pollen{display:none}
 html.lite{scroll-behavior:auto}
 
 /* role addresses on the contact page */
@@ -254,3 +245,27 @@ html.lite{scroll-behavior:auto}
 .mails li:last-child{border-bottom:2px solid var(--hair)}
 .mails span{font-family:var(--display);font-weight:700;font-size:1.2rem}
 .mails a{font-weight:600;overflow-wrap:anywhere;text-underline-offset:.25em}
+
+/* =====================================================================
+   PETAL RAIN: the flower's petals keep falling, slowly, down every page, in front of the content (never blocking it).
+   Two layers per petal, compositor-only (translate, rotate, scale, transform), and nothing updates from JavaScript.
+   ===================================================================== */
+.rp{position:absolute;left:var(--x);top:0;width:var(--s);height:var(--s);margin-left:calc(var(--s) / -2);opacity:.92;will-change:transform,translate;
+  animation:rpFall var(--d) linear var(--t) infinite,rpSway var(--sw) ease-in-out var(--t2) infinite alternate}
+.rp svg{display:block;width:100%;height:100%;overflow:visible;animation:rpTilt var(--sw) ease-in-out var(--t2) infinite alternate,rpFlip var(--fl) ease-in-out var(--t3) infinite alternate}
+@keyframes rpFall{from{translate:0 -14vh}to{translate:0 114vh}}
+@keyframes rpSway{from{transform:translate3d(calc(var(--amp) * -1),0,0)}to{transform:translate3d(var(--amp),0,0)}}
+@keyframes rpTilt{from{rotate:-28deg}to{rotate:32deg}}
+@keyframes rpFlip{from{scale:1 1}to{scale:.16 1}}
+/* the rain gathers as the hero flower breaks apart: more petals are released over the first screen of scrolling */
+@supports (animation-timeline:scroll()){
+  .rp:nth-of-type(n+5){animation:rpFall var(--d) linear var(--t) infinite,rpSway var(--sw) ease-in-out var(--t2) infinite alternate,rpRelease linear both;animation-timeline:auto,auto,scroll(root);animation-range:normal,normal,0 80vh}
+  @keyframes rpRelease{from{opacity:0}to{opacity:.92}}
+}
+@media(max-width:820px){.rp:nth-of-type(n+7){display:none}}
+html.lite .rp:nth-of-type(n+5){display:none}
+@media (prefers-reduced-motion:reduce){.petals{display:none}}
+
+/* once the hero has scrolled away the flower costs nothing: it is hidden and its animations are held (HeroWatch.tsx) */
+html.hero-off .hero-art{visibility:hidden}
+html.hero-off .hero-art *{animation-play-state:paused!important}
