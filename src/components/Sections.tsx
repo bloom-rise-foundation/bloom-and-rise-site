@@ -41,7 +41,6 @@ export function Hero() {
         <ParticleBloom />
       </div>
       <div className="wrap hero-inner">
-        <p className="chip fade-up" style={vars({ "--d": ".05s" })}>{site.statusShort}</p>
         <h1 className="display">
           <span className="ln"><span className="mask"><span className="w">Some conversations are left unspoken.</span></span></span>
           <span className="ln"><span className="mask"><span className="w">We coax them into the light.</span></span></span>
@@ -57,8 +56,10 @@ export function Hero() {
         </p>
         <div className="row fade-up" style={vars({ "--d": ".4s" })}>
           <div data-fx="mag"><Link className="btn" href="/get-involved">Join us</Link></div>
-          <div data-fx="mag"><Link className="btn ghost" href="/about">Our blueprint</Link></div>
+          <Link className="btn ghost quiet" href="/about">Our blueprint</Link>
+          <Link className="btn ghost quiet" href="/get-involved#partner">Partner with us</Link>
         </div>
+        <p className="chip fade-up" style={vars({ "--d": ".5s" })}>{site.statusShort}</p>
       </div>
     </section>
   );

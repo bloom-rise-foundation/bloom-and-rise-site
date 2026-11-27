@@ -1,0 +1,158 @@
+/* =====================================================================
+   THE ALCOVE: the site as a tokonoma. One thing placed with patience, charged emptiness around it.
+   Plaster ground with fine grain, hairline rules, square-cornered frames, a wine lacquer shelf under the bloom,
+   Playfair at a lighter weight, small wide-tracked Montserrat for controls. Loaded last: it re-dresses the base, chrome
+   and section styles without touching the pinned scroll stories (hero bloom, lamp pull, poster/stack cards, lit statement).
+   ===================================================================== */
+:root{
+  --r:6px; --hair:color-mix(in srgb,var(--rum) 24%,transparent); --hair-lt:color-mix(in srgb,var(--lemon) 26%,transparent);
+  --hdr:calc(68px + env(safe-area-inset-top,0px));
+  --caps:.74rem; --track:.16em;
+}
+
+/* ---------- ground: fine plaster grain instead of drifting colour clouds ---------- */
+.bg i{display:none}
+.bg{opacity:.55;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .34 0 0 0 0 .06 0 0 0 0 .11 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+.petal{opacity:.5}
+.petal.extra{display:none}
+
+/* ---------- type: lighter Playfair, caps labels ---------- */
+.display{font-weight:500;letter-spacing:-.015em}
+.script{font-weight:500}
+.statement,.statement .ac{font-weight:500}
+.hero h1 .ln:last-child .w{font-weight:500}
+.btn,.nav a,.chip,.fcol h4,.bio-more summary,.scroll-note{font-family:var(--body)}
+
+/* ---------- header: a flat plaster band with a hairline, caps navigation ---------- */
+.header{pointer-events:auto;background:var(--lemon);border-bottom:1px solid var(--hair)}
+.header .bar{margin:0 auto;height:68px;padding:0}
+.header .bar::before{display:none}
+.logo .display{font-weight:600;font-size:1.45rem} .logo .script{font-size:1.45rem}
+.nav{gap:clamp(1.2rem,2.4vw,2.4rem)}
+.nav a{font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;color:var(--rum)}
+.nav>a::after,.nav-group>a::after{height:1px;bottom:-6px;background:var(--denim)}
+.nav>a.on,.nav-group>a.on{color:var(--denim)}
+.nav-menu{border-radius:3px;border:1px solid var(--hair);box-shadow:0 14px 30px -12px rgba(87,15,29,.3);padding:.4rem;min-width:10rem}
+.nav-menu a{text-transform:none;letter-spacing:0;font-size:1.05rem;font-weight:500;border-radius:2px;padding:.5rem .9rem}
+.nav-menu a.on{background:color-mix(in srgb,var(--pink) 35%,var(--lemon));color:var(--rum)}
+@media(hover:hover) and (pointer:fine){.nav-menu a:hover{background:color-mix(in srgb,var(--pink) 35%,var(--lemon))}}
+.header:has(.menu.open){background:var(--rum);border-color:transparent}
+.menu a{font-weight:500}
+@media(max-width:820px),(hover:none) and (pointer:coarse){.header .bar,.header.scrolled .bar{padding:0 0 0 0}.burger{margin-right:-.6rem}}
+
+/* ---------- controls: square hairline buttons with an arrow ---------- */
+.btn{display:inline-flex;align-items:center;gap:.9rem;padding:1rem 1.5rem;border-radius:2px;background:var(--denim);color:var(--lemon);border:1px solid var(--denim);font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;line-height:1.2}
+.btn::after{content:"";flex:none;width:1.25rem;height:.7rem;background:currentColor;transition:translate .25s var(--ease);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.5'%3E%3Cpath d='M0 6h20M15 1l5 5-5 5'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.5'%3E%3Cpath d='M0 6h20M15 1l5 5-5 5'/%3E%3C/svg%3E") center/contain no-repeat}
+@media(hover:hover) and (pointer:fine){.btn:hover{box-shadow:none;background:var(--rum);border-color:var(--rum)}.btn:hover::after{translate:5px 0}}
+.btn.ghost{background:transparent;color:var(--rum);border-color:var(--rum)}
+@media(hover:hover) and (pointer:fine){.btn.ghost:hover{background:var(--rum);color:var(--lemon)}}
+.btn.quiet{border-color:transparent;padding-inline:.4rem;background:transparent;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.5em}
+@media(hover:hover) and (pointer:fine){.btn.quiet:hover{background:transparent;color:var(--denim)}}
+.chip{background:none;padding:0;border-radius:0;font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;margin-bottom:0}
+.small{opacity:.9}
+:focus-visible{outline:2px solid var(--denim);outline-offset:4px;border-radius:2px}
+
+/* ---------- sections: plaster, wine rooms, no scallops ---------- */
+.section.edge::before{content:none}
+.section.pink{background:color-mix(in srgb,var(--pink) 24%,var(--lemon))}
+.section.blue{background:color-mix(in srgb,var(--blue) 85%,var(--lemon))}
+.section.dark .script,.section.beet .script,.section.rum .script{color:var(--pink)}
+.section{padding:clamp(4.5rem,10vw,8rem) 0}
+h2{margin-bottom:2.2rem}
+.lead{max-width:56ch}
+
+/* ---------- page hero: tinted plaster, the ring as the arrangement, a wine shelf underneath ---------- */
+.page-hero,.page-hero.pink,.page-hero.blue,.page-hero.beet,.page-hero.dark,.page-hero.rum{--tone:var(--pink);background:color-mix(in srgb,var(--tone) 16%,var(--lemon));color:var(--rum);overflow:clip}
+.page-hero.blue{--tone:var(--glacier)} .page-hero.beet,.page-hero.dark{--tone:var(--rose)} .page-hero.rum{--tone:var(--denim)}
+.page-hero .script,.page-hero.beet .script,.page-hero.dark .script,.page-hero.rum .script,.page-hero.pink .script{color:var(--rose)}
+.page-hero::after,.page-hero.pink::after,.page-hero.blue::after,.page-hero.beet::after,.page-hero.dark::after,.page-hero.rum::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:var(--rum);box-shadow:0 12px 20px -10px rgba(87,15,29,.35);pointer-events:none}
+.page-hero{padding-bottom:clamp(3.5rem,8vw,6rem)}
+.ph-art{color:var(--tone);opacity:.6}
+.page-hero h1{line-height:1}
+.page-hero .lead{max-width:44ch}
+
+/* ---------- home hero: the bloom stands on the shelf; actions are equal ---------- */
+.hero{--art:min(37vw,560px)}
+.hero::after{content:"";position:absolute;z-index:1;left:0;right:0;top:calc(54% + var(--art) / 2 + 4px);height:12px;background:var(--rum);box-shadow:0 14px 24px -10px rgba(87,15,29,.4);pointer-events:none;animation:fadeIn 1s ease 2.4s both}
+.hero h1{font-weight:500}
+.hero .row{align-items:center;gap:.4rem 1.6rem}
+.hero .chip{display:block;margin-top:2.4rem;color:var(--rum);animation:fade-up .5s var(--ease) var(--d) both,inkL 2.65s linear both}
+@keyframes quietL{0%,46%{color:var(--lemon)}}
+.hero .btn.ghost.quiet{animation:quietL 2.6s linear both;color:var(--rum)}
+@media(max-width:820px){.hero::after{display:none}}
+
+/* ---------- ribbons: one calm ruled ticker, not tilted ribbons ---------- */
+.band{padding:clamp(2.6rem,5vw,4rem) 0}
+.band::before{background:none}
+.ribbon,.rb1,.rb2{rotate:0deg;width:100%;margin-left:0;box-shadow:none;background:transparent;border-block:1px solid var(--hair-lt);padding:.9rem 0}
+.rb2{margin-top:0;border-top:0;padding-top:.9rem}
+.rb1{color:var(--lemon)} .rb2{color:var(--pink)}
+.rb-track li{font-size:clamp(1.3rem,3vw,2.3rem)}
+.rb-track li.bd{font-weight:500;font-size:clamp(1.2rem,2.6vw,2rem);letter-spacing:.04em}
+.rb-track li.it{font-weight:500}
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){.ribbon{animation:none}}}
+
+/* ---------- statement: left-set in a wide room, the empty side is the point ---------- */
+.mission{padding:clamp(5rem,11vw,9rem) 0}
+.statement{text-align:left;margin-inline:0 auto;max-width:17em;font-size:clamp(2rem,4.6vw,3.9rem);line-height:1.18}
+@media(min-width:900px){.statement{margin-left:clamp(0px,7vw,7rem)}}
+
+/* ---------- cards: square, framed, the flowers stay ---------- */
+.poster,.stack-card,.tile{border-radius:4px}
+.poster,.stack-card{outline:1px solid color-mix(in srgb,currentColor 32%,transparent);outline-offset:-12px}
+.poster .num,.stack-card .num,.rn{font-weight:400;-webkit-text-stroke-width:1.5px}
+.poster h3,.stack-card h3,.rt h3{font-weight:500}
+.stack-card{box-shadow:0 -18px 40px -14px rgba(87,15,29,.28)}
+.stack-card::after{border-radius:inherit}
+.tile{outline:1px solid color-mix(in srgb,currentColor 24%,transparent);outline-offset:-10px}
+.tile.pink{background:color-mix(in srgb,var(--pink) 55%,var(--lemon))}
+.tile.blue{background:color-mix(in srgb,var(--blue) 90%,var(--lemon))}
+.row-item{border-top-width:1px}.row-item:last-child{border-bottom-width:1px}
+@media(max-width:600px){.stack-card,.poster{border-radius:4px}}
+
+/* ---------- team: framed portraits ---------- */
+.photo{aspect-ratio:4/5;border-radius:2px;box-shadow:none;outline:1px solid var(--rum);outline-offset:8px;margin-bottom:1.6rem;transition:none}
+@media(hover:hover) and (pointer:fine){.photo:hover{border-radius:2px}}
+.member-row .photo{margin-bottom:0}
+.role{font-weight:500}
+.bio-more summary{font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;border-bottom-width:1px}
+
+/* ---------- closing and footer ---------- */
+.closing .row{justify-content:center}
+.closing::after{background:radial-gradient(circle closest-side,var(--blush) 0 92%,var(--pink) 92% 93.2%,var(--blush) 93.2% 100%)}
+.wordmark{font-weight:500}
+.wordmark em{font-weight:500}
+.footer .fcol h4{font-weight:600;font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase}
+.fbottom{border-top-width:1px}
+
+/* ---------- credential and forms ---------- */
+.vform{border-style:solid;border-width:1px}
+.vrow input{border-radius:2px;border-width:1px}
+.cred-card{border-width:1px}
+.limits li::before{content:"";width:.9rem;height:1px;background:var(--leaf);top:.85em}
+.limits li{padding-left:1.8rem}
+
+/* ---------- stages: where we stand, as a stem ---------- */
+.stages{list-style:none;padding:0;margin:0 0 clamp(2rem,5vw,3.5rem);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--hair)}
+.stage{padding:1.1rem 1.2rem 0 0;display:grid;gap:.25rem;color:color-mix(in srgb,var(--rum) 62%,var(--lemon))}
+.stage b{font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,2.4vw,1.8rem);color:inherit}
+.stage span{font-size:.9rem}
+.stage.here{color:var(--rum);border-top:3px solid var(--rose);margin-top:-2px}
+.stage.here b{font-style:italic;color:var(--rose)}
+
+@media(max-width:600px){
+  .hero .row{flex-wrap:wrap;gap:.2rem 1.4rem;margin-top:1.8rem}
+  .hero .row>div{flex:1 1 100%}
+  .hero .row>div .btn{width:100%;justify-content:center}
+  .hero .row .btn.quiet{display:inline-flex;padding:.7rem .2rem;font-size:.7rem}
+  .hero .chip{margin-top:1.6rem}
+}
+
+/* warmer washes: tone tints the plaster, it never greys it */
+.page-hero.blue{--wash:color-mix(in srgb,var(--blue) 72%,var(--lemon))}
+.page-hero.rum{--wash:color-mix(in srgb,var(--glacier) 24%,var(--lemon))}
+.page-hero.blue,.page-hero.rum{background:var(--wash)}
+.section .socials a{border-radius:2px;background:transparent;border:1px solid var(--rum);font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;padding:.6rem 1rem}
+@media(hover:hover) and (pointer:fine){.section .socials a:hover{background:var(--rum);color:var(--lemon)}}

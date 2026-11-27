@@ -69,7 +69,7 @@ export default function Header() {
       </div>
       <nav id="menu" className={`menu${open ? " open" : ""}`} aria-label="Mobile" inert={!open}>
         {flat.map((n, i) => (
-          <Link key={n.href} href={n.href} style={{ ["--i" as string]: i }} className={`display${n.sub ? " sub" : ""}${path === n.href ? " on" : ""}`} tabIndex={open ? 0 : -1}>{n.label}</Link>
+          <Link key={`${n.href}-${i}`} href={n.href} style={{ ["--i" as string]: i }} className={`display${n.sub ? " sub" : ""}${path === n.href ? " on" : ""}`} tabIndex={open ? 0 : -1}>{n.label}</Link>
         ))}
       </nav>
     </header>

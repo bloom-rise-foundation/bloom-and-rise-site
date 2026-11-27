@@ -3,6 +3,7 @@ import { Playfair_Display, Montserrat } from "next/font/google";
 import "@/styles/base.css";
 import "@/styles/chrome.css";
 import "@/styles/sections.css";
+import "@/styles/alcove.css";
 import Header from "@/components/Header";
 import Closing from "@/components/Closing";
 import RevealRoot from "@/components/RevealRoot";
