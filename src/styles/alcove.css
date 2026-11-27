@@ -133,7 +133,7 @@
 @keyframes burstOut{0%{opacity:.95;transform:translate(0,0) rotate(0) scale(.5)}100%{opacity:0;transform:translate(var(--bx),var(--by)) rotate(var(--br)) scale(1)}}
 @media (prefers-reduced-motion:reduce){.burst{display:none}}
 /* copy-address control on the contact page */
-.copy{display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;font:inherit;font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;background:none;border:0;color:var(--rum);cursor:pointer;padding:.6rem .2rem;border-bottom:2px solid currentColor;min-height:44px}
+.copy{display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;font:inherit;font-weight:600;background:none;border:0;color:var(--rum);cursor:pointer;padding:.6rem .2rem;border-bottom:2px solid currentColor;min-height:44px}
 .copy[data-done=true]{color:var(--denim)}
 
 /* ---------- socials, forms ---------- */
@@ -153,3 +153,11 @@
   .stage{padding:1rem 0;border-bottom:2px solid var(--hair)}
   .stage.here{border-top:0}
 }
+
+/* on the petal-pink room the stage strip stays fully legible */
+.section.pink .stages{border-top-color:color-mix(in srgb,var(--rum) 45%,transparent)}
+.section.pink .stage{color:var(--rum)}
+.section.pink .stage.here b{color:var(--rum);text-decoration:underline;text-decoration-color:var(--rum);text-decoration-thickness:2px;text-underline-offset:.2em}
+.section.pink .stage.here{border-top-color:var(--rum)}
+/* the copy control reads as a plain text action, not a label */
+.copy{text-transform:none;letter-spacing:0;font-size:1rem;font-weight:600}
