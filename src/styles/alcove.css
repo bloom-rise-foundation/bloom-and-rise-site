@@ -196,7 +196,6 @@ img,svg,video,canvas{max-width:100%}
 /* tablets and mid widths: one more column step so cards never get cramped */
 @media(min-width:601px) and (max-width:1019px){
   .team{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .fcols{grid-template-columns:repeat(2,auto)}
 }
 
 /* large and ultrawide screens: the page, the hero art and the type scale up together instead of floating in space */
