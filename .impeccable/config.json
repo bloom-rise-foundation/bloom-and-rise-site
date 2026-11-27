@@ -18,6 +18,15 @@
         ],
         "createdAt": "2026-11-27T11:59:24.655Z",
         "reason": "Agent: closing headline fills text with a tiled SVG pattern (background-clip:text), not a gradient; documented in DESIGN.md as the one image-filled text exception"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles/alcove.css"
+        ],
+        "createdAt": "2026-11-27T12:29:10.518Z",
+        "reason": "Agent: .page-hero::after is the full-width wine shelf plank under each page header (a horizontal bar on a square section), the Alcove's signature element per DESIGN.md; not a side stripe on a rounded card"
       }
     ]
   }
