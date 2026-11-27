@@ -21,7 +21,15 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
 .btn,.nav a,.chip,.fcol h4,.bio-more summary,.scroll-note{font-family:var(--body)}
 
 /* ---------- nav: caps links in the floating glass bar ---------- */
-.logo .display{font-size:1.5rem} .logo .script{font-size:1.5rem}
+/* The bar measures itself (container query), so the logo and the menu button always fit, on any width, zoom or font size:
+   the logo scales with the bar, "Foundation" appears only when there is room for it, and the burger can never be pushed out. */
+.header .bar{container:bar / inline-size;gap:.75rem}
+.logo{flex:0 1 auto;min-width:0;overflow:hidden;white-space:nowrap}
+.logo .display,.logo .script{font-size:clamp(12px,8cqw,1.55rem);overflow:hidden;text-overflow:ellipsis}
+.logo .script{display:none}
+.burger{flex:none}
+/* with room for both words: size the whole logo to the space left beside the menu button */
+@container bar (min-width:296px){.logo .script{display:inline}.logo .display,.logo .script{font-size:clamp(12px,calc((100cqw - 64px) / 11.8),1.5rem)}}
 .nav{gap:clamp(1.2rem,2.4vw,2.4rem)}
 .nav a{font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;color:var(--rum)}
 .nav>a::after,.nav-group>a::after{height:2px;bottom:-6px;background:var(--rose);border-radius:2px}
@@ -174,15 +182,13 @@ img,svg,video,canvas{max-width:100%}
 
 /* very narrow screens (small phones, folded foldables, split-screen): the logo gives up its second word before it overflows */
 @media(max-width:359px){
-  .logo .script{display:none}
-  .logo .display{font-size:1.35rem}
   .wrap{width:calc(100% - 2 * max(1rem,var(--inset-x)))}
   .btn{padding:.85rem 1rem;letter-spacing:.08em}
   .fcols{grid-template-columns:minmax(0,1fr)}
   .vrow input{flex-basis:100%}
   .hero h1{font-size:clamp(1.8rem,calc((100vw - 2rem) / 7.6),2.6rem)}
 }
-@media(max-width:279px){.logo .display{font-size:1.1rem}.stage{padding-right:0}}
+@media(max-width:279px){.stage{padding-right:0}}
 
 /* short screens (landscape phones, tiny windows): nothing is pinned or sticky that the height cannot hold */
 @media(max-height:560px){
