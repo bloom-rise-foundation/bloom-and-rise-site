@@ -11,8 +11,8 @@
 }
 
 /* ---------- ground: fine plaster grain instead of drifting colour clouds ---------- */
-.bg i{display:none}
-.bg{opacity:.55;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .34 0 0 0 0 .06 0 0 0 0 .11 0 0 0 .34 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* grain lives on the body as a static tile (no fixed, blended full-screen layer to re-composite on every scroll frame) */
+body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .34 0 0 0 0 .06 0 0 0 0 .11 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
 .petal{opacity:.62}
 /* the petals feel the wind: scrolling fast (the governor writes --sv, -1 to 1) pushes them sideways */
 .petals{transform:translate3d(calc(var(--sv,0) * -26px),0,0);transition:transform .5s var(--ease)}
@@ -60,24 +60,28 @@
 
 /* ---------- the two "light on" effects, made unmistakable ---------- */
 @supports (animation-timeline:view()){
-  /* mission words: dim but readable at rest, then each one flares in its own colour and settles */
-  .lit .lw{opacity:.3;animation:lw linear both;animation-timeline:view();animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(20% + var(--t,0) * 42%)}
-  @keyframes lw{
-    0%{opacity:.3;translate:0 .1em;text-shadow:0 0 0 transparent}
-    45%{opacity:1;translate:0 -.04em;text-shadow:0 0 34px currentColor,0 0 8px currentColor}
-    100%{opacity:1;translate:0 0;text-shadow:0 0 0 transparent}
-  }
+  /* mission words: dim but readable at rest, then each one flares in its own colour and settles. The word itself only
+     changes opacity; the glow is a duplicate of the word (data-w) whose opacity swells and fades, so nothing repaints per frame. */
+  .lit .lw{position:relative;opacity:.3;--g:rgba(252,241,218,.95);animation:lw linear both;animation-timeline:view();animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(20% + var(--t,0) * 42%)}
+  .lit .lw.a0{--g:rgba(227,147,155,.95)} .lit .lw.a1{--g:rgba(213,227,238,.95)} .lit .lw.a2{--g:rgba(198,92,106,.95)} .lit .lw.a3{--g:rgba(124,149,182,.95)}
+  .lit .lw::after{content:attr(data-w);position:absolute;left:0;top:0;white-space:pre;color:transparent;pointer-events:none;text-shadow:0 0 34px var(--g),0 0 8px var(--g);opacity:0;animation:lwGlow linear both;animation-timeline:view();animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(20% + var(--t,0) * 42%)}
+  @keyframes lw{0%{opacity:.3}45%,100%{opacity:1}}
+  @keyframes lwGlow{0%{opacity:0}45%{opacity:1}100%{opacity:0}}
 }
 @media (prefers-reduced-motion:reduce){.lit .lw{opacity:1}}
 /* lamp words: bigger, and each is visible at rest in the dark, then flares like a struck match */
-.spot-words span{font-size:clamp(1.8rem,6vw,5rem);color:var(--pink)}
+.spot-words span{font-size:clamp(1.8rem,6vw,5rem);color:var(--pink);text-shadow:0 0 26px rgba(227,147,155,.6)}
 @media (prefers-reduced-motion:no-preference){
   @supports (animation-timeline:view()){
     @keyframes wordOn{
-      from{opacity:.18;translate:-50% calc(-50% + 12px);scale:.94;text-shadow:none}
-      50%{opacity:1;translate:-50% calc(-50% - 3px);scale:1.12;text-shadow:0 0 46px rgba(255,236,214,.95),0 0 14px var(--leaf)}
-      to{opacity:1;translate:-50% -50%;scale:1;text-shadow:0 0 28px rgba(227,147,155,.6)}
+      from{opacity:.18;translate:-50% calc(-50% + 12px);scale:.94}
+      50%{opacity:1;translate:-50% calc(-50% - 3px);scale:1.12}
+      to{opacity:1;translate:-50% -50%;scale:1}
     }
+    .spot-words em{position:relative}
+    .spot-words em::after{content:attr(data-w);position:absolute;left:0;top:0;white-space:pre;color:transparent;pointer-events:none;text-shadow:0 0 46px rgba(255,236,214,.95),0 0 14px rgba(227,147,155,1);opacity:0;
+      animation:wordGlow var(--ease) both;animation-timeline:--spot;animation-range:cover calc(var(--s0) + (.46 + var(--o) * .045) * var(--sL)) cover calc(var(--s0) + (.56 + var(--o) * .045) * var(--sL))}
+    @keyframes wordGlow{0%{opacity:0}50%{opacity:1}100%{opacity:.0}}
     @keyframes textLit{0%{opacity:.22}8%{opacity:.5}16%{opacity:.24}28%{opacity:.62}36%{opacity:.2}52%{opacity:.5}60%{opacity:.22}78%{opacity:1}100%{opacity:1}}
   }
 }
@@ -161,3 +165,79 @@
 .section.pink .stage.here{border-top-color:var(--rum)}
 /* the copy control reads as a plain text action, not a label */
 .copy{text-transform:none;letter-spacing:0;font-size:1rem;font-weight:600}
+
+/* =====================================================================
+   ADAPT: any screen, any input, any hardware
+   ===================================================================== */
+body{overflow-wrap:break-word}
+img,svg,video,canvas{max-width:100%}
+
+/* very narrow screens (small phones, folded foldables, split-screen): the logo gives up its second word before it overflows */
+@media(max-width:359px){
+  .logo .script{display:none}
+  .logo .display{font-size:1.35rem}
+  .wrap{width:calc(100% - 2 * max(1rem,var(--inset-x)))}
+  .btn{padding:.85rem 1rem;letter-spacing:.08em}
+  .fcols{grid-template-columns:minmax(0,1fr)}
+  .vrow input{flex-basis:100%}
+  .hero h1{font-size:clamp(1.8rem,calc((100vw - 2rem) / 7.6),2.6rem)}
+}
+@media(max-width:279px){.logo .display{font-size:1.1rem}.stage{padding-right:0}}
+
+/* short screens (landscape phones, tiny windows): nothing is pinned or sticky that the height cannot hold */
+@media(max-height:560px){
+  .stack-card{position:relative;top:auto;min-height:0}
+  .hero{min-height:0;padding-bottom:2.4rem}
+  .poster{min-height:0}
+  .section{padding-block:clamp(2.5rem,7vw,4.5rem)}
+}
+@media(max-height:560px) and (orientation:landscape){
+  .hero h1{font-size:clamp(1.8rem,5vw,2.8rem)}
+  .menu{justify-content:flex-start}
+  .menu a{font-size:clamp(1.3rem,5vh,1.8rem);padding:.15rem 0}
+}
+
+/* tablets and mid widths: one more column step so cards never get cramped */
+@media(min-width:601px) and (max-width:1019px){
+  .team{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fcols{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .fbrand{grid-column:1/-1}
+}
+
+/* large and ultrawide screens: the page, the hero art and the type scale up together instead of floating in space */
+@media(min-width:1920px){html{font-size:112.5%}}
+@media(min-width:2560px){html{font-size:137.5%}}
+@media(min-width:3440px){html{font-size:175%}}
+@media(min-width:1500px){
+  .hero .hero-inner{width:min(var(--wrap),100% - 2 * max(1.25rem,var(--inset-x)))}
+  .hero-art{right:max(3vw,calc((100vw - var(--wrap)) / 2 - 2rem));--art:min(30vw,35rem)}
+  .hero{--art:min(30vw,35rem)}
+}
+
+/* hover only where hover exists; touch gets press feedback (already) and no sticky hover states */
+@media(hover:none){.poster:hover .poster-flower,.stack-card:hover .sc-flower{scale:1;rotate:0deg}}
+
+/* high-contrast / forced colours, and print */
+@media(forced-colors:active){.btn{border:1px solid ButtonText}.stem,.petals,body{background-image:none}}
+@media print{
+  .header,.petals,.stem,.closing,.footer .wordmark,.pat,.band,.cursor,.burst,.scroll-note{display:none!important}
+  body,.section,.page-hero{background:#fff!important;color:#000!important}
+  .section,.page-hero{padding:1rem 0!important}
+  a{text-decoration:underline}
+}
+
+/* =====================================================================
+   LITE MODE: the same site, lighter to render. Set before first paint on devices that report little memory, few cores or
+   Save-Data, and switched on at runtime (PerfWatch) the moment a device actually drops frames. Nothing is removed: the
+   hero bloom, the lamp, the cards and the lit words all stay; only the costliest finishing effects step back.
+   ===================================================================== */
+html.lite .header .bar::before{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(252,241,218,.96)}
+html.lite .petals{display:none}
+html.lite .stem{display:none!important}
+html.lite body{background-image:none}
+html.lite .lit .lw::after,html.lite .spot-words em::after{display:none}
+html.lite .mote{display:none}
+html.lite .stack-card{box-shadow:none}
+html.lite .poster::before,html.lite .tile::before{display:none}
+html.lite .bloom .warm{display:none}
+html.lite{scroll-behavior:auto}

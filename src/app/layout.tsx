@@ -10,6 +10,7 @@ import RevealRoot from "@/components/RevealRoot";
 import { Extras } from "@/components/Lazy";
 import ScrollGovernor from "@/components/ScrollGovernor";
 import Delights from "@/components/Delights";
+import PerfWatch from "@/components/PerfWatch";
 import { Footer } from "@/components/Chrome";
 import { FlowerDefs, Petals } from "@/components/Decor";
 import { site } from "@/config/site";
@@ -49,7 +50,7 @@ export const viewport: Viewport = { themeColor: "#FCF1DA", colorScheme: "light",
 
 // Runs before first paint: marks the page as scripted (so scroll reveals can start hidden), un-hides everything if hydration never arrives,
 // and starts every fresh load at the top (no browser scroll restoration after a refresh or a reopened tab; #anchor links are left alone).
-const boot = `try{var d=document.documentElement;d.classList.add("js");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000);if("scrollRestoration" in history)history.scrollRestoration="manual";if(!location.hash){scrollTo({top:0,left:0,behavior:"instant"});addEventListener("load",function(){if(performance.now()<1500&&scrollY>0)scrollTo({top:0,left:0,behavior:"instant"})})}}catch(e){}`;
+const boot = `try{var d=document.documentElement;d.classList.add("js");var n=navigator,c=n.connection;if(sessionStorage.getItem("br-lite")==="1"||(n.deviceMemory&&n.deviceMemory<=2)||(n.hardwareConcurrency&&n.hardwareConcurrency<=2)||(c&&(c.saveData||/(^|-)2g$/.test(c.effectiveType||"")))||matchMedia("(prefers-reduced-data:reduce)").matches)d.classList.add("lite");window.__rv=setTimeout(function(){d.classList.add("rv-fallback")},6000);if("scrollRestoration" in history)history.scrollRestoration="manual";if(!location.hash){scrollTo({top:0,left:0,behavior:"instant"});addEventListener("load",function(){if(performance.now()<1500&&scrollY>0)scrollTo({top:0,left:0,behavior:"instant"})})}}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -59,7 +60,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <FlowerDefs />
-        <div className="bg" aria-hidden><i /><i /><i /></div>
         <Petals />
         <div className="stem" aria-hidden>
           <i className="stem-line" />
@@ -73,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Extras />
         <ScrollGovernor />
         <Delights />
+        <PerfWatch />
         <Analytics />
         <SpeedInsights />
       </body>

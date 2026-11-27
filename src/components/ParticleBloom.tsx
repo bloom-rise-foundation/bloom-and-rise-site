@@ -147,16 +147,34 @@ export default function ParticleBloom() {
   const cv = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    let stop = () => {};
+    let cancelled = false;
+    const w = window as Window & { requestIdleCallback?: (f: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    // building the particle field reads pixels and allocates ~4k particles: do it once the browser is idle (never during first paint)
+    const start = () => { if (!cancelled) stop = run(); };
+    const hasIdle = "requestIdleCallback" in window;
+    const idle = hasIdle ? w.requestIdleCallback!(start, { timeout: 600 }) : window.setTimeout(start, 120);
+    return () => {
+      cancelled = true;
+      if (hasIdle) w.cancelIdleCallback!(idle); else clearTimeout(idle);
+      stop();
+    };
+    function run(): () => void {
     const el = wrap.current;
     const canvas = cv.current;
-    if (!el || !canvas) return;
+    if (!el || !canvas) return () => {};
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) return () => {};
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
     const S0 = el.clientWidth || 500;
-    const f = buildField(S0 < 520 ? 3 : 2);
-    const dpr = Math.min(window.devicePixelRatio || 1, S0 < 520 ? 1.5 : 2);
+    const root = document.documentElement;
+    const liteNow = () => root.classList.contains("lite");
+    // quality tiers: full on capable devices; a coarser grid, 1x pixels and fewer frames in lite mode (same flower, same motion)
+    const stepFor = () => (liteNow() ? 4 : S0 < 520 ? 3 : 2);
+    const dprFor = () => (liteNow() ? 1 : Math.min(window.devicePixelRatio || 1, S0 < 520 ? 1.5 : 2));
+    let f = buildField(stepFor());
+    let dpr = dprFor();
 
     let S = 0;
     const size = () => {
@@ -194,7 +212,7 @@ export default function ParticleBloom() {
       const P = still ? 0 : Math.max(scrollP, introP);
       const idle = P === 0 && now - moved > 2500;
       // skip frames when nothing is changing quickly
-      if (!still && P === 0 && now - last < 28) { raf = requestAnimationFrame(draw); return; }
+      if (!still && P === 0 && now - last < (liteNow() ? 50 : 28)) { raf = requestAnimationFrame(draw); return; }
       last = now;
 
       const rect = canvas.getBoundingClientRect();
@@ -276,6 +294,17 @@ export default function ParticleBloom() {
     };
 
     const kick = () => { if (!raf) raf = requestAnimationFrame(draw); };
+    // when lite mode switches on at runtime, rebuild the field one tier down
+    let wasLite = liteNow();
+    const mo2 = new MutationObserver(() => {
+      if (liteNow() === wasLite) return;
+      wasLite = liteNow();
+      f = buildField(stepFor());
+      dpr = dprFor();
+      size();
+      kick();
+    });
+    mo2.observe(root, { attributes: true, attributeFilter: ["class"] });
     const io = new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) kick(); });
     io.observe(el);
     const ro = new ResizeObserver(() => { size(); kick(); });
@@ -291,6 +320,7 @@ export default function ParticleBloom() {
     kick();
     return () => {
       cancelAnimationFrame(raf);
+      mo2.disconnect();
       io.disconnect();
       ro.disconnect();
       document.removeEventListener("visibilitychange", onVis);
@@ -299,6 +329,7 @@ export default function ParticleBloom() {
       document.removeEventListener("pointerleave", onLeave);
       removeEventListener("scroll", kick);
     };
+    }
   }, []);
 
   return (

@@ -12,7 +12,6 @@ export default {
   },
   async headers() {
     return [
-      { source: "/scene/:path*", headers: longCache },
       { source: "/icons/:path*", headers: longCache },
       { source: "/team/:path*", headers: longCache },
       { source: "/apple-touch-icon.png", headers: longCache },

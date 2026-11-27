@@ -221,7 +221,7 @@ export function Spotlight() {
         <div className="spot-words" aria-hidden>
           {WORDS.map(([w, x, y, r, o, mx, my]) => (
             <span key={w} className="script" style={vars({ "--x": `${x}%`, "--y": `${y}%`, "--mx": `${mx}%`, "--my": `${my}%`, "--r": `${r}deg`, "--o": o })}>
-              <em>{w}</em>
+              <em data-w={w}>{w}</em>
             </span>
           ))}
         </div>
