@@ -5,5 +5,20 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/styles/chrome.css"
+        ],
+        "createdAt": "2026-11-27T11:59:24.655Z",
+        "reason": "Agent: closing headline fills text with a tiled SVG pattern (background-clip:text), not a gradient; documented in DESIGN.md as the one image-filled text exception"
+      }
+    ]
   }
 }
