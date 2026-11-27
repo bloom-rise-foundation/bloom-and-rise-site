@@ -2,8 +2,8 @@
 :root{
   /* palette: Logo cream (--lemon, page), Mulberry (--beet, headings/buttons), Wine (--rum, text + dark rooms), Petal (--pink, soft cards),
      Frozen blue (--blue), Denim, Old rose (--rose), Garnet, Blush, Glacier. Token names are kept from earlier palettes so every component follows. */
-  --pink:#E3939B; --beet:#6F2B34; --blue:#D5E3EE; --lemon:#FCF1DA; --rum:#570F1D; --leaf:#E3939B; --denim:#3A557D;
-  --rose:#C65C6A; --garnet:#94404F; --blush:#F9DAD8; --glacier:#7C95B6;
+  --pink:#E3939B; --beet:#6F2B34; --blue:#CFE3F3; --lemon:#FCF1DA; --rum:#570F1D; --leaf:#E3939B; --denim:#8DA9C4; --denim-ink:color-mix(in srgb,#8DA9C4 45%,#101c2c);
+  --rose:#C65C6A; --garnet:#94404F; --blush:#F9DAD8; --glacier:#8DA9C4;
   --bg:var(--lemon); --ink:var(--rum);
   --display:var(--font-display),"Playfair Display",Georgia,serif;
   --body:var(--font-body),system-ui,sans-serif;
@@ -71,7 +71,7 @@ html.navd .page{animation:page-in .22s var(--ease) both}
 .section.pink{background:var(--pink);--c:var(--pink);color:var(--rum)}
 .section.blue{background:var(--blue);--c:var(--blue)}
 .section.dark,.section.beet{background:var(--beet);--c:var(--beet);color:var(--lemon)}
-.section.rum{background:var(--denim);--c:var(--denim);color:var(--lemon)}
+.section.rum{background:var(--denim);--c:var(--denim);color:var(--rum)}
 .section.dark .script,.section.beet .script,.section.rum .script{color:var(--pink)}
 
 /* the statement lights up word by word as you scroll (CSS scroll timeline; plain text elsewhere) */

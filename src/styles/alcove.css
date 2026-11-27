@@ -30,23 +30,23 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
 .nav{gap:clamp(1.2rem,2.4vw,2.4rem)}
 .nav a{font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;color:var(--rum)}
 .nav>a::after,.nav-group>a::after{height:2px;bottom:-6px;background:var(--rose);border-radius:2px}
-.nav>a.on,.nav-group>a.on{color:var(--denim)}
+.nav>a.on,.nav-group>a.on{color:var(--denim-ink)}
 .nav-menu a{text-transform:none;letter-spacing:0;font-size:1.05rem;font-weight:600}
 .menu a{font-weight:600}
 
 /* ---------- controls: pills with an arrow that leans in ---------- */
-.btn{display:inline-flex;align-items:center;gap:.9rem;padding:.95rem 1.6rem;background:var(--denim);color:var(--lemon);border-color:var(--denim);font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;line-height:1.2}
+.btn{display:inline-flex;align-items:center;gap:.9rem;padding:.95rem 1.6rem;background:var(--denim);color:var(--rum);border-color:var(--denim);font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase;font-weight:600;line-height:1.2}
 .btn::after{content:"";flex:none;width:1.25rem;height:.7rem;background:currentColor;transition:translate .3s var(--ease);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 6h19M15 1l5 5-5 5'/%3E%3C/svg%3E") center/contain no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 6h19M15 1l5 5-5 5'/%3E%3C/svg%3E") center/contain no-repeat}
-@media(hover:hover) and (pointer:fine){.btn:hover{background:var(--rum);border-color:var(--rum);box-shadow:0 12px 26px -8px rgba(87,15,29,.45)}.btn:hover::after{translate:6px 0}}
+@media(hover:hover) and (pointer:fine){.btn:hover{background:var(--rum);color:var(--lemon);border-color:var(--rum);box-shadow:0 12px 26px -8px rgba(87,15,29,.45)}.btn:hover::after{translate:6px 0}}
 .btn.ghost{background:transparent;color:var(--rum);border-color:var(--rum)}
 @media(hover:hover) and (pointer:fine){.btn.ghost:hover{background:var(--rum);color:var(--lemon)}}
-:focus-visible{outline:3px solid var(--denim);outline-offset:3px}
+:focus-visible{outline:3px solid var(--denim-ink);outline-offset:3px}
 .small{opacity:.9}
 
 /* ---------- sections ---------- */
-.section.dark .script,.section.beet .script,.section.rum .script{color:var(--pink)}
+.section.dark .script,.section.beet .script{color:var(--pink)} .section.rum .script{color:var(--rum)}
 .lead{max-width:56ch}
 
 /* ---------- home hero: equal actions ---------- */
@@ -67,7 +67,7 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
      the normal, fully readable word. The word only changes opacity; the flare is a duplicate of the word (data-w) whose opacity swells
      and fades, so both run on the compositor and nothing repaints while you scroll. */
   .lit .lw{position:relative;opacity:.3;--g:rgba(252,241,218,.95);view-timeline:--lw block;animation:lw linear both;animation-timeline:--lw;animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(22% + var(--t,0) * 42%)}
-  .lit .lw.a0{--g:rgba(227,147,155,.95)} .lit .lw.a1{--g:rgba(213,227,238,.95)} .lit .lw.a2{--g:rgba(198,92,106,.95)} .lit .lw.a3{--g:rgba(124,149,182,.95)}
+  .lit .lw.a0{--g:rgba(227,147,155,.95)} .lit .lw.a1{--g:rgba(207,227,243,.95)} .lit .lw.a2{--g:rgba(198,92,106,.95)} .lit .lw.a3{--g:rgba(141,169,196,.95)}
   .lit .lw::after{content:attr(data-w);position:absolute;left:0;top:0;white-space:pre;color:transparent;pointer-events:none;text-shadow:0 0 .6em var(--g),0 0 .14em var(--g);opacity:0;animation:lwGlow linear both;animation-timeline:--lw;animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(22% + var(--t,0) * 42%)}
   @keyframes lw{0%{opacity:.3}35%,100%{opacity:1}}
   @keyframes lwGlow{0%{opacity:0}35%{opacity:1}100%{opacity:0}}
@@ -136,7 +136,7 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
 @media (prefers-reduced-motion:reduce){.burst{display:none}}
 /* copy-address control on the contact page */
 .copy{display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;font:inherit;font-weight:600;background:none;border:0;color:var(--rum);cursor:pointer;padding:.6rem .2rem;border-bottom:2px solid currentColor;min-height:44px}
-.copy[data-done=true]{color:var(--denim)}
+.copy[data-done=true]{color:var(--denim-ink)}
 
 /* ---------- socials, forms ---------- */
 .section .socials a{font-size:var(--caps);letter-spacing:var(--track);text-transform:uppercase}
@@ -318,8 +318,8 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
 @keyframes inkA{0%,43%{color:var(--beet)}}
 @keyframes inkB{0%,43%{color:var(--rose)}}
 @keyframes inkC{from{color:var(--rum)}}
-@keyframes inkD{0%,43%{color:var(--denim)}}
-@keyframes btnA{0%,46%{background:var(--denim);color:var(--lemon);border-color:var(--denim)}}
+@keyframes inkD{0%,43%{color:var(--denim-ink)}}
+@keyframes btnA{0%,46%{background:var(--denim);color:var(--rum);border-color:var(--denim)}}
 @keyframes btnB{0%,46%{background:transparent;color:var(--rum);border-color:var(--rum)}}
 @media(hover:hover) and (pointer:fine){
   .hero .btn:hover{background:var(--lemon);color:var(--rum);border-color:var(--lemon);box-shadow:0 12px 26px -8px rgba(0,0,0,.45)}
@@ -332,7 +332,7 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
    ===================================================================== */
 .steps{--rw:44px;--ink:var(--rum);position:relative;padding-left:calc(var(--rw) + 2.6rem);margin-top:2rem;view-timeline:--steps block}
 .section.pink .steps{--ink:var(--rum)}
-.section.dark .steps,.section.beet .steps,.section.rum .steps{--ink:var(--lemon)}
+.section.dark .steps,.section.beet .steps{--ink:var(--lemon)}
 .steps .rows{margin-top:0}
 .rail{position:absolute;left:0;top:0;bottom:0;width:var(--rw)}
 .rail::before,.rail-fill{content:"";position:absolute;left:calc(var(--rw) / 2 - 1.5px);top:0;bottom:0;width:3px;border-radius:3px;background:color-mix(in srgb,var(--ink) 20%,transparent)}
@@ -368,6 +368,7 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
    TRANSITIONS (see components/Dividers.tsx and styles/dividers.css)
    ===================================================================== */
 .rb-track .mars{flex:none;width:clamp(20px,2.6vw,32px);height:auto;color:var(--lemon)}
+.rb2 .venus{color:var(--rum)}
 .page-hero{--c:var(--pink)}
 .footer-shell{position:relative;--c:var(--rum)}
 

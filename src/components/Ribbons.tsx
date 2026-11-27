@@ -53,10 +53,10 @@ const T = [
   /* 0 */ <g key="0"><rect width="100" height="100" fill="#E3939B" /><circle cx="50" cy="38" r="17" fill="none" stroke="#570F1D" strokeWidth="8" /><path d="M50 55v28M36 70h28" stroke="#570F1D" strokeWidth="8" strokeLinecap="round" /></g>,
   /* 1 */ <g key="1"><rect width="100" height="100" fill="#6F2B34" />{[0, 60, 120, 180, 240, 300].map((a) => <ellipse key={a} cx="50" cy="26" rx="11" ry="20" fill="#E3939B" stroke="#F9DAD8" strokeWidth="2" transform={`rotate(${a} 50 50)`} />)}<circle cx="50" cy="50" r="9" fill="#FCF1DA" /></g>,
   /* 2 */ <g key="2"><rect width="100" height="100" fill="#F9DAD8" /><path d="M2 98C2 38 36 2 98 2C98 64 64 98 2 98Z" fill="#570F1D" /><path d="M20 80C22 52 40 30 70 24C68 52 52 74 20 80Z" fill="#C65C6A" /></g>,
-  /* 3 */ <g key="3"><rect width="100" height="100" fill="#3A557D" />{Array.from({ length: 25 }, (_, k) => <circle key={k} cx={14 + (k % 5) * 18} cy={14 + Math.floor(k / 5) * 18} r="3.2" fill="#D5E3EE" />)}</g>,
+  /* 3 */ <g key="3"><rect width="100" height="100" fill="#8DA9C4" />{Array.from({ length: 25 }, (_, k) => <circle key={k} cx={14 + (k % 5) * 18} cy={14 + Math.floor(k / 5) * 18} r="3.2" fill="#CFE3F3" />)}</g>,
   /* 5 */ <g key="5"><rect width="100" height="100" fill="#C65C6A" /><path d="M50 0A50 50 0 0 1 0 50H50Z" fill="#F9DAD8" /><path d="M50 100A50 50 0 0 1 100 50H50Z" fill="#F9DAD8" /><path d="M50 0A50 50 0 0 0 100 50H50Z" fill="#570F1D" /><path d="M50 100A50 50 0 0 0 0 50H50Z" fill="#570F1D" /></g>,
-  /* 7 */ <g key="7"><rect width="100" height="100" fill="#D5E3EE" />{[0, 90, 180, 270].map((a) => <path key={a} d="M50 50C34 40 34 14 50 6C66 14 66 40 50 50Z" fill={a % 180 ? "#C65C6A" : "#570F1D"} transform={`rotate(${a} 50 50)`} />)}<circle cx="50" cy="50" r="6" fill="#FCF1DA" /></g>,
-  /* 8 */ <g key="8"><rect width="100" height="100" fill="#D5E3EE" /><circle cx="42" cy="58" r="19" fill="none" stroke="#570F1D" strokeWidth="8" /><path d="M56 44L80 20M62 20H80V38" fill="none" stroke="#570F1D" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" /></g>,
+  /* 7 */ <g key="7"><rect width="100" height="100" fill="#CFE3F3" />{[0, 90, 180, 270].map((a) => <path key={a} d="M50 50C34 40 34 14 50 6C66 14 66 40 50 50Z" fill={a % 180 ? "#C65C6A" : "#570F1D"} transform={`rotate(${a} 50 50)`} />)}<circle cx="50" cy="50" r="6" fill="#FCF1DA" /></g>,
+  /* 8 */ <g key="8"><rect width="100" height="100" fill="#CFE3F3" /><circle cx="42" cy="58" r="19" fill="none" stroke="#570F1D" strokeWidth="8" /><path d="M56 44L80 20M62 20H80V38" fill="none" stroke="#570F1D" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" /></g>,
 ];
 
 /** A strip of bold geometric tiles (flowers, the symbol for women and girls, petals, dots) sliding past, above the footer. */
