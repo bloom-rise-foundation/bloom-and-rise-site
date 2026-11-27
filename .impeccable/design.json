@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-27T11:44:32.407951+00:00",
+  "title": "Design System: Bloom & Rise Foundation",
+  "extensions": {
+    "colorMeta": {
+      "logo-cream": {
+        "role": "neutral",
+        "displayName": "Logo Cream",
+        "canonical": "#FCF1DA",
+        "tonalRamp": [
+          "#14060A",
+          "#564945",
+          "#998C81",
+          "#DBCFBC",
+          "#FCF2DD",
+          "#FCF4E3",
+          "#FCF6E9",
+          "#FCF7F0"
+        ]
+      },
+      "mulberry": {
+        "role": "primary",
+        "displayName": "Mulberry",
+        "canonical": "#6F2B34",
+        "tonalRamp": [
+          "#14060A",
+          "#2E1116",
+          "#481B22",
+          "#62262E",
+          "#81454C",
+          "#A57A7D",
+          "#CAAFAE",
+          "#EEE4DF"
+        ]
+      },
+      "wine": {
+        "role": "primary",
+        "displayName": "Wine",
+        "canonical": "#570F1D",
+        "tonalRamp": [
+          "#14060A",
+          "#27090F",
+          "#3A0B15",
+          "#4D0E1A",
+          "#6C2D38",
+          "#97696F",
+          "#C1A5A6",
+          "#ECE1DD"
+        ]
+      },
+      "petal": {
+        "role": "secondary",
+        "displayName": "Petal",
+        "canonical": "#E3939B",
+        "tonalRamp": [
+          "#14060A",
+          "#4F2E33",
+          "#8A575D",
+          "#C57F86",
+          "#E6A0A6",
+          "#EDBABD",
+          "#F3D4D3",
+          "#FAEEE9"
+        ]
+      },
+      "old-rose": {
+        "role": "secondary",
+        "displayName": "Old Rose",
+        "canonical": "#C65C6A",
+        "tonalRamp": [
+          "#14060A",
+          "#471F25",
+          "#7A3741",
+          "#AD505C",
+          "#CD707B",
+          "#DB989E",
+          "#E9C0C1",
+          "#F7E8E4"
+        ]
+      },
+      "garnet": {
+        "role": "secondary",
+        "displayName": "Garnet",
+        "canonical": "#94404F",
+        "tonalRamp": [
+          "#14060A",
+          "#39171E",
+          "#5D2731",
+          "#823845",
+          "#A15864",
+          "#BC878E",
+          "#D7B6B8",
+          "#F2E6E2"
+        ]
+      },
+      "blush": {
+        "role": "neutral",
+        "displayName": "Blush",
+        "canonical": "#F9DAD8",
+        "tonalRamp": [
+          "#14060A",
+          "#554345",
+          "#977F80",
+          "#D8BCBB",
+          "#F9DEDB",
+          "#FAE6E2",
+          "#FBEDE9",
+          "#FCF5EF"
+        ]
+      },
+      "frozen-blue": {
+        "role": "tertiary",
+        "displayName": "Frozen Blue",
+        "canonical": "#D5E3EE",
+        "tonalRamp": [
+          "#14060A",
+          "#4B454B",
+          "#82848C",
+          "#B9C3CD",
+          "#DAE6EF",
+          "#E4EBF0",
+          "#EEF0F1",
+          "#F8F6F2"
+        ]
+      },
+      "denim": {
+        "role": "tertiary",
+        "displayName": "Denim",
+        "canonical": "#3A557D",
+        "tonalRamp": [
+          "#14060A",
+          "#1F1D2B",
+          "#2A334C",
+          "#354A6D",
+          "#536A8C",
+          "#8594AA",
+          "#B7BEC8",
+          "#E9E8E6"
+        ]
+      },
+      "glacier": {
+        "role": "tertiary",
+        "displayName": "Glacier",
+        "canonical": "#7C95B6",
+        "tonalRamp": [
+          "#14060A",
+          "#322F3B",
+          "#4F586C",
+          "#6D819D",
+          "#8CA2BE",
+          "#ADBBCD",
+          "#CED5DD",
+          "#EFEEEC"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page heroes, Playfair 800."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles with an italic accent."
+      },
+      "script": {
+        "displayName": "Script",
+        "purpose": "Italic accent word."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and row titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Montserrat copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav links and chips."
+      }
+    },
+    "shadows": [
+      {
+        "name": "button-hover",
+        "value": "0 10px 26px rgba(111,43,52,.28)",
+        "purpose": "Primary button on fine pointers."
+      },
+      {
+        "name": "header-glass",
+        "value": "0 8px 32px rgba(87,15,29,.12), inset 0 1px 0 rgba(255,255,255,.75)",
+        "purpose": "Floating header pill."
+      },
+      {
+        "name": "dropdown",
+        "value": "0 16px 40px rgba(87,15,29,.2)",
+        "purpose": "Cultivators menu."
+      },
+      {
+        "name": "stack-card",
+        "value": "0 -22px 60px rgba(87,15,29,.22)",
+        "purpose": "Sticky stacking cards."
+      },
+      {
+        "name": "seal",
+        "value": "0 4px 6px rgba(87,15,29,.3)",
+        "purpose": "Credential wax seal."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.23,1,.32,1)",
+        "purpose": "Default out-curve for reveals and presses."
+      },
+      {
+        "name": "ease-io",
+        "value": "cubic-bezier(.77,0,.175,1)",
+        "purpose": "In-out moves."
+      },
+      {
+        "name": "ease-dawn",
+        "value": "cubic-bezier(.55,0,.15,1)",
+        "purpose": "The hero light flood."
+      },
+      {
+        "name": "ease-overshoot",
+        "value": "cubic-bezier(.2,1.2,.35,1)",
+        "purpose": "Playful settle."
+      },
+      {
+        "name": "ease-stamp",
+        "value": "cubic-bezier(.3,1.6,.5,1)",
+        "purpose": "Credential seal stamp."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "820px"
+      },
+      {
+        "name": "poster-single",
+        "value": "700px"
+      },
+      {
+        "name": "footer-2col",
+        "value": "900px"
+      },
+      {
+        "name": "footer-1col",
+        "value": "480px"
+      },
+      {
+        "name": "desktop-nav",
+        "value": "1020px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Pill call to action; mulberry on cream.",
+      "html": "<button class=\"ds-btn\">Rise with us</button>",
+      "css": ".ds-btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:#6F2B34;color:#FCF1DA;font-weight:700;border:2px solid #6F2B34;font-family:Montserrat,system-ui,sans-serif;cursor:pointer;transition:transform .16s,box-shadow .18s}.ds-btn:hover{box-shadow:0 10px 26px rgba(111,43,52,.28)}.ds-btn:active{transform:scale(.97)}.ds-btn:focus-visible{outline:3px solid #6F2B34;outline-offset:3px;border-radius:6px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary pill; fills mulberry on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Our blueprint</button>",
+      "css": ".ds-btn-ghost{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:transparent;color:#6F2B34;font-weight:700;border:2px solid #6F2B34;font-family:Montserrat,system-ui,sans-serif;cursor:pointer;transition:background-color .18s,color .18s,transform .16s}.ds-btn-ghost:hover{background:#6F2B34;color:#FCF1DA}.ds-btn-ghost:active{transform:scale(.97)}.ds-btn-ghost:focus-visible{outline:3px solid #6F2B34;outline-offset:3px;border-radius:6px}"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Small status label.",
+      "html": "<span class=\"ds-chip\">Student-led · Ghana · Fledgling</span>",
+      "css": ".ds-chip{display:inline-block;padding:.3rem .9rem;border-radius:999px;background:color-mix(in srgb,#D5E3EE 55%,transparent);color:#570F1D;font-size:.85rem;font-weight:600;font-family:Montserrat,system-ui,sans-serif}"
+    },
+    {
+      "name": "Poster Card",
+      "kind": "card",
+      "refersTo": "poster-petal",
+      "description": "Large tonal focus-area card with an outlined numeral.",
+      "html": "<article class=\"ds-poster\"><span class=\"ds-num\">1</span><h3>Open conversations</h3><p>Voluntary spaces to voice the questions that rarely find a hearing.</p></article>",
+      "css": ".ds-poster{position:relative;overflow:hidden;border-radius:44px;padding:2rem;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;background:#E3939B;color:#570F1D;font-family:Montserrat,system-ui,sans-serif;transition:translate .22s}.ds-poster:hover{translate:0 -4px}.ds-poster h3{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:2.2rem;line-height:1.04;margin:0 0 .6rem}.ds-poster p{max-width:30ch;margin:0}.ds-num{position:absolute;top:.9rem;left:1.6rem;font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:5rem;line-height:1;color:transparent;-webkit-text-stroke:2px #570F1D}"
+    },
+    {
+      "name": "Navigation Pill",
+      "kind": "nav",
+      "refersTo": "nav-menu",
+      "description": "Floating frosted header with growing underline.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-logo\">Bloom <i>&amp; Rise</i></span><a class=\"on\" href=\"#\">Blueprint</a><a href=\"#\">Programmes</a><a href=\"#\">Contact</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:1.6rem;padding:0 1.6rem;height:66px;border-radius:999px;background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(252,241,218,.3)),rgba(252,241,218,.14);border:1px solid rgba(255,255,255,.65);box-shadow:0 8px 32px rgba(87,15,29,.12),inset 0 1px 0 rgba(255,255,255,.75);font-family:Montserrat,system-ui,sans-serif}.ds-logo{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:1.5rem;color:#6F2B34;margin-right:auto}.ds-logo i{font-weight:600}.ds-nav a{position:relative;text-decoration:none;color:#6F2B34;font-weight:600;font-size:.95rem}.ds-nav a::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;background:#6F2B34;transform:scaleX(0);transform-origin:left;transition:transform .22s}.ds-nav a:hover::after,.ds-nav a.on::after{transform:scaleX(1)}.ds-nav a:focus-visible{outline:3px solid #6F2B34;outline-offset:3px;border-radius:6px}"
+    },
+    {
+      "name": "Verify Field",
+      "kind": "input",
+      "refersTo": "verify-input",
+      "description": "Pill input for credential lookup.",
+      "html": "<input class=\"ds-input\" placeholder=\"Credential ID\" />",
+      "css": ".ds-input{padding:.85rem 1.2rem;border-radius:999px;border:2px solid #570F1D;background:#FCF1DA;font:inherit;font-size:16px;color:#570F1D;letter-spacing:.04em;min-width:240px}.ds-input:focus-visible{outline:3px solid #6F2B34;outline-offset:3px}"
+    },
+    {
+      "name": "Credential Card",
+      "kind": "card",
+      "refersTo": "credential-card",
+      "description": "Certificate paper with a double border.",
+      "html": "<div class=\"ds-cred\"><p class=\"ds-type\">Volunteer credential</p><h3>Jane Doe</h3><p>Role title</p></div>",
+      "css": ".ds-cred{position:relative;padding:2rem;border-radius:32px;background:color-mix(in srgb,#E3939B 18%,#FCF1DA);border:2px solid #6F2B34;outline:1px solid color-mix(in srgb,#6F2B34 35%,transparent);outline-offset:-10px;color:#570F1D;font-family:Montserrat,system-ui,sans-serif}.ds-type{margin:0;font-weight:700;color:#6F2B34;letter-spacing:.04em;text-transform:uppercase;font-size:.85rem}.ds-cred h3{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:2.4rem;color:#6F2B34;margin:.4rem 0 .2rem}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Dawn Garden",
+    "overview": "A dark wine room that blooms into light. The page opens in wine, a bud glows and a circle of cream floods the page; everything after is colour-blocked rooms with petal-scalloped edges. Warm, candid, unhurried, with poster-like playfulness. Rejects the corporate-charity template.",
+    "keyCharacteristics": [
+      "Cream page, wine ink; dark wine rooms for hero, statement, band and footer.",
+      "Playfair Display bold with italic accents; Montserrat for body.",
+      "Pill controls, 32 to 48px radii.",
+      "Colour-blocked sections with scalloped edges.",
+      "Outlined numerals as structural ornament.",
+      "CSS-first, scroll-linked motion that respects reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Daylight Rule",
+        "body": "The page is cream; dark wine is a room you enter, never the default surface.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Ink Rule",
+        "body": "Wine or mulberry ink on light, cream with petal or rose accents on dark. Never pure black or white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tint-Don't-Gray Rule",
+        "body": "Shadows, borders and overlays are tinted from wine or mulberry.",
+        "section": "colors"
+      },
+      {
+        "name": "The Italic Accent Rule",
+        "body": "Each major headline may carry one italic accent word; never italicise paragraphs.",
+        "section": "typography"
+      },
+      {
+        "name": "The Balanced Headline Rule",
+        "body": "Headings use text-wrap: balance, body copy text-wrap: pretty.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal-First Rule",
+        "body": "Reach for a colour block or scalloped edge before a shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Glass-Once Rule",
+        "body": "Frosted blur is reserved for the floating header.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Keep the page cream and enter wine rooms deliberately.",
+      "Use mulberry for headings and primary buttons, wine for body text.",
+      "End major headlines with one italic Playfair accent word.",
+      "Separate sections with colour blocks and scalloped edges.",
+      "Use full pills for controls and 32 to 48px radii for cards.",
+      "Keep motion transform/opacity only, with a plain fallback and a gentle reduced-motion path.",
+      "Keep touch targets at 44px+, inputs at 16px+, focus visible."
+    ],
+    "donts": [
+      "Don't use the corporate-charity template: stock-photo hero, donate button, fabricated impact.",
+      "Don't use pure black, pure white or neutral-gray shadows.",
+      "Don't add glass panels beyond the header, or heavy shadows first.",
+      "Don't add gradient text or side-stripe borders; the closing's tile-filled headline is the one exception.",
+      "Don't italicise body paragraphs or set display type in Montserrat.",
+      "Don't swap the palette or fonts."
+    ]
+  }
+}
