@@ -135,3 +135,19 @@ export const heads: Member[] = [
     photo: "/team/head-nidhi.jpg",
   },
 ];
+
+export type Department = { id: string; name: string; members: Member[] };
+
+/** Groups people into departments straight from their role titles ("Head of STEM", "Co-Head of Fundraising",
+ *  "Secretary & Head of Communications"; the Treasurer leads Finance), in the order they first appear. */
+export function byDepartment(members: Member[]): Department[] {
+  const out: Department[] = [];
+  for (const m of members) {
+    const name = /Head of (.+)$/.exec(m.role)?.[1].trim() ?? (/Treasurer/.test(m.role) ? "Finance" : "Leadership");
+    const id = name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    let d = out.find((x) => x.id === id);
+    if (!d) out.push((d = { id, name, members: [] }));
+    d.members.push(m);
+  }
+  return out;
+}
