@@ -161,18 +161,24 @@ export function Stack({ items }: { items: { title: string; text: string }[] }) {
 /** Numbered steps: giant outlined numerals fill with colour as each row scrolls in, and a flower turns beside it. */
 export function Steps({ items }: { items: { title: string; script: string; text: string }[] }) {
   return (
-    <ol className="rows">
-      {items.map((s, i) => (
-        <li key={s.title + i} className="row-item">
-          <span className="rn" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
-          <div className="rt">
-            <h3 className="display">{s.title} <span className="script">{s.script}</span></h3>
-            {s.text && <p>{s.text}</p>}
-          </div>
-          <span className="rf" aria-hidden><Flower size={80} /></span>
-        </li>
-      ))}
-    </ol>
+    <div className="steps">
+      <div className="rail" aria-hidden>
+        <i className="rail-fill" />
+        <span className="rail-ride"><Flower size={44} className="rail-flower" /></span>
+      </div>
+      <ol className="rows">
+        {items.map((s, i) => (
+          <li key={s.title + i} className="row-item">
+            <span className="rn" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
+            <div className="rt">
+              <h3 className="display">{s.title} <span className="script">{s.script}</span></h3>
+              {s.text && <p>{s.text}</p>}
+            </div>
+            <span className="rf" aria-hidden><Flower size={80} /></span>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 

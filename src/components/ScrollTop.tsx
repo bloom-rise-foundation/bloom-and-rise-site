@@ -17,6 +17,15 @@ export default function ScrollTop() {
   useEffect(() => {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     const top = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    // a URL with a #anchor opens at its anchor, also after a refresh (scroll restoration is off, so do it ourselves, again once fonts have settled)
+    const toHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+    };
+    if (window.location.hash) {
+      requestAnimationFrame(toHash);
+      document.fonts?.ready.then(toHash);
+    }
     const onShow = (e: PageTransitionEvent) => {
       if (e.persisted && !window.location.hash) top();
     };

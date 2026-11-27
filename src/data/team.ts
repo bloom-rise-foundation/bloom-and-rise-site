@@ -89,8 +89,8 @@ export const heads: Member[] = [
   {
     name: "Melissa Akomaning",
     role: "Head of Education",
-    bio: "",
-    photo: "",
+    bio: "My name is Melissa Akomaning, a Year 11 student who loved math and economics. I love learning hard things and teaching other people to understand it, because I believe that there nothing no person can’t understand.",
+    photo: "/team/head-melissa.jpg",
   },
   {
     name: "Himanshi Joshi",

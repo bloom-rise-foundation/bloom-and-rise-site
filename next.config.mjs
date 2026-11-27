@@ -15,7 +15,8 @@ export default {
   async headers() {
     return [
       { source: "/icons/:path*", headers: longCache },
-      { source: "/team/:path*", headers: longCache },
+      // only the portrait files: "/team/:path*" also matched the /team and /team/heads PAGES, so browsers kept them for 30 days
+      { source: "/team/:file([^/]+\\.(?:jpg|jpeg|png|webp|avif))", headers: longCache },
       { source: "/apple-touch-icon.png", headers: longCache },
     ];
   },
