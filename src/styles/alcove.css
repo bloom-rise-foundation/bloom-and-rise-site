@@ -407,10 +407,12 @@ html.hero-off .hero-art *{animation-play-state:paused!important}
 /* the closing flowers stand wholly above the footer edge: the section keeps clear space below them for the edge, and on narrow screens they sit under the buttons instead of beside them */
 .closing{--cb:0px;--fh:clamp(130px,19vw,280px);--clear:4.6rem;padding-bottom:var(--clear)}
 .flank-wrap{--cb:0px}
-.closing .flank{bottom:calc(3.8rem - var(--clear))}
+.closing .flank{bottom:calc(1.2rem - var(--clear))}
 @media(max-width:1000px){
   .closing{--fh:clamp(120px,34vw,210px);padding-bottom:calc(var(--clear) + var(--fh) + 1.2rem)}
-  .closing .flank{bottom:calc(3.8rem - var(--clear) - var(--fh) - 1.2rem)}
+  .closing .flank{bottom:calc(1.2rem - var(--clear) - var(--fh) - 1.2rem)}
   .closing .flank.left{left:clamp(1rem,12vw,5rem)}
   .closing .flank.right{right:clamp(1rem,12vw,5rem)}
 }
+/* the footer edge has one fixed height whatever its shape, so the closing flowers can stand with their stems tucked just behind it */
+.footer-shell>.edge-div{--eh:40px}
