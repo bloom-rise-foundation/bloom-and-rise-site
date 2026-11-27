@@ -174,7 +174,8 @@ export function Steps({ items }: { items: { title: string; script: string; text:
     <div className="steps">
       <div className="rail" aria-hidden>
         <i className="rail-fill" />
-        <span className="rail-ride"><Flower size={44} className="rail-flower" /></span>
+        <span className="rail-ride">{/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="rail-flower" src="/rail-flower.png" width={256} height={256} alt="" decoding="async" /></span>
       </div>
       <ol className="rows">
         {items.map((s, i) => (
