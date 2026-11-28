@@ -2,7 +2,7 @@
 :root{
   /* palette: Logo cream (--lemon, page), Mulberry (--beet, headings/buttons), Wine (--rum, text + dark rooms), Petal (--pink, soft cards),
      Frozen blue (--blue), Denim, Old rose (--rose), Garnet, Blush, Glacier. Token names are kept from earlier palettes so every component follows. */
-  --pink:#E3939B; --beet:#6F2B34; --blue:#CFE3F3; --lemon:#FCF1DA; --rum:#570F1D; --leaf:#E3939B; --denim:#8DA9C4; --denim-ink:color-mix(in srgb,#8DA9C4 45%,#101c2c);
+  --pink:#DA9EA6; --beet:#6F2B34; --blue:#CFE3F3; --lemon:#FCF1DA; --rum:#570F1D; --leaf:#DA9EA6; --denim:#8DA9C4; --denim-ink:color-mix(in srgb,#8DA9C4 45%,#101c2c);
   --rose:#C65C6A; --garnet:#94404F; --blush:#F9DAD8; --glacier:#8DA9C4;
   --bg:var(--lemon); --ink:var(--rum);
   --display:var(--font-display),"Playfair Display",Georgia,serif;

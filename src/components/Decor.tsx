@@ -116,8 +116,8 @@ export function Bloom() {
     <div className="bloom" aria-hidden>
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
-          <linearGradient id="gOuter" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#94404F" /><stop offset=".22" stopColor="#C65C6A" /><stop offset=".6" stopColor="#E3939B" /><stop offset="1" stopColor="#F9DAD8" /></linearGradient>
-          <linearGradient id="gMid" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#6F2B34" /><stop offset=".25" stopColor="#94404F" /><stop offset=".65" stopColor="#C65C6A" /><stop offset="1" stopColor="#E3939B" /></linearGradient>
+          <linearGradient id="gOuter" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#94404F" /><stop offset=".22" stopColor="#C65C6A" /><stop offset=".6" stopColor="#DA9EA6" /><stop offset="1" stopColor="#F9DAD8" /></linearGradient>
+          <linearGradient id="gMid" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#6F2B34" /><stop offset=".25" stopColor="#94404F" /><stop offset=".65" stopColor="#C65C6A" /><stop offset="1" stopColor="#DA9EA6" /></linearGradient>
           <linearGradient id="gInner" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#570F1D" /><stop offset=".3" stopColor="#6F2B34" /><stop offset=".7" stopColor="#94404F" /><stop offset="1" stopColor="#C65C6A" /></linearGradient>
           <radialGradient id="gCore" cx=".5" cy=".5" r=".5"><stop offset="0" stopColor="#94404F" /><stop offset="1" stopColor="#570F1D" /></radialGradient>
         </defs>
@@ -133,7 +133,7 @@ export function Bloom() {
           {STAMENS.map((st, i) => (
             <g key={i}>
               <line x1={st.x0} y1={st.y0} x2={st.x1} y2={st.y1} stroke="#F9DAD8" strokeWidth=".55" strokeLinecap="round" opacity=".92" />
-              <ellipse cx={st.x1} cy={st.y1} rx="1.6" ry="1" fill="#FCF1DA" stroke="#E3939B" strokeWidth=".25" transform={`rotate(${st.deg} ${st.x1} ${st.y1})`} />
+              <ellipse cx={st.x1} cy={st.y1} rx="1.6" ry="1" fill="#FCF1DA" stroke="#DA9EA6" strokeWidth=".25" transform={`rotate(${st.deg} ${st.x1} ${st.y1})`} />
             </g>
           ))}
           <circle r="3.2" fill="#FCF1DA" opacity=".95" />
@@ -207,9 +207,9 @@ export function Petals({ count = 10 }: { count?: number }) {
       })}
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
-          <linearGradient id="rpA" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#C65C6A" /><stop offset=".55" stopColor="#E3939B" /><stop offset="1" stopColor="#F9DAD8" /></linearGradient>
-          <linearGradient id="rpB" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#94404F" /><stop offset=".5" stopColor="#C65C6A" /><stop offset="1" stopColor="#E3939B" /></linearGradient>
-          <linearGradient id="rpC" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#E3939B" /><stop offset=".6" stopColor="#F9DAD8" /><stop offset="1" stopColor="#FCF1DA" /></linearGradient>
+          <linearGradient id="rpA" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#C65C6A" /><stop offset=".55" stopColor="#DA9EA6" /><stop offset="1" stopColor="#F9DAD8" /></linearGradient>
+          <linearGradient id="rpB" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#94404F" /><stop offset=".5" stopColor="#C65C6A" /><stop offset="1" stopColor="#DA9EA6" /></linearGradient>
+          <linearGradient id="rpC" x1=".5" y1="1" x2=".5" y2="0"><stop offset="0" stopColor="#DA9EA6" /><stop offset=".6" stopColor="#F9DAD8" /><stop offset="1" stopColor="#FCF1DA" /></linearGradient>
         </defs>
       </svg>
     </div>

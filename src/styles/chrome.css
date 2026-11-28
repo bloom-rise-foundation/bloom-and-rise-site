@@ -80,8 +80,8 @@ html:has(.menu.open){overflow:hidden}
 
 /* ---------- custom cursor (mouse only) ---------- */
 .cursor{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;will-change:transform;mix-blend-mode:multiply;
-  --cf-p:#E3939B;--cf-s:#C65C6A;--cf-c:#C65C6A;--cf-d:#FCF1DA}
-.cursor.on-dark{mix-blend-mode:normal;--cf-p:#FCF1DA;--cf-s:#570F1D;--cf-c:#C65C6A;--cf-d:#E3939B}
+  --cf-p:#DA9EA6;--cf-s:#C65C6A;--cf-c:#C65C6A;--cf-d:#FCF1DA}
+.cursor.on-dark{mix-blend-mode:normal;--cf-p:#FCF1DA;--cf-s:#570F1D;--cf-c:#C65C6A;--cf-d:#DA9EA6}
 .cursor.on-dark .cursor-in{opacity:.95;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
 .cf-petal{fill:var(--cf-p);stroke:var(--cf-s)} .cf-core{fill:var(--cf-c)} .cf-dot{fill:var(--cf-d)}
 .cursor-in{width:28px;height:28px;margin:-14px 0 0 -14px;opacity:.85;transition:transform .25s var(--ease),opacity .2s}

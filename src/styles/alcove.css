@@ -67,14 +67,14 @@ body{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/20
      the normal, fully readable word. The word only changes opacity; the flare is a duplicate of the word (data-w) whose opacity swells
      and fades, so both run on the compositor and nothing repaints while you scroll. */
   .lit .lw{position:relative;opacity:.3;--g:rgba(252,241,218,.95);view-timeline:--lw block;animation:lw linear both;animation-timeline:--lw;animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(22% + var(--t,0) * 42%)}
-  .lit .lw.a0{--g:rgba(227,147,155,.95)} .lit .lw.a1{--g:rgba(207,227,243,.95)} .lit .lw.a2{--g:rgba(198,92,106,.95)} .lit .lw.a3{--g:rgba(141,169,196,.95)}
+  .lit .lw.a0{--g:rgba(218,158,166,.95)} .lit .lw.a1{--g:rgba(207,227,243,.95)} .lit .lw.a2{--g:rgba(198,92,106,.95)} .lit .lw.a3{--g:rgba(141,169,196,.95)}
   .lit .lw::after{content:attr(data-w);position:absolute;left:0;top:0;white-space:pre;color:transparent;pointer-events:none;text-shadow:0 0 .6em var(--g),0 0 .14em var(--g);opacity:0;animation:lwGlow linear both;animation-timeline:--lw;animation-range:cover calc(2% + var(--t,0) * 42%) cover calc(22% + var(--t,0) * 42%)}
   @keyframes lw{0%{opacity:.3}35%,100%{opacity:1}}
   @keyframes lwGlow{0%{opacity:0}35%{opacity:1}100%{opacity:0}}
 }
 @media (prefers-reduced-motion:reduce){.lit .lw{opacity:1}}
 /* lamp words: bigger; they appear only once the light reaches them, flaring like a struck match */
-.spot-words span{font-size:clamp(1.4rem,3.3vw,3rem);font-weight:600;color:var(--lemon);text-shadow:0 2px 3px rgba(6,1,2,.85),0 0 10px rgba(6,1,2,.7),0 0 22px rgba(227,147,155,.55)}
+.spot-words span{font-size:clamp(1.4rem,3.3vw,3rem);font-weight:600;color:var(--lemon);text-shadow:0 2px 3px rgba(6,1,2,.85),0 0 10px rgba(6,1,2,.7),0 0 22px rgba(218,158,166,.55)}
 @media (prefers-reduced-motion:no-preference){
   @supports (animation-timeline:view()){
     @keyframes wordOn{

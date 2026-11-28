@@ -36,8 +36,8 @@
 @keyframes dawn{from{transform:scale(0)}}
 
 .bloom{position:absolute;inset:0}
-.bloom .warm{position:absolute;left:50%;top:50%;width:190%;aspect-ratio:1;margin:-95% 0 0 -95%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(227,147,155,.55),rgba(207,227,243,.25) 62%,transparent);animation:fadeIn 1.4s ease 1.7s both}
-.bloom .glow{position:absolute;left:50%;top:50%;width:62%;aspect-ratio:1;margin:-31% 0 0 -31%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(227,147,155,.95),rgba(227,147,155,.4) 38%,transparent);animation:budGlow 2.6s ease-out both}
+.bloom .warm{position:absolute;left:50%;top:50%;width:190%;aspect-ratio:1;margin:-95% 0 0 -95%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(218,158,166,.55),rgba(207,227,243,.25) 62%,transparent);animation:fadeIn 1.4s ease 1.7s both}
+.bloom .glow{position:absolute;left:50%;top:50%;width:62%;aspect-ratio:1;margin:-31% 0 0 -31%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(218,158,166,.95),rgba(218,158,166,.4) 38%,transparent);animation:budGlow 2.6s ease-out both}
 @keyframes budGlow{0%{opacity:0;transform:scale(.6)}35%{opacity:1;transform:scale(.9)}100%{opacity:.4;transform:scale(1.15)}}
 /* each ring blooms as one composited layer (scale + a little twist), staggered; no per-petal animation */
 @keyframes fadeIn{from{opacity:0}}
@@ -163,9 +163,9 @@
 .wall{position:absolute;left:-30%;right:-30%;top:calc(var(--bulb-y) * -1);bottom:0;background:radial-gradient(ellipse 60% 80% at 50% 30%,rgba(150,64,74,.5),rgba(87,15,29,.26) 55%,transparent 100%)}
 .bulb-glow{position:absolute;left:50%;top:0;width:min(120vw,760px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle closest-side,rgba(255,240,214,.95),rgba(255,214,170,.36) 36%,transparent)}
 .pool{position:absolute;left:50%;bottom:0;width:96%;height:50%;translate:-50% 50%;border-radius:50%;background:radial-gradient(closest-side,rgba(240,196,172,.26),rgba(227,160,160,.12) 55%,transparent 100%)}
-.flash{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background:radial-gradient(ellipse 90% 70% at 50% var(--bulb-y),rgba(255,246,235,.95),rgba(227,147,155,.4) 38%,transparent 72%)}
+.flash{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background:radial-gradient(ellipse 90% 70% at 50% var(--bulb-y),rgba(255,246,235,.95),rgba(218,158,166,.4) 38%,transparent 72%)}
 .spot-words{position:absolute;inset:0;z-index:2;pointer-events:none}
-.spot-words span{position:absolute;left:var(--x);top:var(--y);translate:-50% -50%;rotate:var(--r);font-size:clamp(1.5rem,5vw,4rem);white-space:nowrap;color:var(--leaf);text-shadow:0 0 26px rgba(227,147,155,.55)}
+.spot-words span{position:absolute;left:var(--x);top:var(--y);translate:-50% -50%;rotate:var(--r);font-size:clamp(1.5rem,5vw,4rem);white-space:nowrap;color:var(--leaf);text-shadow:0 0 26px rgba(218,158,166,.55)}
 .lamp-rig{position:absolute;z-index:4;left:50%;top:env(safe-area-inset-top,0px);width:var(--lw);margin-left:calc(var(--lw) / -2);transform-origin:50% 0}
 .lamp-idle{position:relative;transform-origin:50% 0}
 .lamp-img{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.6))}
@@ -218,7 +218,7 @@
   }
 }
 /* the room is never dead: the lamp hangs and drifts, the glow breathes, dust rises through the beam, the words bob (each at its own pace) */
-.mote{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#FCF1DA;box-shadow:0 0 6px rgba(227,147,155,.9);opacity:0}
+.mote{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#FCF1DA;box-shadow:0 0 6px rgba(218,158,166,.9);opacity:0}
 .spot-words em{display:inline-block;font-style:inherit}
 .scroll-note svg{animation:chevNudge 1.4s var(--ease-io) infinite}
 @media (prefers-reduced-motion:no-preference){
