@@ -11,6 +11,8 @@ export const BASE = (
 
 // Pages to keep out of the sitemap (XML and page), e.g. ["/verify"]
 const EXCLUDE = new Set<string>([]);
+/** The same list, for robots.txt (pages kept out of search). */
+export const EXCLUDED: string[] = [...EXCLUDE];
 
 const PAGE_FILE = /^page\.(tsx|ts|jsx|js|mdx)$/;
 
