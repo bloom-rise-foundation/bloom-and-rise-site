@@ -14,7 +14,7 @@ export default function Home() {
       <Band items={band} items2={band2} />
       <section className="section mission">
         <div className="wrap">
-          <LitLines text={site.mission} className="statement display" accents={["candid", "answers", "science", "unhurriedly", "community"]} />
+          <LitLines text={site.mission} className="statement display" accents={["clear", "knowledge", "trusted", "care", "right", "communities", "protection"]} />
         </div>
       </section>
       <FocusPin />

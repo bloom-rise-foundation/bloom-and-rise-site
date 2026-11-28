@@ -18,7 +18,7 @@ export const site = {
   email: emails.info,
   tagline: "Cultivating healthier, safer and brighter futures, together.",
   mission:
-    "Everyone is owed candid answers, an open door to science and adults who keep them safe. We work unhurriedly, beside the community and not merely for it.",
+    "Access to clear knowledge and trusted care MUST be a right. We collaborate directly with communities to turn education into lasting protection.",
   statusShort: "Student-led · Ghana · Fledgling",
   // Links with an empty href are hidden automatically.
   socials: [
